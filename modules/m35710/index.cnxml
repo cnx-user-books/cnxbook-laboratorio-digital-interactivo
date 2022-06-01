@@ -1,0 +1,164 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>2. Introducción a LabVIEW y teoría básica de PCM (Pulse Code Modulation)</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m35710</md:content-id>
+  <md:title>2. Introducción a LabVIEW y teoría básica de PCM (Pulse Code Modulation)</md:title>
+  <md:abstract>A través del presente módulo se pretende dar una introducción muy general al software de simulación LabVIEW de National Instruments, englobando su funcionalidad para el área de las Comunicaciones Digitales. Adicionalmente, se explicará detalladamente la teoría referente a la modulación por código de pulso (PCM), en conjunto con una simulación en LabVIEW que respalde el contenido teórico.</md:abstract>
+  <md:uuid>c33d590b-00fa-46d5-bb99-1d23477c3e8a</md:uuid>
+</metadata>
+
+<content>
+    <section id="id1921663">
+      <title>INTRODUCCIÓN AL SOFTWARE LABVIEW Y TEORÍA BÁSICA DE PCM (Pulse Code Modulation)</title>
+      <para id="id2103574">
+        <foreign/>
+      </para>
+      <para id="id1168762317816">
+        <foreign/>
+      </para>
+      <para id="id1168756517410">
+        <foreign>González C. Y. Venuska</foreign>
+      </para>
+      <para id="id1168764592758">
+        <foreign>Mezoa R. Mariangela</foreign>
+      </para>
+      <para id="id1168762190116">
+        <term>Resumen</term>
+      </para>
+      <para id="id1794000">A través del presente módulo se pretende dar una introducción muy general al software de simulación LabVIEW de National Instruments, englobando su funcionalidad para el área de las Comunicaciones Digitales. Adicionalmente, se explicará detalladamente la teoría referente a la modulación por código de pulso (PCM), en conjunto con una simulación en LabVIEW que respalde el contenido teórico.</para>
+      <section id="id8420712">
+        <title>¿Qué es LabVIEW?</title>
+        <para id="id2352611">LabVIEW es una herramienta de programación destinada para desarrollar sistemas de pruebas, diseño y control a través de un lenguaje llamado <emphasis>Lenguaje G</emphasis>,siendo la G el símbolo que representa el ámbito Gráfico. Pudiéramos decir que estructurar un sistema en este software se aproxima a elaborar un diagrama de flujo, dado que sus herramientas (representadas por íconos gráficos) son intuitivas y secuenciales, permitiéndole hasta al usuario menos experimentado programar proyectos relativamente complejos. </para>
+        <para id="id1168756067010">Su ventaja más fuerte, como ya se mencionó, es que la programación es a través de <term>gráficos</term> o <term>bloques</term>, simplificando así el desarrollo de programas por líneas de código. En adición a lo anterior, su capacidad de desarrollar prácticamente cualquier tipo de programa lo hace compatible con miles de software.</para>
+      </section>
+      <section id="id1168763290490">
+        <title>¿Cómo funciona LabVIEW?</title>
+        <para id="id1168755597292">Los programas elaborados en LabVIEW se conocen como <emphasis>VIs </emphasis>o <foreign>Virtual Instruments</foreign> (Instrumentos Virtuales) y están constituidos por dos paneles:</para>
+        <list id="id1168756806824" list-type="bulleted">
+          <item><emphasis>Panel Frontal (</emphasis><emphasis><emphasis effect="italics">Front Panel</emphasis></emphasis><emphasis>):</emphasis> Interfaz gráfica con el usuario. Es en esta sección donde el usuario se encargará de introducir datos para luego representar las salidas proporcionadas por el programa. Aquí, es posible la introducción de botones, gráficos e indicadores que varíen los parámetros necesarios para el funcionamiento correcto del mismo. </item>
+        </list>
+        <figure id="id1846267">
+          <title>Panel Frontal</title>
+          <media id="id1846267_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics1-67e1.png" id="id1846267__onlineimage" height="461" width="600"/>
+          </media>
+          <caption>Menú desplegado de controles a implementar por el usuario. Como se puede observar en la imagen, se pueden definir desde controles numéricos hasta decoraciones de la interfaz del programa.</caption>
+        </figure>
+        <list id="id1168760399508" list-type="bulleted">
+          <item><emphasis>Diagrama de Bloques (</emphasis><emphasis><emphasis effect="italics">Block Diagram</emphasis></emphasis><emphasis>):</emphasis> Es el panel en donde se construye el código fuente del VI. Es el programa como tal, en donde se colocan bloques con cierta funcionalidad que conectados estratégicamente (de acuerdo con las necesidades del usuario) realizarán una determinada función. Cada Control que se coloque en el panel frontal tendrá en el Diagrama de Bloques un terminal que podrá interconectarse con la estructura hecha en el programa, generando así la interacción de información de entrada y salida del VI.</item>
+        </list>
+        <para id="id1168764393551">
+          <figure id="id1168758813962"><title>Diagrama de Bloques</title><media id="id1168758813962_media" alt="">
+              <image mime-type="image/png" src="../../media/graphics2-7c87.png" id="id1168758813962__onlineimage" height="463" width="600"/>
+            </media>
+          <caption>Menú desplegado para el Procesamiento de Señales. De acuerdo con el programa que se desee hacer, habrá una gran variedad de funciones que se adapten a la necesidad del usuario. </caption></figure>
+        </para>
+        
+        <para id="id2415145">Para los módulos de este curso, se tomará en cuenta una librería en particular: El <emphasis>Modulation Toolkit</emphasis>. Con esta herramienta es posible desarrollar una gran cantidad de programas relacionados con la comunicación digital, dado que posee un listado de bloques que representan ciertos pasos en el procesamiento de una señal. En la imagen siguiente se puede apreciar que engloba 3 aspectos principales:</para>
+        <list id="id1765915" list-type="bulleted">
+          <item>Analog</item>
+          <item>Digital</item>
+          <item>VIs</item>
+        </list>
+        <para id="id1168756404264">
+          <figure id="id1168765638640"><title>Modulation Toolkit</title><media id="id1168765638640_media" alt="">
+              <image mime-type="image/png" src="../../media/graphics3-38a2.png" id="id1168765638640__onlineimage" height="440" width="600"/>
+            </media>
+          </figure>
+        </para>
+        
+        <para id="eip-227">En el primero se ofrecen una serie de bloques que se encargan de los procesos de modulación y demodulación de señales analógicas:</para><figure id="id1168757231774">
+          <title>Modulation Toolkit – Sección Analógica</title>
+          <media id="id1168757231774_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics4-7412.png" id="id1168757231774__onlineimage" height="208" width="599"/>
+          </media>
+        </figure>
+        
+        
+        <para id="id1168766183072">Por último, el bloque VIs permite la visualización de determinados gráficos como, por ejemplo, el Diagrama de Constelación:</para>
+        <figure id="id1168756634124">
+          <title>Modulation Toolkit – Sección VIs</title>
+          <media id="id1168756634124_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics6-cd97.png" id="id1168756634124__onlineimage" height="103" width="192"/>
+          </media>
+        </figure>
+        <para id="id1168765559204">Otra de las facilidades de LabVIEW es que tiene una amplia librería de sub-VIs previamente elaborados (apartando el ya explicado Modulation Toolkit) que pueden agregarse a los programas sin necesidad de crearlos desde cero. </para>
+        <para id="id1168754884140">Para más información acerca del software y de su uso, consultar los siguientes módulos:</para>
+        <para id="id2209858">
+          <link document="m15428">NI LabVIEW Getting Started FAQ</link>
+        </para>
+        <para id="id1168760683949">
+          <link document="m12193">LabVIEW Environment</link>
+        </para>
+        <para id="id1168761041417">
+          <link document="m18715">Introduction to the LabVIEW Modulation Toolkit</link>
+        </para>
+        <para id="id1168758813436">
+          <link document="col10592">Primeros pasos con LabVIEW</link>
+        </para>
+        <para id="id1168763534464">Para complementar un poco el funcionamiento general de LabVIEW, el módulo contiene la simulación de un sistema PCM que, tomando una muestra de X segundos de voz muestreada a Y KHz, permite codificar una señal de forma digital (bits o símbolos). Sin embargo, es importante refrescar los conocimientos de este tipo de Modulación. </para>
+        <para id="id1168758826896"/>
+      </section>
+      <section id="id1168764591032">
+        <title>PCM (PULSE CODE MODULATION)</title>
+        <para id="id1168758547411">PCM es una técnica de modulación por codificación digital que es usada para la transmisión digital de información. Más que una modulación, es una forma de codificación de fuente puesto que toma una señal analógica para luego representarla de manera digital. </para>
+        <para id="id1168758652973">En esta representación, la magnitud de la señal analógica es muestreada a intervalos uniformes, siendo cada muestra cuantificada al valor más cercano de un rango de niveles digitales.</para>
+        <para id="id1168756097285">Esta codificación tiene dos propiedades que determinan la fidelidad de la señal digital con la señal original:</para>
+        <list id="id5386948" list-type="bulleted">
+          <item>La <emphasis>tasa de muestreo</emphasis>, que es el número de muestras que se toman por segundo;</item>
+          <item><emphasis>Nivel de Cuantificación</emphasis>: Rango de valores digitales que puede tomar una muestra.</item>
+        </list>
+        <para id="id1168753785178">Para codificar correctamente deben seguirse estos pasos:</para>
+      </section>
+      <section id="id7208012">
+        <title>1. Muestreo y Retención de la señal analógica</title>
+        <para id="id1168760344334">Teniendo una señal en formato analógico que varía en el tiempo, se toma una muestra periódica de la misma, para luego convertir el conjunto de muestras en una serie de pulsos que se puedan transformar con más facilidad a un código PCM binario o m-ario. </para>
+        <para id="id2313620">El método más común de muestreo y retención se conoce como muestreo de parte plana o muestreo tope plano, donde las amplitudes de los pulsos de muestreo toman el valor de la forma de onda analógica en el punto inicial del intervalo de muestreo y lo conservan durante una porción (<foreign>Duty Cycle) </foreign>del tiempo de muestreo. </para>
+        <para id="id1168766797188">En el muestreo natural, en cambio, los pulsos de muestreo toman los valores de la forma de onda analógica, durante la porción de <foreign>Duty Cycle</foreign> elegida por el usuario.</para>
+        <para id="id2612450">Muestreo Natural:</para>
+        <para id="id1568846">
+          <figure id="id1168756729611">
+            <media id="id1168756729611_media" alt="">
+              <image mime-type="image/png" src="../../media/graphics7-eeff.png" id="id1168756729611__onlineimage" height="321" width="449"/>
+            </media>
+          </figure>
+        </para>
+        <para id="id1168757507102">Muestreo Tope Plano:</para>
+        <figure id="id1168757522366">
+          <media id="id1168757522366_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics8-bb5f.png" id="id1168757522366__onlineimage" height="227" width="436"/>
+          </media>
+        </figure>
+      </section>
+      <section id="id1168756957825">
+        <title>2. Cuantificación Digital</title>
+        <para id="id1725579">En este punto se toma el nivel de voltaje de cada una de las muestras del primer paso y se les atribuye un valor discreto de amplitud, de acuerdo al formato de aproximación dentro de un rango de valores digitales previamente establecido. Cuando se pretende obtener una señal binaria, el número de niveles de cuantificación toma el valor de alguna potencia de 2.</para>
+        <para id="id1563463">La cuantificación puede ser:</para>
+        <list id="id1168755478698" list-type="bulleted">
+          <item><emphasis>Uniforme:</emphasis> La distancia entre cada nivel de cuantificación siempre es igual.</item>
+          <item><emphasis>No Uniforme:</emphasis> Se le asigna un número mayor de niveles a aquellas zonas de voltaje de la señal original mas frecuente, y menos niveles en aquellas zonas de voltajes menos frecuentes.</item>
+        </list>
+        <para id="id1168756873033"/>
+        <para id="id1903101">Un detalle que es importante resaltar es que la señal resultante luego de la cuantificación es evidentemente distinta a la señal analógica original. Esta diferencia se conoce como Error o Ruido de Cuantificación, que se modela en la parte de recepción del sistema de Comunicación como un ruido que se le añade a la señal.</para>
+      </section>
+      <section id="id2333852">
+        <title>3. Codificación Digital</title>
+        <para id="id1168760702886">El último paso para este sistema es el de asignarle a los niveles discretos y finitos del paso 2 una traducción al sistema binario, quedando como señal resultante un tren de impulsos digitales (bits). Por ejemplo, si se precisaron 8 niveles de cuantificación, entonces se necesitarán tres bits para la codificación. </para>
+        <para id="id1168762374599">Para concluir este módulo, a continuación se muestra una simulación que se encarga de tomar una señal de voz para pasarla por los tres pasos explicados y observar así la señal codificada digitalmente, en conjunto con un video que le permitirá al usuario entender el grupo de bloques usados en el diagrama para construir el sistema PCM, de forma tal que el mismo pueda ir adaptándose al entorno del software LabVIEW.</para><para id="eip-395">Para descargar el archivo de audio necesario para la modulación, se debe hacer click en el siguiente enlace:
+
+<media id="audio" display="block" alt="Archivo de audio en formato .wav">
+  <audio mime-type="audio/x-wav" src="m_b_part_2_2.wav"/>
+</media>
+</para><para id="eip-351">El código fuente para la simulación de PCM puede descargarse aquí:
+
+<media id="pcm" alt="PCM simulado en LabVIEW">
+  <download mime-type="application/octet-stream" src="pcmULTIMATE.vi"/>
+</media>
+</para><para id="eip-929"><media id="pcm_video" alt="Video de demostración para PCM">
+  <video mime-type="video/mpeg" src="pcm.mpg" autoplay="false" width="800" height="600"/>
+</media>
+</para>
+      </section>
+    </section>
+  </content>
+</document>

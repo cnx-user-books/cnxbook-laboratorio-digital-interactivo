@@ -1,0 +1,2041 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML">
+  <title>4. Códigos de Línea</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m35716</md:content-id>
+  <md:title>4. Códigos de Línea</md:title>
+  <md:abstract>En este módulo se desarrollarán teóricamente los códigos de línea usados comúnmente en un sistema de Comunicaciones Digitales: NRZ, RZ y Manchester. Se explicarán sus parámetros más importantes como lo son la señal en frecuencia y en tiempo, el ancho de banda, la potencia de la señal y las constelaciones correspondientes a cada código. Finalmente, se hará una demostración en LabVIEW que permita reforzar la información teórica del tema.</md:abstract>
+  <md:uuid>8b7f5f49-ca97-448c-a50a-8ba16a37b390</md:uuid>
+</metadata>
+
+<content>
+    <section id="id1170671430949">
+      <title>CÓDIGOS DE LÍNEA</title>
+      <para id="id1170684542561">
+        <foreign>González C. Y. Venuska</foreign>
+      </para>
+      <para id="id1170680315604">
+        <foreign>Mezoa R. Mariangela</foreign>
+      </para>
+      <para id="id1170674997760">
+        <term>Resumen</term>
+      </para>
+      <para id="id1170697700022">En este módulo se desarrollarán teóricamente los códigos de línea usados comúnmente en un sistema de Comunicaciones Digitales: NRZ, RZ y Manchester. Se explicarán sus parámetros más importantes como lo son la señal en frecuencia y en tiempo, el ancho de banda, la potencia de la señal y las constelaciones correspondientes a cada código. Finalmente, se hará una demostración en LabVIEW que permita reforzar la información teórica del tema. </para>
+      <para id="id1170697082669">De acuerdo a la estructura de un sistema de Comunicaciones Digitales, al tener una señal discretizada en el tiempo y en la amplitud, estaría representada por símbolos cuya tasa de transmisión es medida en baudios. Ahora bien, cuando se quiere transmitir la señal en bandabase binario o m-ario a través del canal debe asignarse una forma de onda a cada uno de los símbolos. Esto se hace gracias al método conocido como codificación de línea.</para>
+      <section id="id1170673755840">
+        <title>¿Qué es la codificación de Línea?</title>
+        <para id="id1170677240747">Esta surge de la necesidad de representar una señal en formato digital a través de diversos medios de transmisión. Para esto se le asignan formas de onda arbitrarias a cada bit o símbolo que representa la señal, generando cambios inmediatos en los parámetros más importantes de la señal como lo son la Potencia de Transmisión, el Ancho de Banda requerido por el canal, nivel DC, entre otros. </para>
+        <para id="id1170677526317">Antes de definir los códigos de línea más usados en los sistemas de Comunicaciones, repasaremos algunos conceptos fundamentales que facilitarán el entendimiento del tema:</para>
+        <para id="id1170671458995"><definition id="adb"><term>Ancho de Banda (BW):</term>
+  <meaning id="sadb">
+En el ámbito de las comunicaciones, el ancho de banda representa el rango (en Hertz, Hz) de frecuencias en donde se concentra la mayor parte de la potencia de la señal que se está usando. A partir de este punto se podrá calcular el ancho de banda en las simulaciones usando la transformada de Fourier, cuando se expresa la señal original en el dominio de la frecuencia. Matemáticamente se pudiera definir así:
+  </meaning>
+</definition></para>
+        
+        <equation id="id1170675542388">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>BW</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mi fontstyle="italic">Δf</m:mi>
+                      </m:mrow>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mrow>
+                        <m:msub>
+                          <m:mi>f</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:mtext>cs</m:mtext>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                        <m:mo stretchy="false">−</m:mo>
+                        <m:msub>
+                          <m:mi>f</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:mtext>ci</m:mtext>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                      </m:mrow>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{ ital "BW"=Δf=f rSub { size 8{ ital "cs"} }  - f rSub { size 8{ ital "ci"} } } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        
+        <para id="eip-714">Siendo <emphasis effect="italics">fcs </emphasis>y <emphasis effect="italics">fci </emphasis>las frecuencias de corte Superior e Inferior, respectivamente.</para><definition id="id1170696044224">
+          <term>Tiempo de bit (Tb):</term>
+          <meaning id="oo-id1170690588877">Está definido como el tiempo empleado para la representación y transmisión de un bit en el sistema. 
+      </meaning>
+        </definition>
+        <definition id="id2148200">
+          <term>Intervalo de impulso (τ):</term>
+          <meaning id="oo-id1170674701875">Es la duración mínima del impulso usado para representar la información.
+      </meaning>
+        </definition>
+        <definition id="id1170693596912">
+          <term>Velocidad de Transmisión (Vt):</term>
+          <meaning id="oo-id1170694971082">Se define como el número máximo de cambios por segundo que experimenta la señal o el número de impulsos que pueden transmitirse en un segundo. Matemáticamente viene expresado como
+      </meaning>
+        </definition>
+        <equation id="id1170681087362">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>Vt</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mfrac>
+                          <m:mn>1</m:mn>
+                          <m:mi>τ</m:mi>
+                        </m:mfrac>
+                      </m:mrow>
+                      <m:mstyle fontstyle="italic">
+                        <m:mrow>
+                          <m:mtext>baudios</m:mtext>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{ ital "Vt"= {  {1}  over  {τ} }  ital "baudios"} {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <definition id="id1170671541222">
+          <term>Tasa de Bits (R):</term>
+          <meaning id="oo-id1170680670665">Número de bits transmitidos por segundo. Su unidad son los bps (bits per second) y se representa matemáticamente como:
+      </meaning>
+        </definition>
+        <equation id="id1170690961328">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:mi>R</m:mi>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mfrac>
+                          <m:mn>1</m:mn>
+                          <m:mstyle fontstyle="italic">
+                            <m:mrow>
+                              <m:mtext>Tb</m:mtext>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:mfrac>
+                      </m:mrow>
+                      <m:mstyle fontstyle="italic">
+                        <m:mrow>
+                          <m:mtext>bps</m:mtext>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{R= {  {1}  over  { ital "Tb"} }  ital "bps"} {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1170685702393">A continuación se definen diversos códigos de línea binarios y se deduce su Densidad Espectral de Potencia asumiendo equiprobabilidad.</para>
+      </section>
+    </section>
+    <section id="id1170685388088">
+      <title>1. NRZ (Non Return to Zero)</title>
+      <para id="id1170680977410">Están caracterizados por mantener constante el valor de la señal de línea durante todo el intervalo Tb. Para efectos de asimilar la información proporcionada por la simulación al final del módulo, se considerarán dos tipos de codificación de este tipo:</para>
+      <section id="id8437402">
+        <title>1.a. NRZp (No Retorno a Cero-Polar)</title>
+        <para id="id1170688930920">Al símbolo “1” se le asigna un valor alto de señal (V) y al símbolo “0” se le asigna el valor opuesto, es decir, -V. </para>
+        <para id="id3953405">
+          <figure id="id1170677193998">
+            <media id="id1170677193998_media" alt="">
+              <image mime-type="image/png" src="../../media/graphics1-2a00.png" id="id1170677193998__onlineimage" height="260" width="475"/>
+            </media>
+            <caption>Representación de bits usando el código NRZp</caption>
+          </figure>
+        </para>
+        <para id="id1170677679340">Para hallar su <emphasis>DEP</emphasis>, se debe representar la señal como el resultado de la <emphasis>convolución</emphasis> de un tren de impulsos aleatorio y un pulso de duración Tb y Amplitud +V. </para>
+        <figure id="id1170688790981">
+          <media id="id1170688790981_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics2-6d38.png" id="id1170688790981__onlineimage" height="223" width="600"/>
+          </media>
+        </figure>
+        <para id="id1170695269924">Por lo que:</para>
+        <equation id="id1170682460795">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mrow>
+                  <m:mtable>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mi>Y</m:mi>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>t</m:mi>
+                              <m:mrow>
+                                <m:mo stretchy="false">)</m:mo>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mi>x</m:mi>
+                              </m:mrow>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>t</m:mi>
+                              <m:mrow>
+                                <m:mo stretchy="false">)</m:mo>
+                                <m:mo stretchy="false">∗</m:mo>
+                                <m:mi>p</m:mi>
+                              </m:mrow>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>t</m:mi>
+                              <m:mo stretchy="false">)</m:mo>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mstyle fontstyle="italic">
+                                  <m:mrow>
+                                    <m:mtext>Gy</m:mtext>
+                                  </m:mrow>
+                                </m:mstyle>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mstyle fontstyle="italic">
+                                  <m:mrow>
+                                    <m:mtext>Gx</m:mtext>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:mrow>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>f</m:mi>
+                              <m:mo stretchy="false">)</m:mo>
+                              <m:msup>
+                                <m:mrow>
+                                  <m:mo stretchy="false">∣</m:mo>
+                                  <m:mrow>
+                                    <m:mi>P</m:mi>
+                                    <m:mo stretchy="false">(</m:mo>
+                                    <m:mi>f</m:mi>
+                                    <m:mo stretchy="false">)</m:mo>
+                                  </m:mrow>
+                                  <m:mo stretchy="false">∣</m:mo>
+                                </m:mrow>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mn>2</m:mn>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msup>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                  </m:mtable>
+                  <m:mrow/>
+                </m:mrow>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0">alignl { stack {
+ size 12{Y \( t \) =x \( t \)  * p \( t \) }  {} # 
+ size 12{ ital "Gy"= ital "Gx" \( f \)  lline P \( f \)  rline  rSup { size 8{2} } }  {} 
+} } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1170682981866">Dado que p(t) es una función <emphasis>determinística</emphasis>, el reto estará en calcular Gx(f). Para esto se calculará primero la autocorrelación <emphasis>Rx(</emphasis><emphasis>τ</emphasis><emphasis>):</emphasis></para>
+        <equation id="id1170695981583">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mrow>
+                  <m:mtable>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:mtext>Gx</m:mtext>
+                                </m:mrow>
+                              </m:mstyle>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>f</m:mi>
+                              <m:mrow>
+                                <m:mo stretchy="false">)</m:mo>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mi>F</m:mi>
+                              </m:mrow>
+                              <m:mfenced open="{" close="}">
+                                <m:mrow>
+                                  <m:mstyle fontstyle="italic">
+                                    <m:mrow>
+                                      <m:mtext>Rx</m:mtext>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                  <m:mo stretchy="false">(</m:mo>
+                                  <m:mi>τ</m:mi>
+                                  <m:mo stretchy="false">)</m:mo>
+                                </m:mrow>
+                              </m:mfenced>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:mtext>Rx</m:mtext>
+                                </m:mrow>
+                              </m:mstyle>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>τ</m:mi>
+                              <m:mrow>
+                                <m:mo stretchy="false">)</m:mo>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mrow>
+                                  <m:mo stretchy="false">∑</m:mo>
+                                  <m:mrow>
+                                    <m:mfrac>
+                                      <m:mrow>
+                                        <m:mstyle fontstyle="italic">
+                                          <m:mrow>
+                                            <m:mtext>Rn</m:mtext>
+                                          </m:mrow>
+                                        </m:mstyle>
+                                        <m:mtext>.</m:mtext>
+                                      </m:mrow>
+                                      <m:mstyle fontstyle="italic">
+                                        <m:mrow>
+                                          <m:mtext>Tb</m:mtext>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                    </m:mfrac>
+                                    <m:mi>δ</m:mi>
+                                    <m:mo stretchy="false">(</m:mo>
+                                    <m:mrow>
+                                      <m:mi>τ</m:mi>
+                                      <m:mo stretchy="false">+</m:mo>
+                                      <m:mstyle fontstyle="italic">
+                                        <m:mrow>
+                                          <m:mtext>nTb</m:mtext>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                    </m:mrow>
+                                    <m:mo stretchy="false">)</m:mo>
+                                  </m:mrow>
+                                </m:mrow>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mstyle fontstyle="italic">
+                                  <m:mrow>
+                                    <m:mtext>Rn</m:mtext>
+                                  </m:mrow>
+                                </m:mstyle>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:msub>
+                                  <m:mtext>lim</m:mtext>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mrow>
+                                        <m:mi>T</m:mi>
+                                        <m:mo stretchy="false">→</m:mo>
+                                        <m:mo stretchy="false">∞</m:mo>
+                                      </m:mrow>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msub>
+                              </m:mrow>
+                              <m:mfrac>
+                                <m:mstyle fontstyle="italic">
+                                  <m:mrow>
+                                    <m:mtext>tb</m:mtext>
+                                  </m:mrow>
+                                </m:mstyle>
+                                <m:mi>T</m:mi>
+                              </m:mfrac>
+                              <m:mrow>
+                                <m:munder>
+                                  <m:mo stretchy="false">∑</m:mo>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mi>k</m:mi>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:munder>
+                                <m:mrow>
+                                  <m:msub>
+                                    <m:mi>A</m:mi>
+                                    <m:mstyle fontsize="8pt">
+                                      <m:mrow>
+                                        <m:mi>k</m:mi>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msub>
+                                  <m:mtext>.</m:mtext>
+                                  <m:msub>
+                                    <m:mi>A</m:mi>
+                                    <m:mstyle fontsize="8pt">
+                                      <m:mrow>
+                                        <m:mrow>
+                                          <m:mo stretchy="false">(</m:mo>
+                                          <m:mrow>
+                                            <m:mi>n</m:mi>
+                                            <m:mo stretchy="false">+</m:mo>
+                                            <m:mi>k</m:mi>
+                                          </m:mrow>
+                                          <m:mo stretchy="false">)</m:mo>
+                                        </m:mrow>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msub>
+                                </m:mrow>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                  </m:mtable>
+                  <m:mrow/>
+                </m:mrow>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0">alignl { stack {
+ size 12{ ital "Gx" \( f \) =F left lbrace  ital "Rx" \( τ \)  right rbrace }  {} # 
+ size 12{ ital "Rx" \( τ \) = Sum { {  { ital "Rn" "." }  over  { ital "Tb"} } δ \( τ+ ital "nTb" \) } }  {} # 
+ size 12{ ital "Rn"="lim" rSub { size 8{T rightarrow  infinity } }  {  { ital "tb"}  over  {T} }  Sum cSub { size 8{k} }  {A rSub { size 8{k} }  "." A rSub { size 8{ \( n+k \) } } } }  {} 
+} } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        
+        <para id="id1170685593685">
+          <note id="id1170690948850" type="Note">Estas fórmulas aplicarán para todos los códigos de línea, siendo el factor variante los valores de Ak, A(n+k) y Tb </note>
+          
+          
+          
+          
+          
+          
+          
+        </para>
+        <para id="id2147410">Los posibles valores de A<sub>k</sub> y A<sub>(n+k)</sub> son <emphasis>+1</emphasis> y <emphasis>-1</emphasis>, por lo que:</para>
+        <equation id="id1170673497115">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mstyle fontstyle="italic">
+                        <m:mrow>
+                          <m:mtext>Rx</m:mtext>
+                        </m:mrow>
+                      </m:mstyle>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>τ</m:mi>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mfrac>
+                          <m:mn>1</m:mn>
+                          <m:mstyle fontstyle="italic">
+                            <m:mrow>
+                              <m:mtext>Tb</m:mtext>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:mfrac>
+                      </m:mrow>
+                      <m:mi>δ</m:mi>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>τ</m:mi>
+                      <m:mo stretchy="false">)</m:mo>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{ ital "Rx" \( τ \) = {  {1}  over  { ital "Tb"} } δ \( τ \) } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id2383614">Y al sacar la transformada de Fourier correspondiente, nos queda que: </para>
+        <equation id="id1170680762051">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mrow>
+                  <m:mtable>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:mtext>Gx</m:mtext>
+                                </m:mrow>
+                              </m:mstyle>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>f</m:mi>
+                              <m:mrow>
+                                <m:mo stretchy="false">)</m:mo>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mfrac>
+                                  <m:mn>1</m:mn>
+                                  <m:mstyle fontstyle="italic">
+                                    <m:mrow>
+                                      <m:mtext>Tb</m:mtext>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:mfrac>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mrow>
+                                <m:msup>
+                                  <m:mrow>
+                                    <m:mo stretchy="false">∣</m:mo>
+                                    <m:mrow>
+                                      <m:mi>P</m:mi>
+                                      <m:mo stretchy="false">(</m:mo>
+                                      <m:mi>f</m:mi>
+                                      <m:mo stretchy="false">)</m:mo>
+                                    </m:mrow>
+                                    <m:mo stretchy="false">∣</m:mo>
+                                  </m:mrow>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mn>2</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msup>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:msup>
+                                  <m:mi>V</m:mi>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mn>2</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msup>
+                              </m:mrow>
+                              <m:mtext>.</m:mtext>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:msup>
+                                    <m:mtext>Tb</m:mtext>
+                                    <m:mstyle fontsize="8pt">
+                                      <m:mrow>
+                                        <m:mn>2</m:mn>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msup>
+                                </m:mrow>
+                              </m:mstyle>
+                              <m:mtext>.</m:mtext>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:msup>
+                                    <m:mtext>Sinc</m:mtext>
+                                    <m:mstyle fontsize="8pt">
+                                      <m:mrow>
+                                        <m:mn>2</m:mn>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msup>
+                                </m:mrow>
+                              </m:mstyle>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:mtext>ftb</m:mtext>
+                                </m:mrow>
+                              </m:mstyle>
+                              <m:mo stretchy="false">)</m:mo>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow/>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>Gy</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mi>f</m:mi>
+                        <m:mrow>
+                          <m:mo stretchy="false">)</m:mo>
+                          <m:mo stretchy="false">=</m:mo>
+                          <m:msup>
+                            <m:mi>V</m:mi>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mn>2</m:mn>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msup>
+                        </m:mrow>
+                        <m:mtext>.</m:mtext>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>Tb</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mtext>.</m:mtext>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:msup>
+                              <m:mtext>Sinc</m:mtext>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mn>2</m:mn>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msup>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>ftb</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                  </m:mtable>
+                  <m:mrow/>
+                </m:mrow>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0">alignl { stack {
+ size 12{ ital "Gx" \( f \) = {  {1}  over  { ital "Tb"} } }  {} # 
+ size 12{ lline P \( f \)  rline  rSup { size 8{2} } =V rSup { size 8{2} }  "."  ital "Tb" rSup { size 8{2} }  "."  ital "Sinc" rSup { size 8{2} }  \(  ital "ftb" \) }  {} # 
+ {} # 
+ ital "Gy" \( f \) =V rSup { size 8{2} }  "."  ital "Tb" "."  ital "Sinc" rSup { size 8{2} }  \(  ital "ftb" \)  {} 
+} } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1170671336371">Su <emphasis>DEP</emphasis> será entonces:</para>
+        <figure id="id1170677035471">
+          <media id="id1170677035471_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics3-8cc8.png" id="id1170677035471__onlineimage" height="184" width="525"/>
+          </media>
+          <caption>El BW correspondiente es fb.</caption>
+        </figure>
+        <para id="id1170672669892">Finalmente, se tiene que se necesita una sola base U<sub>1</sub>(t) que es un pulso de duración Tb y altura raíz de 1/Tb</para>
+        <equation id="id1170682370159">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mrow>
+                  <m:mtable>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:msub>
+                                <m:mi>S</m:mi>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mn>1</m:mn>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msub>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>t</m:mi>
+                              <m:mrow>
+                                <m:mo stretchy="false">)</m:mo>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mi>V</m:mi>
+                              </m:mrow>
+                              <m:msqrt>
+                                <m:mstyle fontstyle="italic">
+                                  <m:mrow>
+                                    <m:mtext>Tb</m:mtext>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msqrt>
+                              <m:mtext>.</m:mtext>
+                              <m:msub>
+                                <m:mi>U</m:mi>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mn>1</m:mn>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msub>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>t</m:mi>
+                              <m:mo stretchy="false">)</m:mo>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:msub>
+                          <m:mi>S</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mn>2</m:mn>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mi>t</m:mi>
+                        <m:mrow>
+                          <m:mo stretchy="false">)</m:mo>
+                          <m:mo stretchy="false">=</m:mo>
+                          <m:mrow>
+                            <m:mo stretchy="false">−</m:mo>
+                            <m:mi>V</m:mi>
+                          </m:mrow>
+                        </m:mrow>
+                        <m:msqrt>
+                          <m:mstyle fontstyle="italic">
+                            <m:mrow>
+                              <m:mtext>Tb</m:mtext>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msqrt>
+                        <m:mtext>.</m:mtext>
+                        <m:msub>
+                          <m:mi>U</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mn>1</m:mn>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mi>t</m:mi>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                  </m:mtable>
+                  <m:mrow/>
+                </m:mrow>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0">alignl { stack {
+ size 12{S rSub { size 8{1} }  \( t \) =V sqrt { ital "Tb"}  "." U rSub { size 8{1} }  \( t \) }  {} # 
+S rSub { size 8{2} }  \( t \) = - V sqrt { ital "Tb"}  "." U rSub { size 8{1} }  \( t \)  {} 
+} } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1170693688681">
+          <figure id="id1170677087002"><media id="id1170677087002_media" alt="">
+              <image mime-type="image/png" src="../../media/graphics4-5b9f.png" id="id1170677087002__onlineimage" height="231" width="287"/>
+            </media>
+          <caption>Constelación para NRZp</caption></figure>
+        </para>
+        
+      </section>
+      <section id="id1170671031531">
+        <title>1.b. NRZu (No Retorno a Cero-Unipolar)</title>
+        <para id="id1643058">Al símbolo “1” se le asigna un valor alto de señal (V) y al símbolo “0” se le asigna el valor cero, es decir, 0V.</para>
+        <figure id="id1170683382688">
+          <media id="id1170683382688_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics5-4759.png" id="id1170683382688__onlineimage" height="185" width="418"/>
+          </media>
+          <caption>Representación de bits usando el código NRZu</caption>
+        </figure>
+        <para id="id1170692890172">Para obtener la DEP se descompone la señal:</para>
+        <figure id="id1170677144898">
+          <media id="id1170677144898_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics6-6400.png" id="id1170677144898__onlineimage" height="146" width="600"/>
+          </media>
+        </figure>
+        <para id="id1170698705008"/>
+        <para id="id2426093">Ahora bien, siguiendo el mismo proceso que para el punto <emphasis>1.a</emphasis>, los posibles valores de A<sub>k</sub> y A<sub>(n+k)</sub> son <emphasis>+1</emphasis> y <emphasis>0</emphasis>, por lo que:</para>
+        <equation id="id1170677177889">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mstyle fontstyle="italic">
+                        <m:mrow>
+                          <m:mtext>Rx</m:mtext>
+                        </m:mrow>
+                      </m:mstyle>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>τ</m:mi>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mfrac>
+                          <m:mn>1</m:mn>
+                          <m:mrow>
+                            <m:mn>4</m:mn>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:mtext>Tb</m:mtext>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:mrow>
+                        </m:mfrac>
+                      </m:mrow>
+                      <m:mi>δ</m:mi>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>τ</m:mi>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">+</m:mo>
+                        <m:mrow>
+                          <m:mo stretchy="false">∑</m:mo>
+                          <m:mrow>
+                            <m:mfrac>
+                              <m:mn>1</m:mn>
+                              <m:mrow>
+                                <m:mn>4</m:mn>
+                                <m:mstyle fontstyle="italic">
+                                  <m:mrow>
+                                    <m:mtext>Tb</m:mtext>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:mrow>
+                            </m:mfrac>
+                            <m:mi>δ</m:mi>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mrow>
+                              <m:mi>τ</m:mi>
+                              <m:mo stretchy="false">+</m:mo>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:mtext>nTb</m:mtext>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:mrow>
+                            <m:mo stretchy="false">)</m:mo>
+                          </m:mrow>
+                        </m:mrow>
+                      </m:mrow>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{ ital "Rx" \( τ \) = {  {1}  over  {4 ital "Tb"} } δ \( τ \) + Sum { {  {1}  over  {4 ital "Tb"} } δ \( τ+ ital "nTb" \) } } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1170698835845">Y al sacar la transformada de Fourier correspondiente, nos queda que: </para>
+        <equation id="id1170698526458">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mrow>
+                  <m:mtable>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:mtext>Gx</m:mtext>
+                                </m:mrow>
+                              </m:mstyle>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>f</m:mi>
+                              <m:mrow>
+                                <m:mo stretchy="false">)</m:mo>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mrow>
+                                  <m:mfrac>
+                                    <m:mn>1</m:mn>
+                                    <m:mrow>
+                                      <m:mn>4</m:mn>
+                                      <m:mstyle fontstyle="italic">
+                                        <m:mrow>
+                                          <m:mtext>Tb</m:mtext>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                    </m:mrow>
+                                  </m:mfrac>
+                                  <m:mo stretchy="false">+</m:mo>
+                                  <m:mrow>
+                                    <m:mo stretchy="false">∑</m:mo>
+                                    <m:mrow>
+                                      <m:mfrac>
+                                        <m:mn>1</m:mn>
+                                        <m:mrow>
+                                          <m:mn>4</m:mn>
+                                          <m:mstyle fontstyle="italic">
+                                            <m:mrow>
+                                              <m:msup>
+                                                <m:mtext>Tb</m:mtext>
+                                                <m:mstyle fontsize="8pt">
+                                                  <m:mrow>
+                                                    <m:mn>2</m:mn>
+                                                  </m:mrow>
+                                                </m:mstyle>
+                                              </m:msup>
+                                            </m:mrow>
+                                          </m:mstyle>
+                                        </m:mrow>
+                                      </m:mfrac>
+                                      <m:mi>δ</m:mi>
+                                      <m:mo stretchy="false">(</m:mo>
+                                      <m:mrow>
+                                        <m:mi>f</m:mi>
+                                        <m:mo stretchy="false">+</m:mo>
+                                        <m:mstyle fontstyle="italic">
+                                          <m:mrow>
+                                            <m:mtext>nfb</m:mtext>
+                                          </m:mrow>
+                                        </m:mstyle>
+                                      </m:mrow>
+                                      <m:mo stretchy="false">)</m:mo>
+                                    </m:mrow>
+                                  </m:mrow>
+                                </m:mrow>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mrow>
+                          <m:msup>
+                            <m:mrow>
+                              <m:mo stretchy="false">∣</m:mo>
+                              <m:mrow>
+                                <m:mi>P</m:mi>
+                                <m:mo stretchy="false">(</m:mo>
+                                <m:mi>f</m:mi>
+                                <m:mo stretchy="false">)</m:mo>
+                              </m:mrow>
+                              <m:mo stretchy="false">∣</m:mo>
+                            </m:mrow>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mn>2</m:mn>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msup>
+                          <m:mo stretchy="false">=</m:mo>
+                          <m:msup>
+                            <m:mi>V</m:mi>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mn>2</m:mn>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msup>
+                        </m:mrow>
+                        <m:mtext>.</m:mtext>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:msup>
+                              <m:mtext>Tb</m:mtext>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mn>2</m:mn>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msup>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mtext>.</m:mtext>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:msup>
+                              <m:mtext>Sinc</m:mtext>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mn>2</m:mn>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msup>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>ftb</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow/>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>Gy</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mi>f</m:mi>
+                        <m:mrow>
+                          <m:mo stretchy="false">)</m:mo>
+                          <m:mo stretchy="false">=</m:mo>
+                          <m:msup>
+                            <m:mfrac>
+                              <m:mi>V</m:mi>
+                              <m:mn>4</m:mn>
+                            </m:mfrac>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mn>2</m:mn>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msup>
+                        </m:mrow>
+                        <m:mtext>.</m:mtext>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>Tb</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mtext>.</m:mtext>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:msup>
+                              <m:mtext>Sinc</m:mtext>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mn>2</m:mn>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msup>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>ftb</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow>
+                          <m:mo stretchy="false">)</m:mo>
+                          <m:mo stretchy="false">+</m:mo>
+                          <m:msup>
+                            <m:mfrac>
+                              <m:mi>V</m:mi>
+                              <m:mn>4</m:mn>
+                            </m:mfrac>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mn>2</m:mn>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msup>
+                        </m:mrow>
+                        <m:mi>δ</m:mi>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mi>f</m:mi>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                  </m:mtable>
+                  <m:mrow/>
+                </m:mrow>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0">alignl { stack {
+ size 12{ ital "Gx" \( f \) = {  {1}  over  {4 ital "Tb"} } + Sum { {  {1}  over  {4 ital "Tb" rSup { size 8{2} } } } δ \( f+ ital "nfb" \) } }  {} # 
+ lline P \( f \)  rline  rSup { size 8{2} } =V rSup { size 8{2} }  "."  ital "Tb" rSup { size 8{2} }  "."  ital "Sinc" rSup { size 8{2} }  \(  ital "ftb" \)  {} # 
+ {} # 
+ ital "Gy" \( f \) = {  {V}  over  {4} }  rSup { size 8{2} }  "."  ital "Tb" "."  ital "Sinc" rSup { size 8{2} }  \(  ital "ftb" \) + {  {V}  over  {4} }  rSup { size 8{2} } δ \( f \)  {} 
+} } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1170683466038">Su <emphasis>DEP</emphasis> será:</para>
+        <figure id="id1170678206190">
+          <media id="id1170678206190_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics7-fe88.png" id="id1170678206190__onlineimage" height="189" width="537"/>
+          </media>
+          <caption>El BW correspondiente también es fb.</caption>
+        </figure>
+        <para id="id1170687777958">Y su base y constelación:</para>
+        <equation id="id1170671280429">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:msub>
+                        <m:mi>S</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mn>1</m:mn>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>t</m:mi>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mi>V</m:mi>
+                      </m:mrow>
+                      <m:msqrt>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>tb</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msqrt>
+                      <m:mtext>.</m:mtext>
+                      <m:msub>
+                        <m:mi>U</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mn>1</m:mn>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>t</m:mi>
+                      <m:mo stretchy="false">)</m:mo>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{S rSub { size 8{1} }  \( t \) =V sqrt { ital "tb"}  "." U rSub { size 8{1} }  \( t \) } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1170686013291">
+          <figure id="id1170680277486"><media id="id1170680277486_media" alt="">
+              <image mime-type="image/png" src="../../media/graphics8-ec70.png" id="id1170680277486__onlineimage" height="233" width="251"/>
+            </media>
+          <caption>Constelación para NRZu</caption></figure>
+        </para>
+        
+      </section>
+    </section>
+    <section id="id1170672424504">
+      <title>2. RZ (Return to Zero)</title>
+      <para id="id1170674721577">Los códigos de Retorno a Cero se caracterizan por mantener el valor de la señal constante durante el primer semi-intervalo de Tb, para luego pasar a otro nivel en el segundo semi-intervalo. Dependiendo del tipo de código, esta segunda parte puede tener un nivel de –V o un nivel 0V. Los tipos de código RZ pueden ser:</para>
+      <section id="id4106202">
+        <title>2.a. RZp (Retorno a Cero-Polar)</title>
+        <para id="id1170697687598">Para el símbolo “1” tendrá dos valores: en el primer semi-intervalo [0, Tb/2] tendrá un nivel +V y para el segundo semi-intervalo [Tb/2, Tb] retornará a 0V. Ahora, para el símbolo “2” será: en el primer semi-intervalo tendrá un nivel opuesto (-V) y para el segundo semi-intervalo también retornará a 0V. Gráficamente:</para>
+        <para id="id1170698591124">
+          <figure id="id7921885">
+            <media id="id7921885_media" alt="">
+              <image mime-type="image/png" src="../../media/graphics9-cec4.png" id="id7921885__onlineimage" height="310" width="435"/>
+            </media>
+            <caption>Representación de bits usando el código RZp</caption>
+          </figure>
+        </para>
+        <para id="id1931043">Si descomponemos la señal:</para>
+        <figure id="id1170685571462">
+          <media id="id1170685571462_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics10-db79.png" id="id1170685571462__onlineimage" height="223" width="600"/>
+          </media>
+        </figure>
+        <para id="id1170684840000">Ahora bien, los posibles valores de A<sub>k</sub> y A<sub>(n+k)</sub> son <emphasis>+1</emphasis> y <emphasis>-1</emphasis>, por lo que:</para>
+        <equation id="id1170680192341">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mstyle fontstyle="italic">
+                        <m:mrow>
+                          <m:mtext>Rx</m:mtext>
+                        </m:mrow>
+                      </m:mstyle>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>τ</m:mi>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mfrac>
+                          <m:mn>1</m:mn>
+                          <m:mstyle fontstyle="italic">
+                            <m:mrow>
+                              <m:mtext>Tb</m:mtext>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:mfrac>
+                      </m:mrow>
+                      <m:mi>δ</m:mi>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>τ</m:mi>
+                      <m:mo stretchy="false">)</m:mo>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{ ital "Rx" \( τ \) = {  {1}  over  { ital "Tb"} } δ \( τ \) } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1170685399037">Y al sacar la transformada de Fourier correspondiente, nos queda que: </para>
+        <para id="id1170685006439">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mrow>
+                  <m:mtable>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:mtext>Gx</m:mtext>
+                                </m:mrow>
+                              </m:mstyle>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>f</m:mi>
+                              <m:mrow>
+                                <m:mo stretchy="false">)</m:mo>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mfrac>
+                                  <m:mn>1</m:mn>
+                                  <m:mstyle fontstyle="italic">
+                                    <m:mrow>
+                                      <m:mtext>Tb</m:mtext>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:mfrac>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mrow>
+                                <m:msup>
+                                  <m:mrow>
+                                    <m:mo stretchy="false">∣</m:mo>
+                                    <m:mrow>
+                                      <m:mi>P</m:mi>
+                                      <m:mo stretchy="false">(</m:mo>
+                                      <m:mi>f</m:mi>
+                                      <m:mo stretchy="false">)</m:mo>
+                                    </m:mrow>
+                                    <m:mo stretchy="false">∣</m:mo>
+                                  </m:mrow>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mn>2</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msup>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mfrac>
+                                  <m:mrow>
+                                    <m:msup>
+                                      <m:mi>V</m:mi>
+                                      <m:mstyle fontsize="8pt">
+                                        <m:mrow>
+                                          <m:mn>2</m:mn>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                    </m:msup>
+                                    <m:mtext>.</m:mtext>
+                                    <m:mstyle fontstyle="italic">
+                                      <m:mrow>
+                                        <m:msup>
+                                          <m:mtext>Tb</m:mtext>
+                                          <m:mstyle fontsize="8pt">
+                                            <m:mrow>
+                                              <m:mn>2</m:mn>
+                                            </m:mrow>
+                                          </m:mstyle>
+                                        </m:msup>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:mrow>
+                                  <m:mn>4</m:mn>
+                                </m:mfrac>
+                              </m:mrow>
+                              <m:mtext>.</m:mtext>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:msup>
+                                    <m:mtext>Sinc</m:mtext>
+                                    <m:mstyle fontsize="8pt">
+                                      <m:mrow>
+                                        <m:mn>2</m:mn>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msup>
+                                </m:mrow>
+                              </m:mstyle>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>f</m:mi>
+                              <m:mfrac>
+                                <m:mstyle fontstyle="italic">
+                                  <m:mrow>
+                                    <m:mtext>tb</m:mtext>
+                                  </m:mrow>
+                                </m:mstyle>
+                                <m:mn>2</m:mn>
+                              </m:mfrac>
+                              <m:mo stretchy="false">)</m:mo>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow/>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>Gy</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mi>f</m:mi>
+                        <m:mrow>
+                          <m:mo stretchy="false">)</m:mo>
+                          <m:mo stretchy="false">=</m:mo>
+                          <m:msup>
+                            <m:mfrac>
+                              <m:mi>V</m:mi>
+                              <m:mn>4</m:mn>
+                            </m:mfrac>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mn>2</m:mn>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msup>
+                        </m:mrow>
+                        <m:mtext>.</m:mtext>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>Tb</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mtext>.</m:mtext>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:msup>
+                              <m:mtext>Sinc</m:mtext>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mn>2</m:mn>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msup>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mi>f</m:mi>
+                        <m:mfrac>
+                          <m:mstyle fontstyle="italic">
+                            <m:mrow>
+                              <m:mtext>tb</m:mtext>
+                            </m:mrow>
+                          </m:mstyle>
+                          <m:mn>2</m:mn>
+                        </m:mfrac>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                  </m:mtable>
+                  <m:mrow/>
+                </m:mrow>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0">alignl { stack {
+ size 12{ ital "Gx" \( f \) = {  {1}  over  { ital "Tb"} } }  {} # 
+ size 12{ lline P \( f \)  rline  rSup { size 8{2} } = {  {V rSup { size 8{2} }  "."  ital "Tb" rSup { size 8{2} } }  over  {4} }  "."  ital "Sinc" rSup { size 8{2} }  \( f {  { ital "tb"}  over  {2} }  \) }  {} # 
+ {} # 
+ ital "Gy" \( f \) = {  {V}  over  {4} }  rSup { size 8{2} }  "."  ital "Tb" "."  ital "Sinc" rSup { size 8{2} }  \( f {  { ital "tb"}  over  {2} }  \)  {} 
+} } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </para>
+        <para id="id1854768">Su <emphasis>DEP</emphasis> es como sigue:</para>
+        <figure id="id2158131">
+          <media id="id2158131_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics11-3e83.png" id="id2158131__onlineimage" height="209" width="462"/>
+          </media>
+          <caption>El BW correspondiente es 2fb.</caption>
+        </figure>
+      </section>
+      <section id="id1170670280051">
+        <title>2.b. RZu (Retorno a Cero-Unipolar)</title>
+        <para id="id1170683520360">Para el símbolo “1” tendrá dos valores: en el primer semi-intervalo [0, Tb/2] tendrá un nivel +V y para el segundo semi-intervalo [Tb/2, Tb] retornará a 0V. Ahora, para el símbolo “2” se mantendrá en 0V por todo el intervalo Tb. Gráficamente:</para>
+        <figure id="id4183376">
+          <media id="id4183376_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics12-e978.png" id="id4183376__onlineimage" height="285" width="418"/>
+          </media>
+          <caption>Representación de bits usando el código RZu</caption>
+        </figure>
+        <para id="id1170691964538"/>
+        <para id="id1170682525804">La descomposición de la señal para obtener la DEP es como sigue:</para>
+        <figure id="id1170688163197">
+          <media id="id1170688163197_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics13-e478.png" id="id1170688163197__onlineimage" height="223" width="600"/>
+          </media>
+        </figure>
+        <para id="id1170670885016">La autocorrelación es entonces:</para>
+        <equation id="id1170696992488">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mstyle fontstyle="italic">
+                        <m:mrow>
+                          <m:mtext>Rx</m:mtext>
+                        </m:mrow>
+                      </m:mstyle>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>τ</m:mi>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mfrac>
+                          <m:mn>1</m:mn>
+                          <m:mrow>
+                            <m:mn>4</m:mn>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:mtext>Tb</m:mtext>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:mrow>
+                        </m:mfrac>
+                      </m:mrow>
+                      <m:mi>δ</m:mi>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>τ</m:mi>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">+</m:mo>
+                        <m:mrow>
+                          <m:munder>
+                            <m:mo stretchy="false">∑</m:mo>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:mo stretchy="false">∀</m:mo>
+                                  <m:mi>n</m:mi>
+                                </m:mrow>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:munder>
+                          <m:mrow>
+                            <m:mfrac>
+                              <m:mn>1</m:mn>
+                              <m:mrow>
+                                <m:mn>4</m:mn>
+                                <m:mstyle fontstyle="italic">
+                                  <m:mrow>
+                                    <m:mtext>Tb</m:mtext>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:mrow>
+                            </m:mfrac>
+                            <m:mi>δ</m:mi>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mrow>
+                              <m:mi>τ</m:mi>
+                              <m:mo stretchy="false">+</m:mo>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:mtext>nTb</m:mtext>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:mrow>
+                            <m:mo stretchy="false">)</m:mo>
+                          </m:mrow>
+                        </m:mrow>
+                      </m:mrow>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{ ital "Rx" \( τ \) = {  {1}  over  {4 ital "Tb"} } δ \( τ \) + Sum cSub { size 8{ forall n} }  { {  {1}  over  {4 ital "Tb"} } δ \( τ+ ital "nTb" \) } } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id3782892">Por lo que la transformada de Fourier de la misma y la Función Gy(f) nos queda así:</para>
+        <equation id="id1170677757369">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mrow>
+                  <m:mtable>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:mtext>Gx</m:mtext>
+                                </m:mrow>
+                              </m:mstyle>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>f</m:mi>
+                              <m:mrow>
+                                <m:mo stretchy="false">)</m:mo>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mrow>
+                                  <m:mfrac>
+                                    <m:mn>1</m:mn>
+                                    <m:mrow>
+                                      <m:mn>4</m:mn>
+                                      <m:mstyle fontstyle="italic">
+                                        <m:mrow>
+                                          <m:mtext>Tb</m:mtext>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                    </m:mrow>
+                                  </m:mfrac>
+                                  <m:mo stretchy="false">+</m:mo>
+                                  <m:mrow>
+                                    <m:munder>
+                                      <m:mo stretchy="false">∑</m:mo>
+                                      <m:mstyle fontsize="8pt">
+                                        <m:mrow>
+                                          <m:mrow>
+                                            <m:mo stretchy="false">∀</m:mo>
+                                            <m:mi>n</m:mi>
+                                          </m:mrow>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                    </m:munder>
+                                    <m:mrow>
+                                      <m:mfrac>
+                                        <m:mn>1</m:mn>
+                                        <m:mrow>
+                                          <m:mn>4</m:mn>
+                                          <m:mstyle fontstyle="italic">
+                                            <m:mrow>
+                                              <m:msup>
+                                                <m:mtext>Tb</m:mtext>
+                                                <m:mstyle fontsize="8pt">
+                                                  <m:mrow>
+                                                    <m:mn>2</m:mn>
+                                                  </m:mrow>
+                                                </m:mstyle>
+                                              </m:msup>
+                                            </m:mrow>
+                                          </m:mstyle>
+                                        </m:mrow>
+                                      </m:mfrac>
+                                      <m:mi>δ</m:mi>
+                                      <m:mo stretchy="false">(</m:mo>
+                                      <m:mrow>
+                                        <m:mi>f</m:mi>
+                                        <m:mo stretchy="false">+</m:mo>
+                                        <m:mstyle fontstyle="italic">
+                                          <m:mrow>
+                                            <m:mtext>nfb</m:mtext>
+                                          </m:mrow>
+                                        </m:mstyle>
+                                      </m:mrow>
+                                      <m:mo stretchy="false">)</m:mo>
+                                    </m:mrow>
+                                  </m:mrow>
+                                </m:mrow>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mrow>
+                          <m:msup>
+                            <m:mrow>
+                              <m:mo stretchy="false">∣</m:mo>
+                              <m:mrow>
+                                <m:mi>P</m:mi>
+                                <m:mo stretchy="false">(</m:mo>
+                                <m:mi>f</m:mi>
+                                <m:mo stretchy="false">)</m:mo>
+                              </m:mrow>
+                              <m:mo stretchy="false">∣</m:mo>
+                            </m:mrow>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mn>2</m:mn>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msup>
+                          <m:mo stretchy="false">=</m:mo>
+                          <m:mfrac>
+                            <m:mrow>
+                              <m:msup>
+                                <m:mi>V</m:mi>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mn>2</m:mn>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msup>
+                              <m:mtext>.</m:mtext>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:msup>
+                                    <m:mtext>Tb</m:mtext>
+                                    <m:mstyle fontsize="8pt">
+                                      <m:mrow>
+                                        <m:mn>2</m:mn>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msup>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:mrow>
+                            <m:mn>4</m:mn>
+                          </m:mfrac>
+                        </m:mrow>
+                        <m:mtext>.</m:mtext>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:msup>
+                              <m:mtext>Sinc</m:mtext>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mn>2</m:mn>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msup>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mi>f</m:mi>
+                        <m:mfrac>
+                          <m:mstyle fontstyle="italic">
+                            <m:mrow>
+                              <m:mtext>tb</m:mtext>
+                            </m:mrow>
+                          </m:mstyle>
+                          <m:mn>2</m:mn>
+                        </m:mfrac>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>Gy</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mi>f</m:mi>
+                        <m:mrow>
+                          <m:mo stretchy="false">)</m:mo>
+                          <m:mo stretchy="false">=</m:mo>
+                          <m:mfrac>
+                            <m:mrow>
+                              <m:msup>
+                                <m:mi>V</m:mi>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mn>2</m:mn>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msup>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:mtext>Tb</m:mtext>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:mrow>
+                            <m:mtext>16</m:mtext>
+                          </m:mfrac>
+                        </m:mrow>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:msup>
+                              <m:mtext>Sinc</m:mtext>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mn>2</m:mn>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msup>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mi>f</m:mi>
+                        <m:mfrac>
+                          <m:mstyle fontstyle="italic">
+                            <m:mrow>
+                              <m:mtext>Tb</m:mtext>
+                            </m:mrow>
+                          </m:mstyle>
+                          <m:mn>2</m:mn>
+                        </m:mfrac>
+                        <m:mrow>
+                          <m:mo stretchy="false">)</m:mo>
+                          <m:mo stretchy="false">+</m:mo>
+                          <m:mrow>
+                            <m:munder>
+                              <m:mo stretchy="false">∑</m:mo>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mrow>
+                                    <m:mo stretchy="false">∀</m:mo>
+                                    <m:mi>n</m:mi>
+                                  </m:mrow>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:munder>
+                            <m:mrow>
+                              <m:mfrac>
+                                <m:msup>
+                                  <m:mi>V</m:mi>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mn>2</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msup>
+                                <m:mtext>16</m:mtext>
+                              </m:mfrac>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:msup>
+                                    <m:mtext>Sinc</m:mtext>
+                                    <m:mstyle fontsize="8pt">
+                                      <m:mrow>
+                                        <m:mn>2</m:mn>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msup>
+                                </m:mrow>
+                              </m:mstyle>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>f</m:mi>
+                              <m:mfrac>
+                                <m:mstyle fontstyle="italic">
+                                  <m:mrow>
+                                    <m:mtext>Tb</m:mtext>
+                                  </m:mrow>
+                                </m:mstyle>
+                                <m:mn>2</m:mn>
+                              </m:mfrac>
+                              <m:mo stretchy="false">)</m:mo>
+                              <m:mi>δ</m:mi>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mrow>
+                                <m:mi>f</m:mi>
+                                <m:mo stretchy="false">+</m:mo>
+                                <m:mstyle fontstyle="italic">
+                                  <m:mrow>
+                                    <m:mtext>nfb</m:mtext>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:mrow>
+                              <m:mo stretchy="false">)</m:mo>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mrow>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                  </m:mtable>
+                  <m:mrow/>
+                </m:mrow>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0">alignl { stack {
+ size 12{ ital "Gx" \( f \) = {  {1}  over  {4 ital "Tb"} } + Sum cSub { size 8{ forall n} }  { {  {1}  over  {4 ital "Tb" rSup { size 8{2} } } } δ \( f+ ital "nfb" \) } }  {} # 
+ lline P \( f \)  rline  rSup { size 8{2} } = {  {V rSup { size 8{2} }  "."  ital "Tb" rSup { size 8{2} } }  over  {4} }  "."  ital "Sinc" rSup { size 8{2} }  \( f {  { ital "tb"}  over  {2} }  \)  {} # 
+ ital "Gy" \( f \) = {  {V rSup { size 8{2} }  ital "Tb"}  over  {"16"} }  ital "Sinc" rSup { size 8{2} }  \( f {  { ital "Tb"}  over  {2} }  \) + Sum cSub { size 8{ forall n} }  { {  {V rSup { size 8{2} } }  over  {"16"} }  ital "Sinc" rSup { size 8{2} }  \( f {  { ital "Tb"}  over  {2} }  \) δ \( f+ ital "nfb" \) }  {} 
+} } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id3594245">En el dominio de la frecuencia, Gy puede expresarse como:</para>
+        <para id="id1170671755934">
+          <figure id="id1170674759918">
+            <media id="id1170674759918_media" alt="">
+              <image mime-type="image/png" src="../../media/graphics14-8b3f.png" id="id1170674759918__onlineimage" height="247" width="535"/>
+            </media>
+            <caption>El BW correspondiente es 2fb.</caption>
+          </figure>
+        </para>
+      </section>
+      <section id="id1170690665510">
+        <title>3. Manchester</title>
+        <para id="id3794566">Al igual que con los códigos RZ, el código Manchester se caracteriza por tener una transición de valor en Tb/2 durante el intervalo [0, Tb]. El “1” se representa por cambio de +V a –V y el “0” hace el proceso opuesto.</para>
+        <figure id="id1170685257418">
+          <media id="id1170685257418_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics15-0a44.png" id="id1170685257418__onlineimage" height="309" width="445"/>
+          </media>
+          <caption>Representación de bits usando el código Manchester</caption>
+        </figure>
+        <para id="id1170674724625">Descomponemos la señal:</para>
+        <para id="id1170671014412">
+          <figure id="id1170673155332">
+            <media id="id1170673155332_media" alt="">
+              <image mime-type="image/png" src="../../media/graphics16-bcc8.png" id="id1170673155332__onlineimage" height="221" width="600"/>
+            </media>
+          </figure>
+        </para>
+        <para id="id5596026">Y, haciendo el mismo procedimiento que para los puntos anteriores, llegamos a:</para>
+        <equation id="id1170691954300">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mstyle fontstyle="italic">
+                        <m:mrow>
+                          <m:mtext>Gy</m:mtext>
+                        </m:mrow>
+                      </m:mstyle>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>f</m:mi>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:msup>
+                          <m:mi>V</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mn>2</m:mn>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msup>
+                      </m:mrow>
+                      <m:mstyle fontstyle="italic">
+                        <m:mrow>
+                          <m:mtext>Tb</m:mtext>
+                        </m:mrow>
+                      </m:mstyle>
+                      <m:mtext>.</m:mtext>
+                      <m:mstyle fontstyle="italic">
+                        <m:mrow>
+                          <m:msup>
+                            <m:mtext>Sinc</m:mtext>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mn>2</m:mn>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msup>
+                        </m:mrow>
+                      </m:mstyle>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>f</m:mi>
+                      <m:mfrac>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>Tb</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mn>2</m:mn>
+                      </m:mfrac>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mtext>.</m:mtext>
+                      <m:mstyle fontstyle="italic">
+                        <m:mrow>
+                          <m:msup>
+                            <m:mtext>Sen</m:mtext>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mn>2</m:mn>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msup>
+                        </m:mrow>
+                      </m:mstyle>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>f</m:mi>
+                      <m:mfrac>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>Tb</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mn>2</m:mn>
+                      </m:mfrac>
+                      <m:mo stretchy="false">)</m:mo>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{ ital "Gy" \( f \) =V rSup { size 8{2} }  ital "Tb" "."  ital "Sinc" rSup { size 8{2} }  \( f {  { ital "Tb"}  over  {2} }  \)  "."  ital "Sen" rSup { size 8{2} }  \( f {  { ital "Tb"}  over  {2} }  \) } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1170677606716">Con su expresión gráfica en el dominio de la frecuencia:</para>
+        <figure id="id1170698732076">
+          <media id="id1170698732076_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics17-df9f.png" id="id1170698732076__onlineimage" height="266" width="500"/>
+          </media>
+          <caption>El BW correspondiente es 2fb</caption>
+        </figure>
+        <para id="id5773188">En la simulación de este módulo se podrán observar los diferentes códigos de línea explicados previamente, pudiendo observar con más exactitud las gráficas en los dominios de tiempo y frecuencia, el cálculo de la potencia de la señal, observar la constelación de cada código (en base a la teoría explicada en el <link document="m35711">módulo 3</link>) y el diagrama de Ojo correspondiente.</para>
+      </section><section id="eip-888"><title>VI de simulación</title><para id="eip-971">
+El VI principal y sus Sub-VIs correspondientes pueden descargarse en el siguiente enlace. 
+
+<media id="codlinea-vi" alt="VI de Códigos de Línea">
+  <download mime-type="application/zip" src="codigolinea.zip"/>
+</media>
+</para></section><section id="eip-878"><title>Video de demostración</title><para id="eip-322"><media id="codlinea-video" alt="Video demostrativo para Códigos de Línea">
+  <video mime-type="video/mpeg" src="codlinea.mpg" autoplay="false" width="800" height="600"/>
+</media>
+</para></section>
+    </section>
+  </content>
+</document>

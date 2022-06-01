@@ -1,0 +1,514 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>10. Codificación de Canal: Código Hamming y Código Convolucional</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m36906</md:content-id>
+  <md:title>10. Codificación de Canal: Código Hamming y Código Convolucional</md:title>
+  <md:abstract>Este módulo contiene información acerca del bloque de codificación de canal de un sistema de comunicaciones digitales, específicamente la codificación por bloque (Código Hamming) y la codificación convolucional para la detección y corrección de errores.</md:abstract>
+  <md:uuid>661adefb-b544-4d12-b3bb-699270cea6f6</md:uuid>
+</metadata>
+
+<content>
+    <section id="id1164172368540">
+      <title>CODIFICACIÓN DE CANAL: CÓDIGO HAMMING Y CÓDIGO CONVOLUCIONAL</title>
+      <para id="id1164164348648">
+        <foreign>González C. Y. Venuska</foreign>
+      </para>
+      <para id="id1164164807029">
+        <foreign>Mezoa R. Mariangela</foreign>
+      </para>
+      <para id="id7954371">
+        <term>Resumen</term>
+      </para>
+      <para id="id1164175063428">Este módulo contiene información acerca del bloque de codificación de canal de un sistema de comunicaciones digitales, específicamente la codificación por bloque (Código Hamming) y la codificación convolucional para la detección y corrección de errores. </para>
+      <para id="id1164164604745">Cuando transmitimos información, uno de los objetivos principales es el de minimizar la cantidad de errores que pudieran producirse en el proceso. Esta transmisión depende del factor Señal a Ruido (S/N), potencia y velocidad de transmisión. Si optimizando estas variables se necesita aún mejorar la calidad de la transmisión, entonces se deben buscar ciertos métodos que aseguren y mejoren la fiabilidad. Es a partir de aquí que surge el concepto de la codificación para control de errores. </para>
+      <para id="id1164173227798">La <emphasis>codificación de canal</emphasis> para el control de errores se encarga, básicamente, de la adición de dígitos extra al mensaje a transmitir. Ellos no poseen información como tal, pero hacen posible la detección y corrección de errores en el bloque de recepción del mensaje. </para>
+      <section id="id1164167608147">
+        <title>Detección y Corrección de Errores:</title>
+        <para id="id1164164673722">En un sistema de comunicaciones, detectar un error es más sencillo que corregirlo. Si existen irregularidades, el receptor puede pedir una retransmisión del mensaje que contiene el error (<emphasis>ARQ</emphasis>: <foreign>Automatic Repeat Request</foreign>). Sin embargo, cuando el sistema no implementa esta técnica por no ser práctico o simplemente porque no es posible, debe aplicar redundancia en el código a través del método <emphasis>FEC</emphasis> (<foreign>Forward Error Correction</foreign>). </para>
+        <para id="id3300886">El método más sencillo de redundancia en el código consiste en repetir <emphasis>n</emphasis> veces el símbolo de mensaje. Cuando los símbolos son 1 y 0, cualquier error de transmisión en una palabra código recibida alterará el patrón de repetición cambiando un 1 a 0 (o viceversa). Si los errores de transmisión ocurren de forma aleatoria (e independiente) con probabilidad <emphasis>Pe</emphasis>, entonces se pudiera definir la probabilidad de que ocurran <emphasis>i</emphasis> errores en una palabra código de <emphasis>n</emphasis> bits como:</para>
+        <para id="id1164171236658">
+          <figure id="id1164170366260">
+            <media id="id1164170366260_media" alt="">
+              <image mime-type="image/jpg" src="../../media/graphics1.jpg" id="id1164170366260__onlineimage" height="184" width="368"/>
+            </media>
+          </figure>
+        </para>
+        <para id="id1164170282168">Por ejemplo, si se considera un código de repetición triple (3, 1) (1 bit de mensaje, dos bits de repetición, palabra código de tres bits), las palabras código serían 000 y 111. Cualquier mensaje recibido que no coincida con estas palabras código evidencian la presencia de errores. Pero, si los tres bits están errados (Se transmite 000 pero se recibe 111) entonces será imposible detectar el error:</para>
+        <figure id="id1164170816945">
+          <media id="id1164170816945_media" alt="">
+            <image mime-type="image/jpg" src="../../media/graphics2.jpg" id="id1164170816945__onlineimage" height="56" width="164"/>
+          </media>
+        </figure>
+        <para id="id1164170825030">Si se quiere corregir el error, asumimos que al menos dos de los tres bits son correctos. Entonces, 001 se decodifica como 000 y 101 se decodifica como 111. Esto corrige palabras con un solo error, pero para dos o tres errores la probabilidad de que una palabra esté errada resulta como:</para>
+        <figure id="id1164166299029">
+          <media id="id1164166299029_media" alt="">
+            <image mime-type="image/jpg" src="../../media/graphics3.jpg" id="id1164166299029__onlineimage" height="39" width="267"/>
+          </media>
+        </figure>
+      </section>
+      <section id="id1164166482804">
+        <title>Distancia Hamming</title>
+        <para id="id1164166448822">Una palabra código de n bits puede ser representarse como un vector en un espacio de n dimensiones. Por ejemplo, el código 010 puede representarse como X=( 0 1 0 ). Tomemos el caso anterior de código de repetición (3, 1):</para>
+        <para id="id1164169236640">
+          <figure id="id7822673"><media id="id7822673_media" alt="">
+              <image mime-type="image/jpg" src="../../media/graphics4.jpg" id="id7822673__onlineimage" height="344" width="359"/>
+            </media>
+          <caption>Vectores que representan palabras código de tres bits.</caption></figure>
+        </para>
+        
+        <para id="id1164168767961">En total se grafican las 8 posibles combinaciones de palabras código y los puntos azules representan el código de repetición. La distancia que separa dos puntos cualesquiera se reconoce como la distancia Hamming, que está relacionada con el poder de control de errores del código (Fortaleza del código) y se define como el número de elementos diferentes entre dos puntos. Por ejemplo:</para>
+        <figure id="id1164172195914">
+          <media id="id1164172195914_media" alt="">
+            <image mime-type="image/jpg" src="../../media/graphics5.jpg" id="id1164172195914__onlineimage" height="134" width="577"/>
+          </media>
+        </figure>
+        <para id="id1164168487805">La distancia mínima de un código en particular es la distancia Hamming <emphasis>más pequeña </emphasis>entre dos vectores de código<emphasis> válidos</emphasis>. De esta forma, la detección de errores es posible siempre que se cumpla que el número de errores de transmisión en una palabra código sea menor a d<sub>mín</sub>, por lo que la palabra errada no es un vector válido. Si es mayor o igual, la palabra errada puede corresponder a un vector válido y el error no podría ser detectado. </para>
+        <para id="id1992587">La capacidad de corrección y detección de un código se define como:</para>
+        <para id="id1164168348961">
+          <figure id="id8788697">
+            <media id="id8788697_media" alt="">
+              <image mime-type="image/jpg" src="../../media/graphics6.jpg" id="id8788697__onlineimage" height="95" width="195"/>
+            </media>
+          </figure>
+        </para>
+        <para id="id1164167569141">Para el ejemplo desarrollado, dmín= 3, por lo que el código de repetición es capaz de corregir hasta 1 error por palabra y detectar hasta 2 errores. Evidentemente, la fortaleza del código depende del número de bits que se le agregan al mensaje original. La distancia mínima de una codificación por bloque (repetición) se define como:</para>
+        <figure id="id2739180">
+          <media id="id2739180_media" alt="">
+            <image mime-type="image/jpg" src="../../media/graphics7.jpg" id="id2739180__onlineimage" height="153" width="341"/>
+          </media>
+        </figure>
+      </section>
+      <section id="id1164171579120">
+        <title>Codificación FEC</title>
+        <para id="id1164165017149">Un sistema FEC puede expresarse gráficamente como:</para>
+        <figure id="id1164168974287">
+          <media id="id1164168974287_media" alt="">
+            <image mime-type="image/jpg" src="../../media/graphics8.jpg" id="id1164168974287__onlineimage" height="172" width="599"/>
+          </media>
+        </figure>
+        <para id="id1164166496887">Los bits de entrada llegan con una tasa de r<sub>b</sub>. El codificador toma bloques de k bits del mensaje y construye un código de bloques (n, k) con tasa Rc=k/n&lt;1. La tasa de bits del canal será r= r<sub>b</sub>/ Rc&gt; r<sub>b</sub>. La probabilidad de error tomará un valor de Pe&lt;&lt;1, que evidentemente dependerá de la energía de la señal y la densidad de potencia del ruido en el receptor (<sub>0</sub>). Si Eb representa la energía promedio por bit de mensaje, entonces la energía promedio por bit de código es Rc.Eb. Entonces:</para>
+        <para id="id1164165086041">
+          <figure id="id1164169351412">
+            <media id="id1164169351412_media" alt="">
+              <image mime-type="image/jpg" src="../../media/graphics9.jpg" id="id1164169351412__onlineimage" height="304" width="417"/>
+            </media>
+          </figure>
+        </para>
+      </section>
+    </section>
+    <section id="id1164166235605">
+      <title>Codificación por Bloques Lineal</title>
+      <para id="id1164167538885">Como ya se mencionó antes, un <term>código por bloques</term><emphasis>(n,k)</emphasis> consiste en vectores de n bits, con cada vector correspondiente a un bloque único de k bits de mensaje. Dado que existen 2<sup>k</sup> bloques de mensaje y 2<sup>n</sup> vectores de n bits, la meta está en seleccionar los 2<sup>k</sup> vectores de código que cumplan con la condición de que la <emphasis>distancia mínima Hamming</emphasis> sea lo más grande posible. </para>
+      <para id="id1164174137191">Supongamos un vector de código arbitrario tal que:</para>
+      <figure id="id1164168322441">
+        <media id="id1164168322441_media" alt="">
+          <image mime-type="image/jpg" src="../../media/graphics10.jpg" id="id1164168322441__onlineimage" height="59" width="320"/>
+        </media>
+      </figure>
+      <para id="id1164172717689">Se cumple que esta codificación por bloques es lineal si al sumar, en módulo 2, dos palabras código se genera una tercera palabra código válida, incluyendo el código de puros ceros. Esta suma se define como:</para>
+      <figure id="id1164168884830">
+        <media id="id1164168884830_media" alt="">
+          <image mime-type="image/jpg" src="../../media/graphics11.jpg" id="id1164168884830__onlineimage" height="128" width="359"/>
+        </media>
+      </figure>
+      <para id="id1164166552899">Ahora bien, una codificación por bloques sistemática consiste en vectores cuyos primeros (o últimos) k elementos son idénticos a los bits de mensaje, tomando el resto de los elementos (n-k) como bits de chequeo. Por lo tanto, un vector de código se expresa como:</para>
+      <figure id="id1164170854245">
+        <media id="id1164170854245_media" alt="">
+          <image mime-type="image/jpg" src="../../media/graphics12.jpg" id="id1164170854245__onlineimage" height="129" width="294"/>
+        </media>
+      </figure>
+      <para id="id1164168757325">El vector de código X puede obtenerse a través de una multiplicación de matrices:</para>
+      <figure id="id1164174322636">
+        <media id="id1164174322636_media" alt="">
+          <image mime-type="image/jpg" src="../../media/graphics13.jpg" id="id1164174322636__onlineimage" height="249" width="371"/>
+        </media>
+      </figure>
+      <para id="id1164172376292">La matriz identidad en G reproduce el vector de mensaje para los primeros k elementos de X, mientras que la sub-matriz P genera el vector C a través de <emphasis>C=MP</emphasis>. Al igual que con la suma de vectores explicada inicialmente, esta multiplicación de matrices sigue el procedimiento de la suma módulo 2.</para>
+      <para id="id1164173124921">Para la recepción, tomaremos el vector Y. Cualquier error de transmisión resultará en Y≠X. Uno de los métodos más fáciles es haciendo uso de una <emphasis>matriz de chequeo de paridad H</emphasis> derivada de la sub-matriz P. Se define como:</para>
+      <figure id="id1164166326547">
+        <media id="id1164166326547_media" alt="">
+          <image mime-type="image/jpg" src="../../media/graphics14.jpg" id="id1164166326547__onlineimage" height="193" width="222"/>
+        </media>
+      </figure>
+      <para id="id1164166285460"/>
+      <para id="id3346653">Si esta última condición no se cumple, el código recibido contiene errores. La detección de errores puede basarse a partir del vector síndrome S:</para>
+      <figure id="id1164165071769">
+        <media id="id1164165071769_media" alt="">
+          <image mime-type="image/jpg" src="../../media/graphics15.jpg" id="id1164165071769__onlineimage" height="41" width="95"/>
+        </media>
+      </figure>
+      <para id="id1164168320428">Si todos los elementos de S son iguales a CERO, entonces hay dos posibilidades:</para>
+      <list id="id1164166426210" list-type="bulleted">
+        <item>Y es igual a X o Y;</item>
+        <item>Y es igual a otro vector código y el error de transmisión no se detecta.</item>
+      </list>
+      <para id="id1164168506923">De igual forma, los errores se indican con la presencia de elementos distintos a cero en S. </para>
+      <para id="id6982378">Ahora bien, si el vector X se corrompe con un vector de error E, el vector Y resultará en:</para>
+      <figure id="id1164170756198">
+        <media id="id1164170756198_media" alt="">
+          <image mime-type="image/jpg" src="../../media/graphics16.jpg" id="id1164170756198__onlineimage" height="41" width="105"/>
+        </media>
+      </figure>
+      <para id="id1164165025199">Por lo que S será:</para>
+      <figure id="id2262103">
+        <media id="id2262103_media" alt="">
+          <image mime-type="image/jpg" src="../../media/graphics17.jpg" id="id2262103__onlineimage" height="47" width="276"/>
+        </media>
+      </figure>
+      <para id="id6856745">Esto evidencia que el Síndrome dependerá completamente del patrón de error, no del vector transmitido. Al existir errores en la codificación, S indicará en dónde se encuentra el mismo. </para>
+      <para id="id1164173254597">Si un código debe corregir hasta t errores por palabra, entonces q y n deben cumplir con la desigualdad o relación de Hamming, definida como:</para>
+      <figure id="id1164165248515">
+        <media id="id1164165248515_media" alt="">
+          <image mime-type="image/jpg" src="../../media/graphics18.jpg" id="id1164165248515__onlineimage" height="92" width="216"/>
+        </media>
+      </figure>
+      <section id="id1164164603515">
+        <title>Código Hamming</title>
+        <para id="id1164166458148">Es un código de bloques lineal <emphasis>(n,k) </emphasis>con 3 ó más bits de chequeo/redundancia (q) que cumple con estas ecuaciones:</para>
+        <para id="id1164168300832">
+          <figure id="id1164168893800">
+            <media id="id1164168893800_media" alt="">
+              <image mime-type="image/jpg" src="../../media/graphics19.jpg" id="id1164168893800__onlineimage" height="67" width="166"/>
+            </media>
+          </figure>
+        </para>
+        <para id="id1164174101626">Dado que su distancia mínima siempre es 3 (sin importar el valor de q), este tipo de código es capaz de corregir hasta un error y detectar dos, por lo que:</para>
+        <figure id="id1164171768660">
+          <media id="id1164171768660_media" alt="">
+            <image mime-type="image/jpg" src="../../media/graphics20.jpg" id="id1164171768660__onlineimage" height="86" width="144"/>
+          </media>
+        </figure>
+        <para id="id1164168233095">Supongamos el caso Hamming (7,4) (n=7, q=3, k=4). Para construir dicho código, tomamos la sub-matriz P de la matriz generadora G y la llenamos con todas las palabras de q bits que tengan dos o más 1’s, sin ningún orden en particular. Como son k=4 bits de mensaje original, entonces la matriz G tendrá cuatro filas. Entonces:</para>
+        <figure id="id1164165074277">
+          <media id="id1164165074277_media" alt="">
+            <image mime-type="image/jpg" src="../../media/graphics21.jpg" id="id1164165074277__onlineimage" height="125" width="232"/>
+          </media>
+        </figure>
+        <para id="id1164164988222">Dado un bloque de bits de mensaje M = (m<sub>1</sub> m<sub>2</sub> m<sub>3</sub> m<sub>4</sub>), los bits de chequeo se calculan sustituyendo los elementos de la sub-matriz P en la ecuación C=MP, por lo que:</para>
+        <figure id="id1970347">
+          <media id="id1970347_media" alt="">
+            <image mime-type="image/jpg" src="../../media/graphics22.jpg" id="id1970347__onlineimage" height="89" width="180"/>
+          </media>
+        </figure>
+        <para id="id1164164983789">Para este ejemplo se pudiera construir un codificador Hamming de la siguiente forma:</para>
+        <para id="id1164165329547">
+          <figure id="id1164171852249">
+            <media id="id1164171852249_media" alt="">
+              <image mime-type="image/jpg" src="../../media/graphics23.jpg" id="id1164171852249__onlineimage" height="271" width="599"/>
+            </media>
+          </figure>
+        </para>
+        <para id="id7668759">Las palabras código correspondientes a este código Hamming (7,4) se observan en la tabla (Todas generadas a partir de C=MP):</para>
+        <table id="id1164166559756" summary="">
+          <tgroup cols="7">
+            <colspec colnum="1" colname="c1"/>
+            <colspec colnum="2" colname="c2"/>
+            <colspec colnum="3" colname="c3"/>
+            <colspec colnum="4" colname="c4"/>
+            <colspec colnum="5" colname="c5"/>
+            <colspec colnum="6" colname="c6"/>
+            <colspec colnum="7" colname="c7"/>
+            <tbody>
+              <row>
+                <entry namest="c1" nameend="c4">
+                  <emphasis>Mensaje</emphasis>
+                </entry>
+                <entry namest="c5" nameend="c7">
+                  <emphasis>Bits Redundantes</emphasis>
+                </entry>
+              </row>
+              <row>
+                <entry>0</entry>
+                <entry>0</entry>
+                <entry>0</entry>
+                <entry>0</entry>
+                <entry>0</entry>
+                <entry>0</entry>
+                <entry>0</entry>
+              </row>
+              <row>
+                <entry>0</entry>
+                <entry>0</entry>
+                <entry>0</entry>
+                <entry>1</entry>
+                <entry>1</entry>
+                <entry>0</entry>
+                <entry>1</entry>
+              </row>
+              <row>
+                <entry>0</entry>
+                <entry>0</entry>
+                <entry>1</entry>
+                <entry>0</entry>
+                <entry>1</entry>
+                <entry>1</entry>
+                <entry>1</entry>
+              </row>
+              <row>
+                <entry>0</entry>
+                <entry>0</entry>
+                <entry>1</entry>
+                <entry>1</entry>
+                <entry>0</entry>
+                <entry>1</entry>
+                <entry>0</entry>
+              </row>
+              <row>
+                <entry>0</entry>
+                <entry>1</entry>
+                <entry>0</entry>
+                <entry>0</entry>
+                <entry>0</entry>
+                <entry>1</entry>
+                <entry>1</entry>
+              </row>
+              <row>
+                <entry>0</entry>
+                <entry>1</entry>
+                <entry>0</entry>
+                <entry>1</entry>
+                <entry>1</entry>
+                <entry>1</entry>
+                <entry>0</entry>
+              </row>
+              <row>
+                <entry>0</entry>
+                <entry>1</entry>
+                <entry>1</entry>
+                <entry>0</entry>
+                <entry>1</entry>
+                <entry>0</entry>
+                <entry>0</entry>
+              </row>
+              <row>
+                <entry>0</entry>
+                <entry>1</entry>
+                <entry>1</entry>
+                <entry>1</entry>
+                <entry>0</entry>
+                <entry>0</entry>
+                <entry>1</entry>
+              </row>
+              <row>
+                <entry>1</entry>
+                <entry>0</entry>
+                <entry>0</entry>
+                <entry>0</entry>
+                <entry>1</entry>
+                <entry>1</entry>
+                <entry>0</entry>
+              </row>
+              <row>
+                <entry>1</entry>
+                <entry>0</entry>
+                <entry>0</entry>
+                <entry>1</entry>
+                <entry>0</entry>
+                <entry>1</entry>
+                <entry>1</entry>
+              </row>
+              <row>
+                <entry>1</entry>
+                <entry>0</entry>
+                <entry>1</entry>
+                <entry>0</entry>
+                <entry>0</entry>
+                <entry>0</entry>
+                <entry>1</entry>
+              </row>
+              <row>
+                <entry>1</entry>
+                <entry>0</entry>
+                <entry>1</entry>
+                <entry>1</entry>
+                <entry>1</entry>
+                <entry>0</entry>
+                <entry>0</entry>
+              </row>
+              <row>
+                <entry>1</entry>
+                <entry>1</entry>
+                <entry>0</entry>
+                <entry>0</entry>
+                <entry>1</entry>
+                <entry>0</entry>
+                <entry>1</entry>
+              </row>
+              <row>
+                <entry>1</entry>
+                <entry>1</entry>
+                <entry>0</entry>
+                <entry>1</entry>
+                <entry>0</entry>
+                <entry>0</entry>
+                <entry>0</entry>
+              </row>
+              <row>
+                <entry>1</entry>
+                <entry>1</entry>
+                <entry>1</entry>
+                <entry>0</entry>
+                <entry>0</entry>
+                <entry>1</entry>
+                <entry>0</entry>
+              </row>
+              <row>
+                <entry>1</entry>
+                <entry>1</entry>
+                <entry>1</entry>
+                <entry>1</entry>
+                <entry>1</entry>
+                <entry>1</entry>
+                <entry>1</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </section>
+      <section id="id1164166531676">
+        <title>Códigos Convolucionales</title>
+        <para id="id2484124">A diferencia de la codificación por bloque, los códigos convolucionales trabajan bit por bit. Su estructura pudiera generalizarse de la siguiente forma:</para>
+        <para id="id1164164675915">
+          <figure id="id1164170793325">
+            <media id="id1164170793325_media" alt="">
+              <image mime-type="image/jpg" src="../../media/graphics24.jpg" id="id1164170793325__onlineimage" height="310" width="600"/>
+            </media>
+          </figure>
+        </para>
+        <para id="id1839960">Esta estructura genera V símbolos a la salida por cada símbolo de entrada. Su tasa de símbolos de salida será entonces Rc=1/V. Existen 4 métodos de representación de los códigos convolucionales:</para>
+        <list id="id1164164806129" list-type="bulleted">
+          <item>Por Conexión.</item>
+          <item>Diagrama de estados.</item>
+          <item>Árbol de código.</item>
+          <item>Diagrama Trellis </item>
+        </list>
+      </section>
+      <section id="id1164172109558">
+        <title>Representación por Conexión:</title>
+        <para id="id1164164984284">Supongamos que se tiene el siguiente codificador convolucional:</para>
+        <para id="id1164166781753">
+          <figure id="id1164166791281">
+            <media id="id1164166791281_media" alt="">
+              <image mime-type="image/jpg" src="../../media/graphics25.jpg" id="id1164166791281__onlineimage" height="281" width="600"/>
+            </media>
+          </figure>
+        </para>
+        <para id="id1164167578984">Para que el código funcione correctamente, antes de que llegue el primer bit del mensaje el registro de desplazamiento está ‘limpio’ (Sólo contiene 0’s). Esto implica que la primera salida será U1=0 y U2=0. Supongamos que el mensaje de entrada es <emphasis>101</emphasis>. Entonces, el codificador hará los siguientes pasos:</para>
+        <figure id="id1164165337168">
+          <media id="id1164165337168_media" alt="">
+            <image mime-type="image/jpg" src="../../media/graphics26.jpg" id="id1164165337168__onlineimage" height="433" width="600"/>
+          </media>
+          <caption>Diagrama de conexión con salidas U1 y U2 cuando se tiene como mensaje de entrada la secuencia 101. Se asume que inicialmente los registros están vacíos.</caption>
+        </figure>
+        <para id="id1164164634844">La secuencia de salida será:</para>
+        <table id="id1164171775026" summary="">
+          <tgroup cols="2">
+            <colspec colnum="1" colname="c1"/>
+            <colspec colnum="2" colname="c2"/>
+            <tbody>
+              <row>
+                <entry>
+                  <emphasis>U1</emphasis>
+                </entry>
+                <entry>
+                  <emphasis>U2</emphasis>
+                </entry>
+              </row>
+              <row>
+                <entry>1</entry>
+                <entry>1</entry>
+              </row>
+              <row>
+                <entry>1</entry>
+                <entry>0</entry>
+              </row>
+              <row>
+                <entry>0</entry>
+                <entry>0</entry>
+              </row>
+              <row>
+                <entry>1</entry>
+                <entry>0</entry>
+              </row>
+              <row>
+                <entry>1</entry>
+                <entry>1</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </section>
+      <section id="id6926865">
+        <title>Representación por Diagrama de Estados:</title>
+        <para id="id2049568">El estado del codificador convolucional se define como los contenidos de los registros de desplazamiento de las k-1 etapas más a la derecha del codificador. Para el ejemplo actual:</para>
+        <figure id="id2655608"><media id="id2655608_media" alt="">
+            <image mime-type="image/jpg" src="../../media/graphics27.jpg" id="id2655608__onlineimage" height="401" width="599"/>
+          </media>
+        <caption>Diagrama de estados.</caption></figure>
+        
+      </section>
+      <section id="id1164165111883">
+        <title>Representación por Árbol de código:</title>
+        <para id="id1164171861371">La raíz representa el estado inicial (U1U2=00). Si el próximo bit es un 0, se toma la ramificación superior. Dado que la longitud del registro es igual a 3 (L=3), entonces el árbol será:</para>
+        <para id="id2401899"/>
+        <figure id="id1164172739110">
+          <media id="id1164172739110_media" alt="">
+            <image mime-type="image/jpg" src="../../media/graphics28.jpg" id="id1164172739110__onlineimage" height="556" width="414"/>
+          </media>
+        </figure>
+      </section>
+      <section id="id6460639">
+        <title>Diagrama Trellis</title>
+        <para id="id1164166298672">A través de él se puede observar la evolución del codificador por cada T que pase. El diagrama deberá tener 2<sup>k-1</sup> nodos que representen los posibles estados (a,b,c y d). Entonces:</para>
+        <para id="id1164168999358">
+          <figure id="id2861615">
+            <media id="id2861615_media" alt="">
+              <image mime-type="image/jpg" src="../../media/graphics29.jpg" id="id2861615__onlineimage" height="493" width="599"/>
+            </media>
+          </figure>
+        </para>
+        <para id="id1164172001082">Para la decodificación implementamos la <emphasis>máxima verosimilitud</emphasis> (<foreign>maximum-likelihood</foreign>), que busca maximizar P(Z/Um), siendo Um las posibles secuencias recibidas. </para>
+        <figure id="id1164173123484">
+          <media id="id1164173123484_media" alt="">
+            <image mime-type="image/jpg" src="../../media/graphics30.jpg" id="id1164173123484__onlineimage" height="220" width="402"/>
+          </media>
+        </figure>
+        <para id="id1164170316452">Esto puede verse a través del <emphasis>Algoritmo de Viterbi</emphasis>: Se basa en el Diagrama de Trellis. Asigna a cada rama una <emphasis>métrica</emphasis> que es igual a la distancia Hamming correspondiente a la rama recibida y todas las ramas de Trellis que intervienen en ese instante de tiempo. Supongamos el siguiente ejemplo:</para>
+        <para id="id1164169353260"/>
+        <figure id="id1164165114680">
+          <media id="id1164165114680_media" alt="">
+            <image mime-type="image/jpg" src="../../media/graphics31.jpg" id="id1164165114680__onlineimage" height="399" width="600"/>
+          </media>
+        </figure>
+        <para id="id1164166424595">Como se observa, se debe esperar hasta el instante T4 (que es cuando empiezan a cerrarse los lazos) para tomar una decisión sobre el camino más corto. Allí, se tendrán dos caminos para llegar a ese instante: </para>
+        <figure id="id1164165424865">
+          <media id="id1164165424865_media" alt="">
+            <image mime-type="image/jpg" src="../../media/graphics32.jpg" id="id1164165424865__onlineimage" height="322" width="599"/>
+          </media>
+        </figure>
+        <para id="id1164167485247">Partiendo del estado a, en el estado 4 convergen dos trayectorias dos métricas: la primera con un total de 4(la de arriba) y la segunda con un total de 3(la que va por debajo). Luego se analizan situaciones similares en T4. Por ejemplo, al estado b en T4 se llega por dos trayectorias: la de arriba con métrica 4 y la de abajo con métrica 3. Para T4 pero al estado c también se llega por dos caminos: el de arriba con métrica 5 y el de abajo con métrica 0. Para T4 pero al estado d los dos caminos tienen métricas 3 y 2 respectivamente. Al eliminar todas las trayectorias de métrica mayor, en este ejemplo se logra ya despejar el bit transmitido entre la transición T1-T2 y decidir que es un “1”.</para>
+        <figure id="id1164172195763">
+          <media id="id1164172195763_media" alt="">
+            <image mime-type="image/jpg" src="../../media/graphics33.jpg" id="id1164172195763__onlineimage" height="333" width="599"/>
+          </media>
+        </figure>
+        <para id="id1164175081576">Se repite el mismo procedimiento para el nodo T5 y luego para los demás nodos hasta que se vayan obteniendo cada uno de los bits transmitidos.</para>
+        <para id="id1164172134723">Se descartan entonces todos los caminos no viables. Este proceso debe repetirse hasta que se logre obtener la secuencia original.</para>
+        <para id="id1164167643415">
+          <figure id="id2223359">
+            <media id="id2223359_media" alt="">
+              <image mime-type="image/jpg" src="../../media/graphics34.jpg" id="id2223359__onlineimage" height="333" width="599"/>
+            </media>
+          </figure>
+        </para>
+      </section><section id="eip-712"><title>Simulación en LabVIEW</title><para id="eip-909">
+Las pruebas para las codificaciones Hamming(7,4), Hamming(15,11) y Convolucional pueden realizarse descargando el VI del siguiente enlace:
+
+<media id="canalvi" alt="codifcanal">
+  <download mime-type="application/rar" src="canal.rar"/>
+</media>
+
+</para></section>
+    </section>
+  </content>
+</document>

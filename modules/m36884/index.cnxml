@@ -1,0 +1,2726 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML">
+  <title>8. Detección no Coherente para modulaciones OOK y FSK</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m36884</md:content-id>
+  <md:title>8. Detección no Coherente para modulaciones OOK y FSK</md:title>
+  <md:abstract>En este módulo se explica el método de recepción no coherente de las señales OOK (On-Off Keying) y FSK (Frequency Shift Keying), su esquema general y la forma de calcular la Probabilidad de Error para cada sistema.</md:abstract>
+  <md:uuid>8580a1ab-c1b6-42fe-9e82-40231fc59890</md:uuid>
+</metadata>
+
+<content>
+    <section id="id1933646">
+      <title>DETECCIÓN NO COHERENTE PARA MODULACIONES OOK Y FSK</title>
+      <para id="id6071535">
+        <foreign>González C. Y. Venuska</foreign>
+      </para>
+      <para id="id5412712">
+        <foreign>Mezoa R. Mariangela</foreign>
+      </para>
+      <para id="id6470071">
+        <term>Resumen</term>
+      </para>
+      <para id="id2868695">En este módulo se explica el método de recepción no coherente de las señales OOK (On-Off Keying) y FSK (Frequency Shift Keying), su esquema general y la forma de calcular la Probabilidad de Error para cada sistema. </para>
+      <para id="id7615759">En el <link url="http://cnx.org/content/m36883/latest/" window="new">módulo anterior</link> mencionábamos el método de detección coherente para obtener el mensaje original en el destino de nuestro sistema de comunicaciones. En él, por ejemplo para OOK o para PSK, se multiplicaba la señal modulada por un tono de la misma frecuencia que la señal portadora, pasando luego por un sistema de comparación con un umbral, obteniendo así el mensaje original. Sin embargo, este tipo de detección es muy costosa e innecesaria si la señal es lo suficientemente fuerte para una fiabilidad adecuada. Es por esto (y también para evitar los problemas de sincronización) que se implementan los sistemas de <emphasis>detección no coherente</emphasis>. </para>
+      <para id="id1994252">Antes de observar la detección no coherente para las modulaciones OOK y FSK, se analizará la envolvente de una señal sinusoidal con ruido en Banda Base.</para>
+      <para id="id6012251">Supongamos que se tiene una sinusoide (portadora) contaminada con ruido pasabanda gaussiano n(t) de varianza σ² y media nula, entonces:</para>
+      <equation id="id1519096">
+        <m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mrow>
+                <m:mtable>
+                  <m:mtr>
+<m:mtd>
+                    <m:mrow>
+                      <m:mstyle fontsize="12pt">
+                        <m:mrow>
+                          <m:mrow>
+                            <m:mi>n</m:mi>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mi>t</m:mi>
+                            <m:mrow>
+                              <m:mo stretchy="false">)</m:mo>
+                              <m:mo stretchy="false">=</m:mo>
+                              <m:msub>
+                                <m:mi>n</m:mi>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mi>i</m:mi>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msub>
+                            </m:mrow>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mi>t</m:mi>
+                            <m:mo stretchy="false">)</m:mo>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:mtext>Cos</m:mtext>
+                              </m:mrow>
+                            </m:mstyle>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:msub>
+                              <m:mi>w</m:mi>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mi>c</m:mi>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msub>
+                            <m:mi>t</m:mi>
+                            <m:mrow>
+                              <m:mo stretchy="false">)</m:mo>
+                              <m:mo stretchy="false">−</m:mo>
+                              <m:msub>
+                                <m:mi>n</m:mi>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mi>q</m:mi>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msub>
+                            </m:mrow>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mi>t</m:mi>
+                            <m:mo stretchy="false">)</m:mo>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:mtext>Sin</m:mtext>
+                              </m:mrow>
+                            </m:mstyle>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:msub>
+                              <m:mi>w</m:mi>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mi>c</m:mi>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msub>
+                            <m:mi>t</m:mi>
+                            <m:mo stretchy="false">)</m:mo>
+                          </m:mrow>
+                        </m:mrow>
+                      </m:mstyle>
+                      <m:mrow/>
+                    </m:mrow>
+</m:mtd>
+                  </m:mtr>
+                  <m:mtr>
+<m:mtd>
+                    <m:mrow/>
+</m:mtd>
+                  </m:mtr>
+                  <m:mtr>
+<m:mtd>
+                    <m:mrow>
+                      <m:mstyle fontstyle="italic">
+                        <m:mrow>
+                          <m:mtext>ACos</m:mtext>
+                        </m:mrow>
+                      </m:mstyle>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:msub>
+                        <m:mi>w</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mi>c</m:mi>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                      <m:mi>t</m:mi>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">+</m:mo>
+                        <m:mi>n</m:mi>
+                      </m:mrow>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>t</m:mi>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mi>R</m:mi>
+                      </m:mrow>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>t</m:mi>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mstyle fontstyle="italic">
+                        <m:mrow>
+                          <m:mtext>Cos</m:mtext>
+                        </m:mrow>
+                      </m:mstyle>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:msub>
+                        <m:mi>w</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mi>c</m:mi>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                      <m:mrow>
+                        <m:mi>t</m:mi>
+                        <m:mo stretchy="false">+</m:mo>
+                        <m:mi>Φ</m:mi>
+                      </m:mrow>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>t</m:mi>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mtable>
+                        <m:mtr>
+                          <m:mtd>
+                            <m:mrow/>
+                          </m:mtd>
+                          <m:mtd>
+                            <m:mrow>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>a</m:mi>
+                              <m:mo stretchy="false">)</m:mo>
+                              <m:mrow/>
+                            </m:mrow>
+                          </m:mtd>
+                        </m:mtr>
+                      </m:mtable>
+                      <m:mrow/>
+                    </m:mrow>
+</m:mtd>
+                  </m:mtr>
+                  <m:mtr>
+<m:mtd>
+                    <m:mrow>
+                      <m:mstyle fontstyle="italic">
+                        <m:mrow>
+                          <m:mtext>Donde</m:mtext>
+                        </m:mrow>
+                      </m:mstyle>
+                      <m:mi>:</m:mi>
+                      <m:mrow/>
+                    </m:mrow>
+</m:mtd>
+                  </m:mtr>
+                  <m:mtr>
+<m:mtd>
+                    <m:mrow/>
+</m:mtd>
+                  </m:mtr>
+                  <m:mtr>
+<m:mtd>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:mi>R</m:mi>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:msqrt>
+                          <m:mrow>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mrow>
+                              <m:mi>A</m:mi>
+                              <m:mo stretchy="false">+</m:mo>
+                              <m:msub>
+                                <m:mi>n</m:mi>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mi>i</m:mi>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msub>
+                            </m:mrow>
+                            <m:mrow>
+                              <m:msup>
+                                <m:mo stretchy="false">)</m:mo>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mn>2</m:mn>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msup>
+                              <m:mo stretchy="false">+</m:mo>
+                              <m:msub>
+                                <m:mi>n</m:mi>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:msup>
+                                      <m:mi>q</m:mi>
+                                      <m:mstyle fontsize="8pt">
+                                        <m:mrow>
+                                          <m:mn>2</m:mn>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                    </m:msup>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msub>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:msqrt>
+                      </m:mrow>
+                      <m:mtable>
+                        <m:mtr>
+                          <m:mtd>
+                            <m:mrow>
+                              <m:mtable>
+                                <m:mtr>
+                                  <m:mtd>
+                                    <m:mrow/>
+                                  </m:mtd>
+                                  <m:mtd>
+                                    <m:mrow>
+                                      <m:mo stretchy="false">(</m:mo>
+                                      <m:mi>b</m:mi>
+                                      <m:mo stretchy="false">)</m:mo>
+                                      <m:mrow/>
+                                    </m:mrow>
+                                  </m:mtd>
+                                </m:mtr>
+                              </m:mtable>
+                              <m:mrow/>
+                            </m:mrow>
+                          </m:mtd>
+                          <m:mtd>
+                            <m:mrow>
+                              <m:mi>;</m:mi>
+                              <m:mrow/>
+                            </m:mrow>
+                          </m:mtd>
+                          <m:mtd>
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mi>Φ</m:mi>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mstyle fontstyle="italic">
+                                  <m:mrow>
+                                    <m:mtext>arctg</m:mtext>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:mrow>
+                              <m:mfrac>
+                                <m:msub>
+                                  <m:mi>n</m:mi>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mi>q</m:mi>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msub>
+                                <m:mrow>
+                                  <m:mi>A</m:mi>
+                                  <m:mo stretchy="false">+</m:mo>
+                                  <m:msub>
+                                    <m:mi>n</m:mi>
+                                    <m:mstyle fontsize="8pt">
+                                      <m:mrow>
+                                        <m:mi>i</m:mi>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msub>
+                                </m:mrow>
+                              </m:mfrac>
+                              <m:mrow/>
+                            </m:mrow>
+                          </m:mtd>
+                        </m:mtr>
+                      </m:mtable>
+                      <m:mtable>
+                        <m:mtr>
+                          <m:mtd>
+                            <m:mrow/>
+                          </m:mtd>
+                          <m:mtd>
+                            <m:mrow>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>c</m:mi>
+                              <m:mo stretchy="false">)</m:mo>
+                              <m:mrow/>
+                            </m:mrow>
+                          </m:mtd>
+                        </m:mtr>
+                      </m:mtable>
+                      <m:mrow/>
+                    </m:mrow>
+</m:mtd>
+                  </m:mtr>
+                </m:mtable>
+                <m:mrow/>
+              </m:mrow>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0">alignl { stack {
+ size 12{n \( t \) =n rSub { size 8{i} }  \( t \)  ital "Cos" \( w rSub { size 8{c} } t \)  - n rSub { size 8{q} }  \( t \)  ital "Sin" \( w rSub { size 8{c} } t \) }  {} # 
+ {} # 
+ ital "ACos" \( w rSub { size 8{c} } t \) +n \( t \) =R \( t \)  ital "Cos" \( w rSub { size 8{c} } t+Φ \( t \)  \)  matrix {
+ {} #  \( a \) {}
+}  {} # 
+ ital "Donde": {} # 
+ {} # 
+R= sqrt { \( A+n rSub { size 8{i} }  \)  rSup { size 8{2} } +n rSub { size 8{q}   rSup { size 8{2} } } }  matrix {
+ matrix {
+ {} #  \( b \) {}
+}  {} # ; {} # Φ= ital "arctg" {  {n rSub { size 8{q} } }  over  {A+n rSub { size 8{i} } } } {}
+}  matrix {
+ {} #  \( c \) {}
+}  {} 
+} } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+      <para id="id1730559">Como se sabe, las componentes de ruido <emphasis effect="italics">n</emphasis><emphasis effect="italics">i</emphasis><emphasis effect="italics">, n</emphasis><emphasis effect="italics">q</emphasis> son variables aleatorias independientes que tienen la misma distribución que n(t). Nuestro objetivo será buscar la función de densidad de Probabilidad <emphasis>(fdp)</emphasis> de R ya que esto es lo que ofrece a la salida un detector de envolvente.</para>
+      <para id="id5087297">Si <emphasis>A=0</emphasis>, el valor de R se convierte en una envolvente que llamaremos An con distribución de Rayleigh:</para>
+      <equation id="id7730242">
+        <m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:msub>
+                      <m:mi>P</m:mi>
+                      <m:mstyle fontsize="8pt">
+                        <m:mrow>
+                          <m:mstyle fontstyle="italic">
+                            <m:mrow>
+                              <m:mtext>An</m:mtext>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:msub>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:msub>
+                      <m:mi>A</m:mi>
+                      <m:mstyle fontsize="8pt">
+                        <m:mrow>
+                          <m:mi>n</m:mi>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:msub>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mfrac>
+                        <m:msub>
+                          <m:mi>A</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mi>n</m:mi>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                        <m:msup>
+                          <m:mi>σ</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mn>2</m:mn>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msup>
+                      </m:mfrac>
+                    </m:mrow>
+                    <m:msup>
+                      <m:mi>e</m:mi>
+                      <m:mstyle fontsize="8pt">
+                        <m:mrow>
+                          <m:mrow>
+                            <m:mo stretchy="false">−</m:mo>
+                            <m:mfrac>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:msup>
+                                    <m:mtext>An</m:mtext>
+                                    <m:mstyle fontsize="6pt">
+                                      <m:mrow>
+                                        <m:mn>2</m:mn>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msup>
+                                </m:mrow>
+                              </m:mstyle>
+                              <m:msup>
+                                <m:mn>2σ</m:mn>
+                                <m:mstyle fontsize="6pt">
+                                  <m:mrow>
+                                    <m:mn>2</m:mn>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msup>
+                            </m:mfrac>
+                          </m:mrow>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:msup>
+                    <m:mi>;</m:mi>
+                    <m:mtable>
+                      <m:mtr>
+                        <m:mtd>
+                          <m:mrow>
+                            <m:mtable>
+                              <m:mtr>
+                                <m:mtd>
+                                  <m:mrow/>
+                                </m:mtd>
+                                <m:mtd>
+                                  <m:mrow>
+                                    <m:mstyle fontstyle="italic">
+                                      <m:mrow>
+                                        <m:mtext>Si</m:mtext>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                    <m:mi>:</m:mi>
+                                    <m:mrow/>
+                                  </m:mrow>
+                                </m:mtd>
+                              </m:mtr>
+                            </m:mtable>
+                            <m:mrow/>
+                          </m:mrow>
+                        </m:mtd>
+                        <m:mtd>
+                          <m:mrow>
+                            <m:msub>
+                              <m:mi>A</m:mi>
+                              <m:mi>n</m:mi>
+                            </m:msub>
+                            <m:mstyle fontsize="12pt">
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:mrow/>
+                                  <m:mn>0</m:mn>
+                                </m:mrow>
+                              </m:mrow>
+                            </m:mstyle>
+                            <m:mrow/>
+                          </m:mrow>
+                        </m:mtd>
+                      </m:mtr>
+                    </m:mtable>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{P rSub { size 8{ ital "An"} }  \( A rSub { size 8{n} }  \) = {  {A rSub { size 8{n} } }  over  {σ rSup { size 8{2} } } } e rSup { size 8{ -  {  { ital "An" rSup { size 6{2} } }  over  {2σ rSup { size 6{2} } } } } } ; matrix {
+ matrix {
+ {} #  ital "Si":{}
+}  {} # A rSub {n}  size 12{ &gt;= 0}{}
+} } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+      <para id="id6697560">Hacemos un paréntesis aquí para recordar el modelo de Rayleigh:</para>
+      <figure id="id3101347">
+        <title>Distribución Rayleigh:</title>
+        <media id="id3101347_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics1-a8e7.png" id="id3101347__onlineimage" height="537" width="493"/>
+        </media>
+      </figure>
+      <para id="id1957450">Si asignamos entonces un valor arbitrario para <emphasis>A</emphasis>, hacemos la conversión de rectangular a polar para obtener la <foreign>fdp</foreign> conjunta de <emphasis>R</emphasis> y <emphasis>Φ</emphasis><emphasis>:</emphasis></para>
+      <equation id="id6401996">
+        <m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:msub>
+                      <m:mi>P</m:mi>
+                      <m:mstyle fontsize="8pt">
+                        <m:mrow>
+                          <m:mi fontstyle="italic">RΦ</m:mi>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:msub>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>R</m:mi>
+                    <m:mi>,</m:mi>
+                    <m:mi>Φ</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mfrac>
+                        <m:mi>R</m:mi>
+                        <m:mrow>
+                          <m:mn>2</m:mn>
+                          <m:mstyle fontstyle="italic">
+                            <m:mrow>
+                              <m:msup>
+                                <m:mtext>πσ</m:mtext>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mn>2</m:mn>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msup>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:mrow>
+                      </m:mfrac>
+                    </m:mrow>
+                    <m:msup>
+                      <m:mi>e</m:mi>
+                      <m:mstyle fontsize="8pt">
+                        <m:mrow>
+                          <m:mfenced open="(" close=")">
+                            <m:mrow>
+                              <m:mo stretchy="false">−</m:mo>
+                              <m:mfrac>
+                                <m:mrow>
+                                  <m:mrow>
+                                    <m:msup>
+                                      <m:mi>R</m:mi>
+                                      <m:mstyle fontsize="6pt">
+                                        <m:mrow>
+                                          <m:mn>2</m:mn>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                    </m:msup>
+                                    <m:mo stretchy="false">−</m:mo>
+                                    <m:mn>2</m:mn>
+                                  </m:mrow>
+                                  <m:mstyle fontstyle="italic">
+                                    <m:mrow>
+                                      <m:mtext>ARCos</m:mtext>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                  <m:mrow>
+                                    <m:mi>Φ</m:mi>
+                                    <m:mo stretchy="false">+</m:mo>
+                                    <m:msup>
+                                      <m:mi>A</m:mi>
+                                      <m:mstyle fontsize="6pt">
+                                        <m:mrow>
+                                          <m:mn>2</m:mn>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                    </m:msup>
+                                  </m:mrow>
+                                </m:mrow>
+                                <m:msup>
+                                  <m:mn>2σ</m:mn>
+                                  <m:mstyle fontsize="6pt">
+                                    <m:mrow>
+                                      <m:mn>2</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msup>
+                              </m:mfrac>
+                            </m:mrow>
+                          </m:mfenced>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:msup>
+                    <m:mtable>
+                      <m:mtr>
+                        <m:mtd>
+                          <m:mrow/>
+                        </m:mtd>
+                        <m:mtd>
+                          <m:mrow>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:mtext>Para</m:mtext>
+                              </m:mrow>
+                            </m:mstyle>
+                            <m:mi>:</m:mi>
+                            <m:mrow/>
+                          </m:mrow>
+                        </m:mtd>
+                        <m:mtd>
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mi>A</m:mi>
+                              <m:mo stretchy="false">≥</m:mo>
+                              <m:mn>0</m:mn>
+                            </m:mrow>
+                            <m:mi>;</m:mi>
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mo stretchy="false">∣</m:mo>
+                                <m:mi>Φ</m:mi>
+                                <m:mo stretchy="false">∣</m:mo>
+                              </m:mrow>
+                              <m:mo stretchy="false">≤</m:mo>
+                              <m:mi>π</m:mi>
+                            </m:mrow>
+                            <m:mrow/>
+                          </m:mrow>
+                        </m:mtd>
+                      </m:mtr>
+                    </m:mtable>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{P rSub { size 8{RΦ} }  \( R,Φ \) = {  {R}  over  {2 ital "πσ" rSup { size 8{2} } } } e rSup { size 8{ left ( -  {  {R rSup { size 6{2} }  - 2 ital "ARCos"Φ+A rSup { size 6{2} } }  over  {2σ rSup { size 6{2} } } }  right )} }  matrix {
+ {} #  ital "Para": {} # A &gt;= 0; lline Φ rline  &lt;= π{}
+} } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+      <para id="id7082914">En la ecuación observamos que <emphasis>R y Φ</emphasis> no son estadísticamente independientes, por lo que se deben hallar las <emphasis>distribuciones marginales</emphasis>, es decir, la <foreign>fdp</foreign> de R debe calcularse integrando la <foreign>fdp</foreign> conjunta en el rango de Φ):</para>
+      <equation id="id6205262">
+        <m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:msub>
+                      <m:mi>P</m:mi>
+                      <m:mstyle fontsize="8pt">
+                        <m:mrow>
+                          <m:mi>R</m:mi>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:msub>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>R</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mfrac>
+                        <m:mi>R</m:mi>
+                        <m:mrow>
+                          <m:mn>2</m:mn>
+                          <m:mstyle fontstyle="italic">
+                            <m:mrow>
+                              <m:msup>
+                                <m:mtext>πσ</m:mtext>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mn>2</m:mn>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msup>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:mrow>
+                      </m:mfrac>
+                    </m:mrow>
+                    <m:msup>
+                      <m:mi>e</m:mi>
+                      <m:mstyle fontsize="8pt">
+                        <m:mrow>
+                          <m:mfenced open="(" close=")">
+                            <m:mrow>
+                              <m:mo stretchy="false">−</m:mo>
+                              <m:mfrac>
+                                <m:mrow>
+                                  <m:msup>
+                                    <m:mi>R</m:mi>
+                                    <m:mstyle fontsize="6pt">
+                                      <m:mrow>
+                                        <m:mn>2</m:mn>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msup>
+                                  <m:mo stretchy="false">+</m:mo>
+                                  <m:msup>
+                                    <m:mi>A</m:mi>
+                                    <m:mstyle fontsize="6pt">
+                                      <m:mrow>
+                                        <m:mn>2</m:mn>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msup>
+                                </m:mrow>
+                                <m:msup>
+                                  <m:mn>2σ</m:mn>
+                                  <m:mstyle fontsize="6pt">
+                                    <m:mrow>
+                                      <m:mn>2</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msup>
+                              </m:mfrac>
+                            </m:mrow>
+                          </m:mfenced>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:msup>
+                    <m:mrow>
+                      <m:msubsup>
+                        <m:mo stretchy="false">∫</m:mo>
+                        <m:mrow>
+                          <m:mo stretchy="false">−</m:mo>
+                          <m:mi>π</m:mi>
+                        </m:mrow>
+                        <m:mi>π</m:mi>
+                      </m:msubsup>
+                      <m:msup>
+                        <m:mi>e</m:mi>
+                        <m:mfenced open="(" close=")">
+                          <m:mfrac>
+                            <m:mrow>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:mtext>ARCos</m:mtext>
+                                </m:mrow>
+                              </m:mstyle>
+                              <m:mi>Φ</m:mi>
+                            </m:mrow>
+                            <m:msup>
+                              <m:mn>2σ</m:mn>
+                              <m:mstyle fontsize="6pt">
+                                <m:mrow>
+                                  <m:mn>2</m:mn>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msup>
+                          </m:mfrac>
+                        </m:mfenced>
+                      </m:msup>
+                    </m:mrow>
+                    <m:mstyle fontsize="12pt">
+                      <m:mrow>
+                        <m:mi fontstyle="italic">dΦ</m:mi>
+                      </m:mrow>
+                    </m:mstyle>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{P rSub { size 8{R} }  \( R \) = {  {R}  over  {2 ital "πσ" rSup { size 8{2} } } } e rSup { size 8{ left ( -  {  {R rSup { size 6{2} } +A rSup { size 6{2} } }  over  {2σ rSup { size 6{2} } } }  right )} }  Int rSub { - π}  rSup {π}  {e rSup { left ( {  { ital "ARCos"Φ}  over  {2σ rSup { size 6{2} } } }  right )} }  size 12{dΦ}} {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+      <para id="id5886319">Aquí se identifica un elemento relacionado con la <emphasis>función de Bessel</emphasis> modificada de primera clase y orden 0:</para>
+      <equation id="id2919330">
+        <m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mrow>
+                <m:mtable>
+                  <m:mtr>
+<m:mtd>
+                    <m:mrow>
+                      <m:mstyle fontsize="12pt">
+                        <m:mrow>
+                          <m:mrow>
+                            <m:msub>
+                              <m:mi>I</m:mi>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mn>0</m:mn>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msub>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mi>v</m:mi>
+                            <m:mrow>
+                              <m:mo stretchy="false">)</m:mo>
+                              <m:mo stretchy="false">=</m:mo>
+                              <m:mfrac>
+                                <m:mn>1</m:mn>
+                                <m:mn>2π</m:mn>
+                              </m:mfrac>
+                            </m:mrow>
+                            <m:mrow>
+                              <m:munderover>
+                                <m:mo stretchy="false">∫</m:mo>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mrow>
+                                      <m:mo stretchy="false">−</m:mo>
+                                      <m:mi>π</m:mi>
+                                    </m:mrow>
+                                  </m:mrow>
+                                </m:mstyle>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mi>π</m:mi>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:munderover>
+                              <m:mrow>
+                                <m:msup>
+                                  <m:mi>e</m:mi>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mrow>
+                                        <m:mstyle fontstyle="italic">
+                                          <m:mrow>
+                                            <m:mtext>vCos</m:mtext>
+                                          </m:mrow>
+                                        </m:mstyle>
+                                        <m:mi>φ</m:mi>
+                                      </m:mrow>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msup>
+                                <m:mi>φ</m:mi>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mrow>
+                      </m:mstyle>
+                      <m:mrow/>
+                    </m:mrow>
+</m:mtd>
+                  </m:mtr>
+                  <m:mtr>
+<m:mtd>
+                    <m:mrow>
+                      <m:mstyle fontstyle="italic">
+                        <m:mrow>
+                          <m:mtext>Donde</m:mtext>
+                        </m:mrow>
+                      </m:mstyle>
+                      <m:mrow/>
+                    </m:mrow>
+</m:mtd>
+                  </m:mtr>
+                  <m:mtr>
+<m:mtd>
+                    <m:mrow/>
+</m:mtd>
+                  </m:mtr>
+                  <m:mtr>
+<m:mtd>
+                    <m:mrow>
+                      <m:msub>
+                        <m:mi>I</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mn>0</m:mn>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>v</m:mi>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">≈</m:mo>
+                        <m:mrow>
+                          <m:mo stretchy="true">{</m:mo>
+                          <m:mtable>
+                            <m:mtr>
+                              <m:mtd>
+                                <m:mrow>
+                                  <m:mrow>
+                                    <m:mtable>
+                                      <m:mtr>
+<m:mtd>
+                                        <m:mrow>
+                                          <m:msup>
+                                            <m:mi>e</m:mi>
+                                            <m:mstyle fontsize="8pt">
+                                              <m:mrow>
+                                                <m:mfrac>
+                                                  <m:msup>
+                                                    <m:mi>v</m:mi>
+                                                    <m:mstyle fontsize="6pt">
+                                                      <m:mrow>
+                                                        <m:mn>2</m:mn>
+                                                      </m:mrow>
+                                                    </m:mstyle>
+                                                  </m:msup>
+                                                  <m:mn>4</m:mn>
+                                                </m:mfrac>
+                                              </m:mrow>
+                                            </m:mstyle>
+                                          </m:msup>
+                                          <m:mtable>
+                                            <m:mtr>
+                                              <m:mtd>
+                                                <m:mrow/>
+                                              </m:mtd>
+                                              <m:mtd>
+                                                <m:mrow/>
+                                              </m:mtd>
+                                              <m:mtd>
+                                                <m:mrow>
+                                                  <m:mi>v</m:mi>
+                                                  <m:mtext>&lt;&lt;</m:mtext>
+                                                  <m:mn>1</m:mn>
+                                                  <m:mrow/>
+                                                </m:mrow>
+                                              </m:mtd>
+                                            </m:mtr>
+                                          </m:mtable>
+                                          <m:mrow/>
+                                        </m:mrow>
+</m:mtd>
+                                      </m:mtr>
+                                      <m:mtr>
+<m:mtd>
+                                        <m:mrow/>
+</m:mtd>
+                                      </m:mtr>
+                                    </m:mtable>
+                                    <m:mrow/>
+                                  </m:mrow>
+                                </m:mrow>
+                              </m:mtd>
+                            </m:mtr>
+                            <m:mtr>
+                              <m:mtd>
+                                <m:mrow>
+                                  <m:mfrac>
+                                    <m:msup>
+                                      <m:mi>e</m:mi>
+                                      <m:mi>v</m:mi>
+                                    </m:msup>
+                                    <m:mstyle fontsize="12pt">
+                                      <m:mrow>
+                                        <m:msqrt>
+                                          <m:mn>2πv</m:mn>
+                                        </m:msqrt>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:mfrac>
+                                  <m:mtable>
+                                    <m:mtr>
+                                      <m:mtd>
+                                        <m:mrow/>
+                                      </m:mtd>
+                                      <m:mtd>
+                                        <m:mrow/>
+                                      </m:mtd>
+                                      <m:mtd>
+                                        <m:mrow>
+                                          <m:mstyle fontsize="12pt">
+                                            <m:mrow>
+                                              <m:mrow>
+                                                <m:mi>v</m:mi>
+                                                <m:mtext>&gt;&gt;</m:mtext>
+                                                <m:mn>1</m:mn>
+                                              </m:mrow>
+                                            </m:mrow>
+                                          </m:mstyle>
+                                          <m:mrow/>
+                                        </m:mrow>
+                                      </m:mtd>
+                                    </m:mtr>
+                                  </m:mtable>
+                                  <m:mrow/>
+                                </m:mrow>
+                              </m:mtd>
+                            </m:mtr>
+                          </m:mtable>
+                        </m:mrow>
+                      </m:mrow>
+                      <m:mrow/>
+                    </m:mrow>
+</m:mtd>
+                  </m:mtr>
+                </m:mtable>
+                <m:mrow/>
+              </m:mrow>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0">alignl { stack {
+ size 12{I rSub { size 8{0} }  \( v \) = {  {1}  over  {2π} }  Int cSub { size 8{ - π} }  cSup { size 8{π} }  {e rSup { size 8{ ital "vCos"φ} } φ} }  {} # 
+ ital "Donde" {} # 
+ {} # 
+I rSub { size 8{0} }  \( v \)  approx  left lbrace  matrix {
+alignl { stack {
+e rSup { size 8{ {  {v rSup { size 6{2} } }  over  {4} } } }  matrix {
+ {} #  {} # v"&lt;&lt;"1{}
+}  {} # 
+ {} 
+} }  {} ##
+ {  {e rSup {v} }  over  { size 12{ sqrt {2πv} } } }  matrix {
+ {} #  {} #  size 12{v"&gt;&gt;"1} {}
+} {}
+}  right none  {} 
+} } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+      <para id="id8541853">Por lo que:</para>
+      <equation id="id1773406">
+        <m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:msub>
+                      <m:mi>P</m:mi>
+                      <m:mstyle fontsize="8pt">
+                        <m:mrow>
+                          <m:mi>R</m:mi>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:msub>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>R</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mfrac>
+                        <m:mi>R</m:mi>
+                        <m:msup>
+                          <m:mi>σ</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mn>2</m:mn>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msup>
+                      </m:mfrac>
+                    </m:mrow>
+                    <m:msup>
+                      <m:mi>e</m:mi>
+                      <m:mstyle fontsize="8pt">
+                        <m:mrow>
+                          <m:mfrac>
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mo stretchy="false">−</m:mo>
+                                <m:mo stretchy="false">(</m:mo>
+                              </m:mrow>
+                              <m:mrow>
+                                <m:msup>
+                                  <m:mi>R</m:mi>
+                                  <m:mstyle fontsize="6pt">
+                                    <m:mrow>
+                                      <m:mn>2</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msup>
+                                <m:mo stretchy="false">+</m:mo>
+                                <m:msup>
+                                  <m:mi>A</m:mi>
+                                  <m:mstyle fontsize="6pt">
+                                    <m:mrow>
+                                      <m:mn>2</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msup>
+                              </m:mrow>
+                              <m:mo stretchy="false">)</m:mo>
+                            </m:mrow>
+                            <m:msup>
+                              <m:mn>2σ</m:mn>
+                              <m:mstyle fontsize="6pt">
+                                <m:mrow>
+                                  <m:mn>2</m:mn>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msup>
+                          </m:mfrac>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:msup>
+                    <m:msub>
+                      <m:mi>I</m:mi>
+                      <m:mn>0</m:mn>
+                    </m:msub>
+                    <m:mfenced open="(" close=")">
+                      <m:mstyle fontsize="12pt">
+                        <m:mrow>
+                          <m:mfrac>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:mtext>AR</m:mtext>
+                              </m:mrow>
+                            </m:mstyle>
+                            <m:msup>
+                              <m:mi>σ</m:mi>
+                              <m:mn>2</m:mn>
+                            </m:msup>
+                          </m:mfrac>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:mfenced>
+                    <m:mtable>
+                      <m:mtr>
+                        <m:mtd>
+                          <m:mrow/>
+                        </m:mtd>
+                        <m:mtd>
+                          <m:mrow>
+                            <m:mstyle fontsize="12pt">
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:mi>R</m:mi>
+                                  <m:mo stretchy="false">≥</m:mo>
+                                  <m:mn>0</m:mn>
+                                </m:mrow>
+                              </m:mrow>
+                            </m:mstyle>
+                            <m:mrow/>
+                          </m:mrow>
+                        </m:mtd>
+                      </m:mtr>
+                    </m:mtable>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{P rSub { size 8{R} }  \( R \) = {  {R}  over  {σ rSup { size 8{2} } } } e rSup { size 8{ {  { -  \( R rSup { size 6{2} } +A rSup { size 6{2} }  \) }  over  {2σ rSup { size 6{2} } } } } } I rSub {0}  left ( size 12{ {  { ital "AR"}  over  {σ rSup {2} } } }  right ) matrix {
+ {} #  size 12{R &gt;= 0} {}
+} } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+      <para id="id8458203">Esta última ecuación se conoce como <emphasis>Distribución Rice</emphasis> (<foreign>Rician Distribution</foreign>). </para>
+      <para id="id6714412">Si <emphasis>A&gt;&gt;</emphasis><emphasis>σ</emphasis><emphasis>,</emphasis> El valor de R tendrá una menor proporción del ruido, por lo que:</para>
+      <equation id="id2008547">
+        <m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mi>R</m:mi>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mi>A</m:mi>
+                    </m:mrow>
+                    <m:mrow>
+                      <m:msqrt>
+                        <m:mrow>
+                          <m:mrow>
+                            <m:mn>1</m:mn>
+                            <m:mo stretchy="false">+</m:mo>
+                            <m:mfrac>
+                              <m:msub>
+                                <m:mn>2n</m:mn>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mi>i</m:mi>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msub>
+                              <m:mi>A</m:mi>
+                            </m:mfrac>
+                          </m:mrow>
+                          <m:mo stretchy="false">+</m:mo>
+                          <m:mfrac>
+                            <m:mrow>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mrow>
+                                <m:msub>
+                                  <m:mi>n</m:mi>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:msup>
+                                        <m:mi>i</m:mi>
+                                        <m:mstyle fontsize="8pt">
+                                          <m:mrow>
+                                            <m:mn>2</m:mn>
+                                          </m:mrow>
+                                        </m:mstyle>
+                                      </m:msup>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msub>
+                                <m:mo stretchy="false">+</m:mo>
+                                <m:msub>
+                                  <m:mi>n</m:mi>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:msup>
+                                        <m:mi>q</m:mi>
+                                        <m:mstyle fontsize="8pt">
+                                          <m:mrow>
+                                            <m:mn>2</m:mn>
+                                          </m:mrow>
+                                        </m:mstyle>
+                                      </m:msup>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msub>
+                              </m:mrow>
+                              <m:mo stretchy="false">)</m:mo>
+                            </m:mrow>
+                            <m:msup>
+                              <m:mi>A</m:mi>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mn>2</m:mn>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msup>
+                          </m:mfrac>
+                        </m:mrow>
+                      </m:msqrt>
+                      <m:mo stretchy="false">≈</m:mo>
+                      <m:mrow>
+                        <m:mi>A</m:mi>
+                        <m:mo stretchy="false">+</m:mo>
+                        <m:msub>
+                          <m:mi>n</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mi>i</m:mi>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                      </m:mrow>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{R=A sqrt {1+ {  {2n rSub { size 8{i} } }  over  {A} } + {  { \( n rSub { size 8{i}   rSup { size 8{2} } } +n rSub { size 8{q}   rSup { size 8{2} } }  \) }  over  {A rSup { size 8{2} } } } }  approx A+n rSub { size 8{i} } } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+      <para id="id3220599">Esto implica que la envolvente R será gaussiana ya que <emphasis effect="italics">n</emphasis><emphasis effect="italics">i</emphasis> lo es.</para>
+      <para id="id5858915">Para cuando A &gt;&gt; σ, la ecuación puede simplificarse como:</para>
+      <equation id="id5946822">
+        <m:math>
+          <m:semantics>
+            <m:mrow>
+              <m:mstyle fontsize="12pt">
+                <m:mrow>
+                  <m:mrow>
+                    <m:msub>
+                      <m:mi>P</m:mi>
+                      <m:mstyle fontsize="8pt">
+                        <m:mrow>
+                          <m:mi>R</m:mi>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:msub>
+                    <m:mo stretchy="false">(</m:mo>
+                    <m:mi>R</m:mi>
+                    <m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:msqrt>
+                        <m:mfrac>
+                          <m:mi>R</m:mi>
+                          <m:msup>
+                            <m:mn>2πAσ</m:mn>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mn>2</m:mn>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msup>
+                        </m:mfrac>
+                      </m:msqrt>
+                    </m:mrow>
+                    <m:msup>
+                      <m:mi>e</m:mi>
+                      <m:mstyle fontsize="8pt">
+                        <m:mrow>
+                          <m:mfrac>
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mo stretchy="false">−</m:mo>
+                                <m:mo stretchy="false">(</m:mo>
+                              </m:mrow>
+                              <m:mrow>
+                                <m:msup>
+                                  <m:mi>R</m:mi>
+                                  <m:mstyle fontsize="6pt">
+                                    <m:mrow>
+                                      <m:mn>2</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msup>
+                                <m:mo stretchy="false">−</m:mo>
+                                <m:msup>
+                                  <m:mi>A</m:mi>
+                                  <m:mstyle fontsize="6pt">
+                                    <m:mrow>
+                                      <m:mn>2</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msup>
+                              </m:mrow>
+                              <m:mo stretchy="false">)</m:mo>
+                            </m:mrow>
+                            <m:msup>
+                              <m:mn>2σ</m:mn>
+                              <m:mstyle fontsize="6pt">
+                                <m:mrow>
+                                  <m:mn>2</m:mn>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msup>
+                          </m:mfrac>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:msup>
+                    <m:mtable>
+                      <m:mtr>
+                        <m:mtd>
+                          <m:mrow/>
+                        </m:mtd>
+                        <m:mtd>
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mi>A</m:mi>
+                              <m:mo stretchy="false">≥</m:mo>
+                              <m:mi>σ</m:mi>
+                            </m:mrow>
+                            <m:mrow/>
+                          </m:mrow>
+                        </m:mtd>
+                      </m:mtr>
+                    </m:mtable>
+                  </m:mrow>
+                </m:mrow>
+              </m:mstyle>
+              <m:mrow/>
+            </m:mrow>
+            <m:annotation encoding="StarMath 5.0"> size 12{P rSub { size 8{R} }  \( R \) = sqrt { {  {R}  over  {2πAσ rSup { size 8{2} } } } } e rSup { size 8{ {  { -  \( R rSup { size 6{2} }  - A rSup { size 6{2} }  \) }  over  {2σ rSup { size 6{2} } } } } }  matrix {
+ {} # A &gt;= σ{}
+} } {}</m:annotation>
+          </m:semantics>
+        </m:math>
+      </equation>
+      <para id="id1945694"/>
+      <para id="id4866492">Finalmente, se confirma que la fdp es una curva Gaussiana con varianza σ² centrada en R≈A.</para>
+      <para id="id2429619">En definitiva se tienen 3 posibles distribuciones para la envolvente: Rayleigh cuando A=0, Rice cuando A es comparable con la desviación estándar del ruido y Gaussiana cuando A &gt;&gt; σ</para>
+      <figure id="id7621803">
+        <media id="id7621803_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics2-7bde.png" id="id7621803__onlineimage" height="244" width="487"/>
+        </media>
+        <caption>fdp de la envolvente R con ruido. </caption>
+      </figure>
+      <section id="id6827594">
+        <title>1. Detección No Coherente - OOK</title>
+        <para id="id1785108">El receptor no coherente para una señal modulada OOK puede expresarse como sigue:</para>
+        <figure id="id6228580">
+          <media id="id6228580_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics3-67b8.png" id="id6228580__onlineimage" height="148" width="599"/>
+          </media>
+        </figure>
+        <para id="id2225526">Como se observa, la señal modulada OOK será detectada por un filtro pasabanda, seguido por un detector de envolvente. Si se transmite un 0 lógico, el ruido tendrá distribución Rayleigh. Pero, si se transmite un 1 lógico, el ruido puede tener distribución Rice o Gaussiana. </para>
+        <para id="id6461359">La probabilidad de error será:</para>
+        <equation id="id7324770">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>Pe</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mi>P</m:mi>
+                      </m:mrow>
+                      <m:mfenced open="(" close=")"/>
+                      <m:mi>P</m:mi>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:msub>
+                        <m:mi>T</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mn>1</m:mn>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">+</m:mo>
+                        <m:mi>P</m:mi>
+                      </m:mrow>
+                      <m:mfenced open="(" close=")"/>
+                      <m:mi>P</m:mi>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:msub>
+                        <m:mi>T</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mn>0</m:mn>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mi>P</m:mi>
+                      </m:mrow>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mrow>
+                        <m:mrow>
+                          <m:mi>A</m:mi>
+                          <m:mo stretchy="false">+</m:mo>
+                          <m:mi fontstyle="italic">n1</m:mi>
+                        </m:mrow>
+                        <m:mo stretchy="false">&lt;</m:mo>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>Umbral</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mi>P</m:mi>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:msub>
+                        <m:mi>T</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mn>1</m:mn>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">+</m:mo>
+                        <m:mi>P</m:mi>
+                      </m:mrow>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mrow>
+                        <m:mi fontstyle="italic">n2</m:mi>
+                        <m:mo stretchy="false">&gt;</m:mo>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>Umbral</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mi>P</m:mi>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:msub>
+                        <m:mi>T</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mn>0</m:mn>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                      <m:mo stretchy="false">)</m:mo>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{ ital "Pe"=P left ( {e} wideslash {T rSub { size 8{1} } }  right )P \( T rSub { size 8{1} }  \) +P left ( {e} wideslash {T rSub { size 8{0} } }  right )P \( T rSub { size 8{0} }  \) =P \( A+n1&lt; ital "Umbral" \) P \( T rSub { size 8{1} }  \) +P \( n2&gt; ital "Umbral" \) P \( T rSub { size 8{0} }  \) } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id6869123"/>
+        <para id="id6856660">La probabilidad de error tal que se transmite un 1 se calculará usando la distribución Rice. La probabilidad de error tal que se transmite un 0 será calculada usando la distribución de Rayleigh.</para>
+        <figure id="id1866232">
+          <media id="id1866232_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics4-1261.png" id="id1866232__onlineimage" height="283" width="400"/>
+          </media>
+        </figure>
+        <para id="id1935632">Al igualar las áreas obtenemos el Umbral:</para>
+        <equation id="id6651559">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mrow>
+                  <m:mtable>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mstyle fontstyle="italic">
+                                  <m:mrow>
+                                    <m:mtext>Umbral</m:mtext>
+                                  </m:mrow>
+                                </m:mstyle>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mfrac>
+                                  <m:mi>A</m:mi>
+                                  <m:mn>2</m:mn>
+                                </m:mfrac>
+                              </m:mrow>
+                              <m:msqrt>
+                                <m:mrow>
+                                  <m:mn>1</m:mn>
+                                  <m:mo stretchy="false">+</m:mo>
+                                  <m:mfrac>
+                                    <m:mn>8σ</m:mn>
+                                    <m:mi>A</m:mi>
+                                  </m:mfrac>
+                                </m:mrow>
+                              </m:msqrt>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:msub>
+                                <m:mi>E</m:mi>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mn>1</m:mn>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msub>
+                              <m:mo stretchy="false">=</m:mo>
+                              <m:mfrac>
+                                <m:mrow>
+                                  <m:msup>
+                                    <m:mi>A</m:mi>
+                                    <m:mstyle fontsize="8pt">
+                                      <m:mrow>
+                                        <m:mn>2</m:mn>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msup>
+                                  <m:mstyle fontstyle="italic">
+                                    <m:mrow>
+                                      <m:mtext>tb</m:mtext>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:mrow>
+                                <m:mn>2</m:mn>
+                              </m:mfrac>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mrow>
+                          <m:msub>
+                            <m:mi>E</m:mi>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mn>0</m:mn>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msub>
+                          <m:mo stretchy="false">=</m:mo>
+                          <m:mn>0</m:mn>
+                        </m:mrow>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow/>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>Entonces</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mi>:</m:mi>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow/>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mrow>
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mfenced open="(" close=")">
+                                <m:mfrac>
+                                  <m:mi>S</m:mi>
+                                  <m:mi>N</m:mi>
+                                </m:mfrac>
+                              </m:mfenced>
+                              <m:mo stretchy="false">=</m:mo>
+                              <m:mfrac>
+                                <m:msub>
+                                  <m:mi>E</m:mi>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mn>1</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msub>
+                                <m:mn>2η</m:mn>
+                              </m:mfrac>
+                            </m:mrow>
+                            <m:mo stretchy="false">=</m:mo>
+                            <m:mfrac>
+                              <m:msub>
+                                <m:mi>E</m:mi>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mi>p</m:mi>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msub>
+                              <m:mi>η</m:mi>
+                            </m:mfrac>
+                          </m:mrow>
+                          <m:mo stretchy="false">=</m:mo>
+                          <m:msup>
+                            <m:mfenced open="(" close=")">
+                              <m:mfrac>
+                                <m:mi>A</m:mi>
+                                <m:mi>σ</m:mi>
+                              </m:mfrac>
+                            </m:mfenced>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mn>2</m:mn>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msup>
+                        </m:mrow>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                  </m:mtable>
+                  <m:mrow/>
+                </m:mrow>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0">alignl { stack {
+ size 12{ ital "Umbral"= {  {A}  over  {2} }  sqrt {1+ {  {8σ}  over  {A} } } }  {} # 
+ size 12{E rSub { size 8{1} } = {  {A rSup { size 8{2} }  ital "tb"}  over  {2} } }  {} # 
+E rSub { size 8{0} } =0 {} # 
+ {} # 
+ ital "Entonces": {} # 
+ {} # 
+ left ( {  {S}  over  {N} }  right )= {  {E rSub { size 8{1} } }  over  {2η} } = {  {E rSub { size 8{p} } }  over  {η} } = left ( {  {A}  over  {σ} }  right ) rSup { size 8{2} }  {} 
+} } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id7561677">Si se tiene bajo ruido (Ep/)&gt;&gt;1:</para>
+        <equation id="id6831422">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mrow>
+                  <m:mtable>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mi>P</m:mi>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mrow>
+                                <m:mi>e</m:mi>
+                                <m:mo stretchy="false">/</m:mo>
+                                <m:msub>
+                                  <m:mi>T</m:mi>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mn>0</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msub>
+                              </m:mrow>
+                              <m:mrow>
+                                <m:mo stretchy="false">)</m:mo>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mrow>
+                                  <m:munderover>
+                                    <m:mo stretchy="false">∫</m:mo>
+                                    <m:mstyle fontsize="8pt">
+                                      <m:mrow/>
+                                    </m:mstyle>
+                                    <m:mstyle fontsize="8pt">
+                                      <m:mrow>
+                                        <m:mo stretchy="false">∞</m:mo>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:munderover>
+                                  <m:mrow>
+                                    <m:msub>
+                                      <m:mi>P</m:mi>
+                                      <m:mstyle fontsize="8pt">
+                                        <m:mrow>
+                                          <m:mi>R</m:mi>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                    </m:msub>
+                                    <m:mo stretchy="false">(</m:mo>
+                                    <m:mstyle fontstyle="italic">
+                                      <m:mrow>
+                                        <m:mtext>Rayleigh</m:mtext>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                    <m:mo stretchy="false">)</m:mo>
+                                  </m:mrow>
+                                </m:mrow>
+                              </m:mrow>
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:mstyle fontstyle="italic">
+                                    <m:mrow>
+                                      <m:mtext>dR</m:mtext>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                  <m:mo stretchy="false">=</m:mo>
+                                  <m:msup>
+                                    <m:mi>e</m:mi>
+                                    <m:mstyle fontsize="8pt">
+                                      <m:mrow>
+                                        <m:mfrac>
+                                          <m:mrow>
+                                            <m:mo stretchy="false">−</m:mo>
+                                            <m:msup>
+                                              <m:mi>A</m:mi>
+                                              <m:mstyle fontsize="6pt">
+                                                <m:mrow>
+                                                  <m:mn>2</m:mn>
+                                                </m:mrow>
+                                              </m:mstyle>
+                                            </m:msup>
+                                          </m:mrow>
+                                          <m:msup>
+                                            <m:mn>8σ</m:mn>
+                                            <m:mstyle fontsize="6pt">
+                                              <m:mrow>
+                                                <m:mn>2</m:mn>
+                                              </m:mrow>
+                                            </m:mstyle>
+                                          </m:msup>
+                                        </m:mfrac>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msup>
+                                </m:mrow>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:msup>
+                                  <m:mi>e</m:mi>
+                                  <m:mfrac>
+                                    <m:mrow>
+                                      <m:mo stretchy="false">−</m:mo>
+                                      <m:mstyle fontstyle="italic">
+                                        <m:mrow>
+                                          <m:mtext>Ep</m:mtext>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                    </m:mrow>
+                                    <m:mn>2η</m:mn>
+                                  </m:mfrac>
+                                </m:msup>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow/>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mi>P</m:mi>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mrow>
+                                <m:mi>e</m:mi>
+                                <m:mo stretchy="false">/</m:mo>
+                                <m:msub>
+                                  <m:mi>T</m:mi>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mn>1</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msub>
+                              </m:mrow>
+                              <m:mrow>
+                                <m:mo stretchy="false">)</m:mo>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mrow>
+                                  <m:munderover>
+                                    <m:mo stretchy="false">∫</m:mo>
+                                    <m:mstyle fontsize="8pt">
+                                      <m:mrow>
+                                        <m:mn>0</m:mn>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                    <m:mstyle fontsize="8pt">
+                                      <m:mrow/>
+                                    </m:mstyle>
+                                  </m:munderover>
+                                  <m:mrow>
+                                    <m:msub>
+                                      <m:mi>P</m:mi>
+                                      <m:mstyle fontsize="8pt">
+                                        <m:mrow>
+                                          <m:mi>R</m:mi>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                    </m:msub>
+                                    <m:mo stretchy="false">(</m:mo>
+                                    <m:mstyle fontstyle="italic">
+                                      <m:mrow>
+                                        <m:mtext>Gauss</m:mtext>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                    <m:mo stretchy="false">)</m:mo>
+                                  </m:mrow>
+                                </m:mrow>
+                              </m:mrow>
+                              <m:mrow>
+                                <m:mstyle fontstyle="italic">
+                                  <m:mrow>
+                                    <m:mtext>dR</m:mtext>
+                                  </m:mrow>
+                                </m:mstyle>
+                                <m:mo stretchy="false">≈</m:mo>
+                                <m:mi>Q</m:mi>
+                              </m:mrow>
+                              <m:mrow>
+                                <m:mfenced open="(" close=")">
+                                  <m:msqrt>
+                                    <m:mfrac>
+                                      <m:mi>E</m:mi>
+                                      <m:mi>η</m:mi>
+                                    </m:mfrac>
+                                  </m:msqrt>
+                                </m:mfenced>
+                                <m:mo stretchy="false">≈</m:mo>
+                                <m:mfrac>
+                                  <m:mn>1</m:mn>
+                                  <m:mrow>
+                                    <m:msqrt>
+                                      <m:mn>2π</m:mn>
+                                    </m:msqrt>
+                                    <m:msqrt>
+                                      <m:mfrac>
+                                        <m:mi>E</m:mi>
+                                        <m:mi>η</m:mi>
+                                      </m:mfrac>
+                                    </m:msqrt>
+                                  </m:mrow>
+                                </m:mfrac>
+                              </m:mrow>
+                              <m:msup>
+                                <m:mi>e</m:mi>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mfrac>
+                                      <m:mrow>
+                                        <m:mo stretchy="false">−</m:mo>
+                                        <m:mstyle fontstyle="italic">
+                                          <m:mrow>
+                                            <m:mtext>Ep</m:mtext>
+                                          </m:mrow>
+                                        </m:mstyle>
+                                      </m:mrow>
+                                      <m:mn>2η</m:mn>
+                                    </m:mfrac>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msup>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                  </m:mtable>
+                  <m:mrow/>
+                </m:mrow>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0">alignl { stack {
+ size 12{P \(  {e} slash {T rSub { size 8{0} } }  \) = Int cSub { size 8{ {A} wideslash {2} } }  cSup { size 8{ infinity } }  {P rSub { size 8{R} }  \(  ital "Rayleigh" \) }  ital "dR"=e rSup { size 8{ {  { - A rSup { size 6{2} } }  over  {8σ rSup { size 6{2} } } } } } =e rSup { {  { -  ital "Ep"}  over  {2η} } } }  {} # 
+ {} # 
+ size 12{P \(  {e} slash {T rSub { size 8{1} } }  \) = Int cSub { size 8{0} }  cSup { size 8{ {A} wideslash {2} } }  {P rSub { size 8{R} }  \(  ital "Gauss" \) }  ital "dR" approx Q left ( sqrt { {  {E}  over  {η} } }  right ) approx  {  {1}  over  { sqrt {2π}  sqrt { {  {E}  over  {η} } } } } e rSup { size 8{ {  { -  ital "Ep"}  over  {2η} } } } }  {} 
+} } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id6868658">Finalmente: </para>
+        <para id="id6897375"/>
+        <equation id="id6853296">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:msub>
+                              <m:mtext>Pe</m:mtext>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mstyle fontstyle="italic">
+                                    <m:mrow>
+                                      <m:mtext>OOK</m:mtext>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msub>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mfrac>
+                          <m:mn>1</m:mn>
+                          <m:mn>2</m:mn>
+                        </m:mfrac>
+                      </m:mrow>
+                      <m:msup>
+                        <m:mi>e</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mfrac>
+                              <m:mrow>
+                                <m:mo stretchy="false">−</m:mo>
+                                <m:mstyle fontstyle="italic">
+                                  <m:mrow>
+                                    <m:mtext>Ep</m:mtext>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:mrow>
+                              <m:mn>2η</m:mn>
+                            </m:mfrac>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msup>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{ ital "Pe" rSub { size 8{ ital "OOK"} } = {  {1}  over  {2} } e rSup { size 8{ {  { -  ital "Ep"}  over  {2η} } } } } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id4896225">A continuación se comparan las curvas de probabilidad de error cuando se usa detector coherente y no coherente para OOK:</para>
+        <figure id="id6406854">
+          <media id="id6406854_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics5-27a7.png" id="id6406854__onlineimage" height="518" width="331"/>
+          </media>
+        </figure>
+        <para id="id6274205">Como se observa, OOK con detección coherente presenta <emphasis>menor </emphasis>valor de Probabilidad de error para un determinado valor E/. Para que OOK con detección no coherente tenga la misma probabilidad de error que con detección coherente es necesario que se transmita más potencia. </para>
+      </section>
+      <section id="id6469940">
+        <title>2. Detección No Coherente – FSK</title>
+        <para id="id7574307">El sistema de detección no coherente para una señal FSK es:</para>
+        <figure id="id6260248">
+          <media id="id6260248_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics6-e8a6.png" id="id6260248__onlineimage" height="182" width="599"/>
+          </media>
+        </figure>
+        <para id="id1916234">La señal de entrada FSK entra de forma simultánea a los dos filtros Pasabanda. Cada filtro pasará la frecuencia asignada para un 1 lógico o un 0 lógico a su detector de envolvente correspondiente. Cuando llegue la señal modulada correspondiente al “0” y1 será pequeño y y0 será grande; la resta será negativa. Para un “1” la situación será opuesta</para>
+        <para id="id6811958">La probabilidad de error tal que se transmite un 1 se calculará usando la distribución Rice. La probabilidad de error tal que se transmite un 0 será calculada usando la distribución de Rayleigh.</para>
+        <para id="id2162158">La regeneración de la señal está basada en la diferencia de envolventes <emphasis>Y1-Y0= y1(t)-y0(t)</emphasis>. Dada la simetría del receptor, no importa el valor de A, La P(e/T<sub>1</sub>) será igual a:</para>
+        <equation id="id5093737">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mrow>
+                  <m:mtable>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mi>P</m:mi>
+                              <m:mrow>
+                                <m:mfenced open="(" close=")"/>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mi>P</m:mi>
+                              </m:mrow>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:msub>
+                                    <m:mi>Y</m:mi>
+                                    <m:mstyle fontsize="8pt">
+                                      <m:mrow>
+                                        <m:mn>1</m:mn>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msub>
+                                  <m:mo stretchy="false">−</m:mo>
+                                  <m:msub>
+                                    <m:mi>Y</m:mi>
+                                    <m:mstyle fontsize="8pt">
+                                      <m:mrow>
+                                        <m:mn>0</m:mn>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msub>
+                                </m:mrow>
+                                <m:mo stretchy="false">&lt;</m:mo>
+                                <m:mn>0</m:mn>
+                              </m:mrow>
+                              <m:mo stretchy="false">∣</m:mo>
+                              <m:msub>
+                                <m:mi>H</m:mi>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mn>1</m:mn>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msub>
+                              <m:mrow>
+                                <m:mo stretchy="false">)</m:mo>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mi>P</m:mi>
+                              </m:mrow>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mrow>
+                                <m:msub>
+                                  <m:mi>Y</m:mi>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mn>0</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msub>
+                                <m:mo stretchy="false">&gt;</m:mo>
+                                <m:msub>
+                                  <m:mi>Y</m:mi>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mn>1</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msub>
+                              </m:mrow>
+                              <m:mo stretchy="false">∣</m:mo>
+                              <m:msub>
+                                <m:mi>H</m:mi>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mn>1</m:mn>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msub>
+                              <m:mo stretchy="false">)</m:mo>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow/>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>Como</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mtable>
+                          <m:mtr>
+                            <m:mtd>
+                              <m:mrow/>
+                            </m:mtd>
+                            <m:mtd>
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:mtable>
+                                    <m:mtr>
+<m:mtd>
+                                      <m:mrow>
+                                        <m:mi>P</m:mi>
+                                        <m:mrow>
+                                          <m:mfenced open="(" close=")"/>
+                                          <m:mo stretchy="false">=</m:mo>
+                                          <m:mi>P</m:mi>
+                                        </m:mrow>
+                                        <m:mrow>
+                                          <m:mfenced open="(" close=")"/>
+                                          <m:mo stretchy="false">=</m:mo>
+                                          <m:mstyle fontstyle="italic">
+                                            <m:mrow>
+                                              <m:mtext>Pe</m:mtext>
+                                            </m:mrow>
+                                          </m:mstyle>
+                                        </m:mrow>
+                                        <m:mrow/>
+                                      </m:mrow>
+</m:mtd>
+                                    </m:mtr>
+                                    <m:mtr>
+<m:mtd>
+                                      <m:mrow/>
+</m:mtd>
+                                    </m:mtr>
+                                  </m:mtable>
+                                  <m:mrow/>
+                                </m:mrow>
+                              </m:mrow>
+                            </m:mtd>
+                          </m:mtr>
+                        </m:mtable>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mrow>
+                          <m:mstyle fontstyle="italic">
+                            <m:mrow>
+                              <m:mtext>Pe</m:mtext>
+                            </m:mrow>
+                          </m:mstyle>
+                          <m:mo stretchy="false">=</m:mo>
+                          <m:mrow>
+                            <m:munderover>
+                              <m:mo stretchy="false">∫</m:mo>
+                              <m:mn>0</m:mn>
+                              <m:mo stretchy="false">∞</m:mo>
+                            </m:munderover>
+                            <m:msub>
+                              <m:mi>P</m:mi>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:msub>
+                                    <m:mi>Y</m:mi>
+                                    <m:mstyle fontsize="6pt">
+                                      <m:mrow>
+                                        <m:mn>1</m:mn>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msub>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msub>
+                          </m:mrow>
+                        </m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:msub>
+                                <m:mi>Y</m:mi>
+                                <m:mn>1</m:mn>
+                              </m:msub>
+                              <m:mo stretchy="false">∣</m:mo>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:msub>
+                              <m:mi>H</m:mi>
+                              <m:mn>1</m:mn>
+                            </m:msub>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mo stretchy="false">)</m:mo>
+                              <m:mfenced open="[" close="]">
+                                <m:mrow>
+                                  <m:munderover>
+                                    <m:mo stretchy="false">∫</m:mo>
+                                    <m:msub>
+                                      <m:mi>Y</m:mi>
+                                      <m:mstyle fontsize="6pt">
+                                        <m:mrow>
+                                          <m:mn>1</m:mn>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                    </m:msub>
+                                    <m:mo stretchy="false">∞</m:mo>
+                                  </m:munderover>
+                                  <m:mrow>
+                                    <m:msub>
+                                      <m:mi>P</m:mi>
+                                      <m:msub>
+                                        <m:mi>Y</m:mi>
+                                        <m:mstyle fontsize="6pt">
+                                          <m:mrow>
+                                            <m:mn>0</m:mn>
+                                          </m:mrow>
+                                        </m:mstyle>
+                                      </m:msub>
+                                    </m:msub>
+                                    <m:mstyle fontsize="12pt">
+                                      <m:mrow>
+                                        <m:mrow>
+                                          <m:mo stretchy="false">(</m:mo>
+                                          <m:msub>
+                                            <m:mi>Y</m:mi>
+                                            <m:mn>0</m:mn>
+                                          </m:msub>
+                                          <m:mo stretchy="false">∣</m:mo>
+                                        </m:mrow>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                    <m:mstyle fontsize="12pt">
+                                      <m:mrow>
+                                        <m:msub>
+                                          <m:mi>H</m:mi>
+                                          <m:mn>1</m:mn>
+                                        </m:msub>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                    <m:mstyle fontsize="12pt">
+                                      <m:mrow>
+                                        <m:mrow>
+                                          <m:mo stretchy="false">)</m:mo>
+                                          <m:mstyle fontstyle="italic">
+                                            <m:mrow>
+                                              <m:msub>
+                                                <m:mtext>dy</m:mtext>
+                                                <m:mn>0</m:mn>
+                                              </m:msub>
+                                            </m:mrow>
+                                          </m:mstyle>
+                                        </m:mrow>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:mrow>
+                                </m:mrow>
+                              </m:mfenced>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:msub>
+                                  <m:mtext>dy</m:mtext>
+                                  <m:mn>1</m:mn>
+                                </m:msub>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow/>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mstyle fontstyle="italic">
+                                  <m:mrow>
+                                    <m:mtext>Pe</m:mtext>
+                                  </m:mrow>
+                                </m:mstyle>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mrow>
+                                  <m:munderover>
+                                    <m:mo stretchy="false">∫</m:mo>
+                                    <m:mn>0</m:mn>
+                                    <m:mo stretchy="false">∞</m:mo>
+                                  </m:munderover>
+                                  <m:mrow>
+                                    <m:mfrac>
+                                      <m:msub>
+                                        <m:mi>y</m:mi>
+                                        <m:mn>1</m:mn>
+                                      </m:msub>
+                                      <m:mstyle fontsize="12pt">
+                                        <m:mrow>
+                                          <m:msup>
+                                            <m:mi>σ</m:mi>
+                                            <m:mn>2</m:mn>
+                                          </m:msup>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                    </m:mfrac>
+                                    <m:mstyle fontsize="12pt">
+                                      <m:mrow>
+                                        <m:msup>
+                                          <m:mi>e</m:mi>
+                                        </m:msup>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:mrow>
+                                </m:mrow>
+                              </m:mrow>
+                              <m:mstyle fontsize="12pt">
+                                <m:mrow>
+                                  <m:mrow>
+                                    <m:mtext>.</m:mtext>
+                                    <m:msub>
+                                      <m:mi>I</m:mi>
+                                      <m:mn>0</m:mn>
+                                    </m:msub>
+                                    <m:mfenced open="(" close=")">
+                                      <m:mstyle fontsize="12pt">
+                                        <m:mrow>
+                                          <m:mfrac>
+                                            <m:mstyle fontstyle="italic">
+                                              <m:mrow>
+                                                <m:msub>
+                                                  <m:mtext>Ay</m:mtext>
+                                                  <m:mn>1</m:mn>
+                                                </m:msub>
+                                              </m:mrow>
+                                            </m:mstyle>
+                                            <m:mstyle fontsize="12pt">
+                                              <m:mrow>
+                                                <m:msup>
+                                                  <m:mi>σ</m:mi>
+                                                  <m:mn>2</m:mn>
+                                                </m:msup>
+                                              </m:mrow>
+                                            </m:mstyle>
+                                          </m:mfrac>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                    </m:mfenced>
+                                  </m:mrow>
+                                </m:mrow>
+                              </m:mstyle>
+                              <m:mstyle fontsize="12pt">
+                                <m:mrow>
+                                  <m:mrow>
+                                    <m:mstyle fontstyle="italic">
+                                      <m:mrow>
+                                        <m:msub>
+                                          <m:mtext>dy</m:mtext>
+                                          <m:mn>1</m:mn>
+                                        </m:msub>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                    <m:mtable>
+                                      <m:mtr>
+                                        <m:mtd>
+                                          <m:mrow/>
+                                        </m:mtd>
+                                        <m:mtd>
+                                          <m:mrow/>
+                                        </m:mtd>
+                                        <m:mtd>
+                                          <m:mrow>
+                                            <m:mstyle fontsize="12pt">
+                                              <m:mrow>
+                                                <m:mrow>
+                                                  <m:mo stretchy="false">(</m:mo>
+                                                  <m:mi>d</m:mi>
+                                                  <m:mo stretchy="false">)</m:mo>
+                                                </m:mrow>
+                                              </m:mrow>
+                                            </m:mstyle>
+                                            <m:mrow/>
+                                          </m:mrow>
+                                        </m:mtd>
+                                      </m:mtr>
+                                    </m:mtable>
+                                  </m:mrow>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                  </m:mtable>
+                  <m:mrow/>
+                </m:mrow>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0">alignl { stack {
+ size 12{P left ( {e} wideslash {T rSub { size 8{1} } }  right )=P \( Y rSub { size 8{1} }  - Y rSub { size 8{0} } &lt;0 \rline H rSub { size 8{1} }  \) =P \( Y rSub { size 8{0} } &gt;Y rSub { size 8{1} }  \rline H rSub { size 8{1} }  \) }  {} # 
+ {} # 
+ ital "Como" matrix {
+ {} # alignl { stack {
+P left ( {e} wideslash {T rSub { size 8{1} } }  right )=P left ( {e} wideslash {T rSub { size 8{0} } }  right )= ital "Pe" {} # 
+ {} 
+} } {}
+}  {} # 
+ ital "Pe"= Int cSub {0}  cSup { infinity }  {P rSub { size 8{Y rSub { size 6{1} } } } }  size 12{ \( Y rSub {1}  \rline } size 12{H rSub {1} } size 12{ \)  left [ Int cSub {Y rSub { size 6{1} } }  cSup { infinity }  {P rSub {Y rSub { size 6{0} } }  size 12{ \( Y rSub {0}  \rline } size 12{H rSub {1} } size 12{ \)  ital "dy" rSub {0} }}  right ]} size 12{ ital "dy" rSub {1} } {} # 
+ {} # 
+ size 12{ ital "Pe"= Int cSub {0}  cSup { infinity }  { {  {y rSub {1} }  over  { size 12{σ rSup {2} } } }  size 12{e rSup { { -  \( 2y rSub { size 6{1} } +A rSup { size 6{2} }  \) } wideslash {2σ rSup { size 6{2} } } } }}  size 12{ "." I rSub {0}  left ( size 12{ {  { ital "Ay" rSub {1} }  over  { size 12{σ rSup {2} } } } }  right )} size 12{ ital "dy" rSub {1}  matrix {
+ {} #  {} #  size 12{ \( d \) } {}
+} }}  {} 
+} } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id7708224">Si hacemos los cambios de variable:</para>
+        <equation id="id7752147">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mrow>
+                  <m:mtable>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mi>λ</m:mi>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:msqrt>
+                                  <m:mn>2</m:mn>
+                                </m:msqrt>
+                              </m:mrow>
+                              <m:msub>
+                                <m:mi>y</m:mi>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mn>1</m:mn>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msub>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mrow>
+                          <m:mi>α</m:mi>
+                          <m:mo stretchy="false">=</m:mo>
+                          <m:mfrac>
+                            <m:mi>A</m:mi>
+                            <m:msqrt>
+                              <m:mn>2</m:mn>
+                            </m:msqrt>
+                          </m:mfrac>
+                        </m:mrow>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                  </m:mtable>
+                  <m:mrow/>
+                </m:mrow>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0">alignl { stack {
+ size 12{λ= sqrt {2} y rSub { size 8{1} } }  {} # 
+α= {  {A}  over  { sqrt {2} } }  {} 
+} } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id6867957">Y los sustituimos en la ecuación (d), tendremos que el integrando de la Probabilidad de Error total de FSK es exactamente la misma función correspondiente a la fdp de Distribución Rice. Por lo tanto:</para>
+        <equation id="id8452750">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mrow>
+                  <m:mtable>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mstyle fontstyle="italic">
+                                  <m:mrow>
+                                    <m:mtext>Pe</m:mtext>
+                                  </m:mrow>
+                                </m:mstyle>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mfrac>
+                                  <m:mn>1</m:mn>
+                                  <m:mn>2</m:mn>
+                                </m:mfrac>
+                              </m:mrow>
+                              <m:msup>
+                                <m:mi>e</m:mi>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow/>
+                                </m:mstyle>
+                              </m:msup>
+                              <m:mrow>
+                                <m:munderover>
+                                  <m:mo stretchy="false">∫</m:mo>
+                                  <m:mn>0</m:mn>
+                                  <m:mo stretchy="false">∞</m:mo>
+                                </m:munderover>
+                                <m:mfrac>
+                                  <m:mi>λ</m:mi>
+                                  <m:msup>
+                                    <m:mi>σ</m:mi>
+                                    <m:mn>2</m:mn>
+                                  </m:msup>
+                                </m:mfrac>
+                              </m:mrow>
+                              <m:mstyle fontsize="12pt">
+                                <m:mrow>
+                                  <m:msup>
+                                    <m:mi>e</m:mi>
+                                  </m:msup>
+                                </m:mrow>
+                              </m:mstyle>
+                              <m:mstyle fontsize="12pt">
+                                <m:mrow>
+                                  <m:mrow>
+                                    <m:msub>
+                                      <m:mi>I</m:mi>
+                                      <m:mn>0</m:mn>
+                                    </m:msub>
+                                    <m:mfenced open="(" close=")">
+                                      <m:mstyle fontsize="12pt">
+                                        <m:mrow>
+                                          <m:mfrac>
+                                            <m:mstyle fontstyle="italic">
+                                              <m:mrow>
+                                                <m:mtext>αλ</m:mtext>
+                                              </m:mrow>
+                                            </m:mstyle>
+                                            <m:msup>
+                                              <m:mi>σ</m:mi>
+                                              <m:mn>2</m:mn>
+                                            </m:msup>
+                                          </m:mfrac>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                    </m:mfenced>
+                                  </m:mrow>
+                                </m:mrow>
+                              </m:mstyle>
+                              <m:mstyle fontsize="12pt">
+                                <m:mrow>
+                                  <m:mi fontstyle="italic">dλ</m:mi>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow/>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mstyle fontstyle="italic">
+                                  <m:mrow>
+                                    <m:msub>
+                                      <m:mtext>Pe</m:mtext>
+                                      <m:mstyle fontsize="8pt">
+                                        <m:mrow>
+                                          <m:mstyle fontstyle="italic">
+                                            <m:mrow>
+                                              <m:mtext>FSK</m:mtext>
+                                            </m:mrow>
+                                          </m:mstyle>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                    </m:msub>
+                                  </m:mrow>
+                                </m:mstyle>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mfrac>
+                                  <m:mn>1</m:mn>
+                                  <m:mn>2</m:mn>
+                                </m:mfrac>
+                              </m:mrow>
+                              <m:mrow>
+                                <m:msup>
+                                  <m:mi>e</m:mi>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow/>
+                                  </m:mstyle>
+                                </m:msup>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mfrac>
+                                  <m:mn>1</m:mn>
+                                  <m:mn>2</m:mn>
+                                </m:mfrac>
+                              </m:mrow>
+                              <m:msup>
+                                <m:mi>e</m:mi>
+                                <m:mfrac>
+                                  <m:mrow>
+                                    <m:mo stretchy="false">−</m:mo>
+                                    <m:mstyle fontstyle="italic">
+                                      <m:mrow>
+                                        <m:mtext>Ep</m:mtext>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:mrow>
+                                  <m:mn>2η</m:mn>
+                                </m:mfrac>
+                              </m:msup>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                  </m:mtable>
+                  <m:mrow/>
+                </m:mrow>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0">alignl { stack {
+ size 12{ ital "Pe"= {  {1}  over  {2} } e rSup { size 8{ { - A rSup { size 6{2} } } wideslash {4σ rSup { size 6{2} } } } }  Int cSub {0}  cSup { infinity }  { {  {λ}  over  {σ rSup {2} } } }  size 12{e rSup { { -  \( A rSup { size 6{2} } +σ rSup { size 6{2} }  \) } wideslash {2σ rSup { size 6{2} } } } } size 12{I rSub {0}  left ( size 12{ {  { ital "αλ"}  over  {σ rSup {2} } } }  right )} size 12{dλ}}  {} # 
+ {} # 
+ size 12{ ital "Pe" rSub { size 8{ ital "FSK"} } = {  {1}  over  {2} } e rSup { size 8{ { - A rSup { size 6{2} } } wideslash {4σ rSup { size 6{2} } } } } = {  {1}  over  {2} } e rSup { {  { -  ital "Ep"}  over  {2η} } } }  {} 
+} } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id6324887">Se observa que las Probabilidades de Error para FSK y OOK no coherentes son prácticamente iguales. Sólo se diferenciarán para cuando Ep/ sea un valor muy pequeño.</para>
+        <figure id="id7545418">
+          <media id="id7545418_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics7-11da.png" id="id7545418__onlineimage" height="537" width="392"/>
+          </media>
+        </figure>
+        <para id="id5940028">Entre los dos sistemas, quien presenta menor probabilidad de error es FSK con Detección Coherente, lo que la hace más fuerte contra el ruido.</para>
+      </section><section id="eip-223"><title>Simulaciones en LabVIEW</title><para id="eip-357">
+Los VIs correspondientes a la detección No Coherente pueden descargarse en los siguientes enlaces:
+</para><para id="eip-22"><title>VI de Detección No Coherente OOK</title><media id="asknc" alt="Detección No Coherente ASK">
+  <download mime-type="application/rar" src="ASK no Coherente.rar"/>
+</media>
+</para><para id="eip-324"/><para id="eip-718"><title>VI de Detección No Coherente FSK</title><media id="fsknc" alt="Detección No Coherente FSK">
+  <download mime-type="application/rar" src="FSK no Coherente.rar"/>
+</media></para></section>
+    </section>
+  </content>
+</document>

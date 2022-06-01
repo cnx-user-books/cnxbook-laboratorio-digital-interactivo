@@ -1,0 +1,22 @@
+<col:collection xmlns="http://cnx.rice.edu/collxml" xmlns:col="http://cnx.rice.edu/collxml" xml:lang="es-ve">
+  <metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
+    <md:content-id>col11274</md:content-id>
+    <md:title>Laboratorio Digital Interactivo</md:title>
+    <md:language>es-ve</md:language>
+    <md:license url="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution License</md:license>
+    <md:uuid>608e0fac-fc13-4450-8f44-7322e1ba1613</md:uuid>
+<md:slug>laboratorio-digital-interactivo</md:slug>
+</metadata>
+  <col:content>
+    <col:module document="m35707"/>
+    <col:module document="m35710"/>
+    <col:module document="m35711"/>
+    <col:module document="m35716"/>
+    <col:module document="m35717"/>
+    <col:module document="m35715"/>
+    <col:module document="m36883"/>
+    <col:module document="m36884"/>
+    <col:module document="m36885"/>
+    <col:module document="m36906"/>
+  </col:content>
+</col:collection>

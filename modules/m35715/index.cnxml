@@ -1,0 +1,270 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>6. Modulaciones M-arias</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m35715</md:content-id>
+  <md:title>6. Modulaciones M-arias</md:title>
+  <md:abstract>El contenido de este módulo engloba las características más relevantes de las modulaciones m-arias, además de la simulación de cada modulación en LabVIEW.</md:abstract>
+  <md:uuid>1fba4684-48dc-46c2-91db-ed647428b6b7</md:uuid>
+</metadata>
+
+<content>
+    <section id="id1170165322152">
+      <title>MODULACIONES M-ARIAS</title>
+      <para id="id1170173788705">
+        <foreign>González C. Y. Venuska</foreign>
+      </para>
+      <para id="id5197841">
+        <foreign>Mezoa R. Mariangela</foreign>
+      </para>
+      <para id="id1170173881817">
+        <term>Resumen</term>
+      </para>
+      <para id="id4520358">El contenido de este módulo engloba las características más relevantes de las modulaciones m-arias, además de la simulación de cada modulación en LabVIEW.</para>
+      <para id="id1170161140804">Hasta el módulo anterior (<link document="m35235">Modulaciones Binarias</link>) habíamos considerado las técnicas de modulación cuando sólo se empleaba un bit a la vez del mensaje de entrada. Aquí tomaremos en consideración los diferentes tipos de modulación cuando se toman símbolos para producir cambios sobre la señal portadora. </para>
+      <para id="id1170178362548">El término <emphasis>M-ario</emphasis> deriva de la palabra <term>binario</term>. La letra <emphasis>M</emphasis> representa la cantidad de condiciones posibles (símbolos) para una determinada cantidad de variables binarias consideradas. En los casos anteriores de modulación (OOK, PRK, FSK, etc) habíamos trabajado con bits individuales (1 y 0), por lo que se podría decir que estos métodos son M-arios en donde M =2.</para>
+      <para id="id1170168506788">Si los símbolos provienen de combinaciones de bits, se puede usar la siguiente ecuación para relacionar el número de bits con el número de símbolos: </para>
+      <figure id="id1170182298206">
+        <media id="id1170182298206_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics1-819d.png" id="id1170182298206__onlineimage" height="28" width="88"/>
+        </media>
+      </figure>
+      <para id="id5144374">En donde:</para>
+      <para id="id2246963"><emphasis>N =</emphasis> Cantidad de bits codificados</para>
+      <para id="id1170161765825"><emphasis>M =</emphasis> Cantidad de condiciones posibles de salida con N bits.</para>
+      <para id="id1170185238114">Entonces, si por ejemplo tomamos la modulación digital binaria FSK tendríamos dos posibles variantes: “1” lógico o un “0” lógico, así que M = 2:</para>
+      <figure id="id1170161223827">
+        <media id="id1170161223827_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics2-6820.png" id="id1170161223827__onlineimage" height="73" width="79"/>
+        </media>
+      </figure>
+      <para id="id1170171087508">Si se toman dos bits codificados juntos entonces M=2<sup>2</sup>=4. En general:</para>
+      <table id="id1170167227156" summary="">
+        <tgroup cols="2">
+          <colspec colnum="1" colname="c1"/>
+          <colspec colnum="2" colname="c2"/>
+          <tbody>
+            <row>
+              <entry>
+                <emphasis>N</emphasis>
+              </entry>
+              <entry>
+                <emphasis>M</emphasis>
+              </entry>
+            </row>
+            <row>
+              <entry>1</entry>
+              <entry>2</entry>
+            </row>
+            <row>
+              <entry>2</entry>
+              <entry>4</entry>
+            </row>
+            <row>
+              <entry>3</entry>
+              <entry>8</entry>
+            </row>
+            <row>
+              <entry>4</entry>
+              <entry>16</entry>
+            </row>
+            <row>
+              <entry>5</entry>
+              <entry>32</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+      <para id="id1528316">El ancho de banda de cada señal modulada M-aria estará relacionado con la tasa de símbolos <emphasis>fs</emphasis> y con la tasa de bits <emphasis>fb</emphasis> de la siguiente forma:</para>
+      <figure id="id1170170867142">
+        <media id="id1170170867142_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics3-e09c.png" id="id1170170867142__onlineimage" height="61" width="231"/>
+        </media>
+      </figure>
+      <para id="id1170161756890">Donde <emphasis>fs</emphasis> es la tasa de símbolos (bauds) y <emphasis>fb</emphasis> es tasa de bits de entrada(bps).</para>
+      <section id="id4012868">
+        <title>1. QPSK (Quaternary Phase Shift Keying)</title>
+        <para id="id8694210">La modulación por desplazamiento cuaternario de fase es un tipo de modulación M-aria en donde el factor M es igual a <emphasis>4</emphasis>. Aquí se tendrán entonces cuatro posibles fases de salida para una sola frecuencia de portadora y cuatro condiciones distintas de entrada. Como con un sólo bit no se pueden obtener cuatro condiciones distintas (sólo dos, 1 y 0), tomamos combinaciones de dos bits, de modo que: </para>
+        <list id="id1170174929415" list-type="bulleted">
+          <item>00</item>
+          <item>01</item>
+          <item>10</item>
+          <item>11</item>
+        </list>
+        <para id="id1170184337602">Cada par de bits (<emphasis>dibits</emphasis>) genera una fase posible de salida. Tenemos entonces la siguiente ecuación que define este tipo de modulación:</para>
+        <figure id="id1170173153527">
+          <media id="id1170173153527_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics4-4508.png" id="id1170173153527__onlineimage" height="36" width="375"/>
+          </media>
+        </figure>
+        <para id="id4064786">En donde:</para>
+        <para id="id6167902">
+          <figure id="id1170165200244">
+            <media id="id1170165200244_media" alt="">
+              <image mime-type="image/png" src="../../media/graphics5-4bb6.png" id="id1170165200244__onlineimage" height="205" width="335"/>
+            </media>
+          </figure>
+        </para>
+        <para id="id7769723">Los parámetros <emphasis>bp</emphasis> y <emphasis>bi</emphasis> siguen el mismo lineamiento que para las modulaciones binarias: para un <emphasis>1 </emphasis>lógico tienen valor de <emphasis>+1</emphasis> y para un<emphasis> 0</emphasis> lógico tienen valor de <emphasis>–1.</emphasis></para>
+        <figure id="id1170164397812">
+          <media id="id1170164397812_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics6-54f0.png" id="id1170164397812__onlineimage" height="308" width="323"/>
+          </media>
+        </figure>
+        <para id="id1170176442887">Para una de las cuatro fases posibles de salida, la portadora tiene exactamente la misma amplitud, lo que evidencia el tipo de modulación con amplitud constante. </para>
+        <para id="id1170171845363">
+          <figure id="id1170160871804"><media id="id1170160871804_media" alt="">
+              <image mime-type="image/png" src="../../media/graphics7-ef47.png" id="id1170160871804__onlineimage" height="344" width="601"/>
+            </media>
+          <caption>Fase de salida para QPSK.</caption></figure>
+        </para>
+        
+        
+        <para id="id1170165467686">
+          <figure id="id1170179166998">
+            <media id="id1170179166998_media" alt="">
+              <image mime-type="image/png" src="../../media/graphics8-fb79.png" id="id1170179166998__onlineimage" height="534" width="541"/>
+            </media>
+            <caption>Bases y constelación para QPSK La separación angular entre dos puntos adyacentes es de 90°..</caption>
+          </figure>
+        </para>
+        <para id="id3759265">La ecuación de la señal modulada en función de las bases ortonormales quedará así:</para>
+        <figure id="id1170166766278">
+          <media id="id1170166766278_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics9-e2db.png" id="id1170166766278__onlineimage" height="63" width="543"/>
+          </media>
+        </figure>
+        <para id="id1170182050386">Podemos hallar la ecuación en el dominio de la frecuencia usando la Transformada de Fourier de la autocorrelación, resultando:</para>
+        <figure id="id1170164938731">
+          <media id="id1170164938731_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics10-cbf3.png" id="id1170164938731__onlineimage" height="88" width="447"/>
+          </media>
+        </figure>
+      </section>
+      <section id="id1170165933291">
+        <title>2. MPSK (Multiple PSK)</title>
+        <para id="id1170160215873">En el caso anterior se hacía la combinación de dos bits para generar cuatro salidas de fase. El término MPSK aplica para cuando se desee combinar bits de N en N. Pudiéramos llegar entonces a una ecuación general que aplique para cuantas combinaciones de bits se necesite:</para>
+        <figure id="id1170177875114">
+          <media id="id1170177875114_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics11-e388.png" id="id1170177875114__onlineimage" height="182" width="264"/>
+          </media>
+        </figure>
+        <para id="id1170172380624">Esto produce M=2<sup>N</sup> Símbolos. Las bases quedarían como sigue:</para>
+        <figure id="id1170173139294">
+          <media id="id1170173139294_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics12-9a6c.png" id="id1170173139294__onlineimage" height="103" width="172"/>
+          </media>
+        </figure>
+        <para id="id1170185026261">Y la Densidad Espectral de Potencia es :</para>
+        <figure id="id1170177846478">
+          <media id="id1170177846478_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics13-f32c.png" id="id1170177846478__onlineimage" height="62" width="600"/>
+          </media>
+        </figure>
+        <para id="id1170166813192">Por ejemplo, si queremos realizar la modulación 8-PSK:</para>
+        <para id="id3603748">
+          <figure id="id1170174966491">
+            <media id="id1170174966491_media" alt="">
+              <image mime-type="image/png" src="../../media/graphics14-d50a.png" id="id1170174966491__onlineimage" height="356" width="550"/>
+            </media>
+            <caption>Fase de salida para 8-PSK</caption>
+          </figure>
+        </para>
+        <para id="id1412984">Sus bases y Constelación serían:</para>
+        <figure id="id1170161911392">
+          <media id="id1170161911392_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics15-dba8.png" id="id1170161911392__onlineimage" height="459" width="512"/>
+          </media>
+        </figure>
+        <para id="id1170170920411">Y para la modulación 16-PSK:</para>
+        <figure id="id1170162621404">
+          <media id="id1170162621404_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics16-f268.png" id="id1170162621404__onlineimage" height="556" width="599"/>
+          </media>
+        </figure>
+      </section>
+      <section id="id1170167763248">
+        <title>3. QAM (Quadrature Amplitude Modulation)</title>
+        <para id="id8564915">En este tipo de modulación se varían los parámetros de amplitud y fase de la señal portadora transmitida. Básicamente, consiste en modular en amplitud dos señales portadoras que trabajan con la misma frecuencia pero se encuentran desfasadas 90° entre sí lo que produce, también, cambios en la fase. En general, su ecuación viene dada por:</para>
+        <figure id="id1170183488193">
+          <media id="id1170183488193_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics17-aec6.png" id="id1170183488193__onlineimage" height="35" width="357"/>
+          </media>
+        </figure>
+        <para id="id1170174513053">En donde a<sub>n</sub> y b<sub>n</sub> son valores discretos correspondientes al total de los N bits codificados. </para>
+        <para id="id1170186449580">Supongamos que tomamos el valor <emphasis>M=8 </emphasis><emphasis>⇒</emphasis><emphasis> 8-QAM</emphasis></para>
+        <para id="id1170178293395">Los datos que llegan antes del modulador se dividen en combinaciones de tres bits (tribits). Se definen entonces dos bases ortonormales para representar la señal:</para>
+        <figure id="id1170161468702">
+          <media id="id1170161468702_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics18.png" id="id1170161468702__onlineimage" height="145" width="185"/>
+          </media>
+        </figure>
+        <para id="id1170175376635">Por lo que la ecuación de QAM en el tiempo quedaría así;</para>
+        <figure id="id1170167262108">
+          <media id="id1170167262108_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics19.png" id="id1170167262108__onlineimage" height="33" width="292"/>
+          </media>
+        </figure>
+        <para id="id1170175286808">Siendo a una constante y k1 y k2 señales Non-Return to Zero (NRZ) multinivel con tiempo de duración N*tb. Su constelación es como sigue:</para>
+        <figure id="id1170180601501">
+          <media id="id1170180601501_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics20.png" id="id1170180601501__onlineimage" height="331" width="441"/>
+          </media>
+          <caption>Constelación para 8-QAM.</caption>
+        </figure>
+        <para id="id1170160877876">Las formas de onda correspondientes a las combinaciones de bits quedarían así:</para>
+        <para id="id1170166742360">
+          <figure id="id1170182626517">
+            <media id="id1170182626517_media" alt="">
+              <image mime-type="image/png" src="../../media/graphics21.png" id="id1170182626517__onlineimage" height="119" width="599"/>
+            </media>
+          </figure>
+        </para>
+        <para id="id1170175363488">Y la ecuación de 8-QAM en el dominio de la frecuencia:</para>
+        <figure id="id1170167389181">
+          <media id="id1170167389181_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics22.png" id="id1170167389181__onlineimage" height="65" width="600"/>
+          </media>
+        </figure>
+        <para id="id1573525">Si ahora tomamos el valor <emphasis>M=16 </emphasis><emphasis>⇒</emphasis><emphasis> 16-QAM</emphasis></para>
+        <figure id="id1170165776819">
+          <media id="id1170165776819_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics23.png" id="id1170165776819__onlineimage" height="141" width="181"/>
+          </media>
+        </figure>
+        <para id="id1170165205810">Su constelación:</para>
+        <figure id="id1170174650095">
+          <media id="id1170174650095_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics24.png" id="id1170174650095__onlineimage" height="331" width="432"/>
+          </media>
+          <caption>Constelación para 16-QAM</caption>
+        </figure>
+        <para id="id3737540">
+          <figure id="id3530803">
+            <media id="id3530803_media" alt="">
+              <image mime-type="image/png" src="../../media/graphics25.png" id="id3530803__onlineimage" height="329" width="387"/>
+            </media>
+          </figure>
+        </para>
+        <para id="id1170169645417">Y la Densidad Espectral de Potencia sería:</para>
+        <figure id="id4125461">
+          <media id="id4125461_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics26.png" id="id4125461__onlineimage" height="61" width="600"/>
+          </media>
+        </figure>
+      </section><section id="eip-353"><title>Simulación en LabVIEW</title><para id="eip-743">
+para observar los tipos de modulación previamente explicados, se debe descargar el codigo fuente del VI m-arias.vi a través del siguiente enlace:
+
+<media id="mariasvi" alt="Compilado de modulaciones M-arias en LabVIEW">
+  <download mime-type="application/zip+latex" src="marias.zip"/>
+</media>
+
+
+</para></section><section id="eip-680"><title>Demostración</title><para id="eip-474">
+<media id="mariasvideo" alt="Video de demostración para Modulaciones M-arias">
+  <video mime-type="video/mpeg" src="m-arias.mpg" autoplay="false" width="700" height="550"/>
+</media>
+
+</para></section>
+    </section>
+  </content>
+</document>

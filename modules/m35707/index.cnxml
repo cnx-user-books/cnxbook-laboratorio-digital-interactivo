@@ -1,0 +1,79 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>1. Introducción a los Sistemas de Comunicaciones Digitales</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m35707</md:content-id>
+  <md:title>1. Introducción a los Sistemas de Comunicaciones Digitales</md:title>
+  <md:abstract>Este módulo sirve como preámbulo a las comunicaciones, específicamente en el ámbito digital. Se explicará a través de un diagrama de bloques teórico el procedimiento necesario para transmitir exitosamente un mensaje, considerando factores como la codificación del mensaje, codificación del canal y la inclusión del ruido en el sistema.</md:abstract>
+  <md:uuid>dbaf20ce-52d9-45a7-9c5e-e0c5d37c863c</md:uuid>
+</metadata>
+
+<content>
+    <section id="id1818252">
+      <title>INTRODUCCIÓN A LOS SISTEMAS DE COMUNICACIONES DIGITALES</title>
+      <para id="id1170181770176">
+        <foreign>González C. Y. Venuska</foreign>
+      </para>
+      <para id="id1170170628956">
+        <foreign>Mezoa R. Mariangela</foreign>
+      </para>
+      <para id="id8133914">
+        <term>Resumen</term>
+      </para>
+      <para id="id1170175031421">Este módulo sirve como preámbulo a las comunicaciones, específicamente en el ámbito digital. Se explicará a través de un diagrama de bloques teórico el procedimiento necesario para transmitir exitosamente un mensaje, considerando factores como la codificación del mensaje, codificación del canal y la inclusión del ruido en el sistema.</para>
+      <para id="id1170173713541">La comunicación, como se sabe, es la transferencia de información desde un punto considerado como emisor hasta otro punto considerado como receptor. Dicha transferencia se hace a través de un canal, y se estima que el proceso sea seguro y confiable, de modo tal que la información desde la fuente sea recibida en su totalidad. </para>
+      <para id="id1170181916617">Ahora bien, es el <emphasis>sistema de Comunicación</emphasis> el conjunto de subsistemas y mecanismos que permite el enlace entre el emisor y el receptor. Ya sea entre humanos o entre máquinas, se deben cumplir ciertos conceptos para asegurar la transmisión y recepción óptima del mensaje, pero, en general, se toman en cuenta tres factores principales que son:</para>
+      <list id="id1170169854335" list-type="bulleted">
+        <item>Un<emphasis> transmisor</emphasis>, que toma la información y la convierte en una señal.</item>
+        <item>Un <emphasis>Medio de Transmisión</emphasis> o Canal Físico que ‘lleva’ la señal.</item>
+        <item>Un <emphasis>Receptor</emphasis>, que toma la señal del canal y la convierte de vuelta a información útil.</item>
+      </list>
+      <para id="id1550176">Es importante resaltar que para las Telecomunicaciones existen dos tipos de señales de comunicación: <term>Analógicas</term> y <term>Digitales</term>, siendo esta última con la que nos enfocaremos. La señal digital se reconoce porque la información es codificada por medio de un set finito de valores discretos (1’s y 0’s), mientras que en el sistema Analógico se representa con una señal continua en el tiempo.</para>
+      <para id="id1170174827789">A continuación se podrá observar un diagrama de bloques que define paso a paso el procedimiento de envío de información:</para>
+      <para id="id1189864"/>
+      <figure id="id1170174581429">
+        <title>Diagrama de bloques de un sistema de transmisión digital</title>
+        <media id="id1170174581429_media" alt="">
+          <image mime-type="image/png" src="../../media/graphics1-0cda.png" id="id1170174581429__onlineimage" height="252" width="649"/>
+        </media>
+      </figure>
+      <section id="id1528806">
+        <title>Fuente de Información:</title>
+        <para id="id1468882">Corresponde al procedimiento de conversión del mensaje a transmitir en una señal que se adecue al sistema a usar; dado que es un sistema digital, la fuente genera una señal de tipo digital (binaria). Es común encontrarnos con información a transmitir en formato analógico, por lo que será necesario usar un conversor Analógico/Digital que haga el proceso de muestreo y cuantificación.</para>
+      </section>
+      <section id="id1170171980949">
+        <title>Codificación de Fuente: </title>
+        <para id="id1170169862778">Encargada de eliminar parte de la redundancia de información ofrecida por el bloque de la fuente. Esto implica una compresión directa del mensaje. </para>
+      </section>
+      <section id="id1170179307011">
+        <title>Codificación de Canal:</title>
+        <para id="id1170173812789">Capaz de detectar y corregir los errores que se producen en los datos durante el proceso de la transmisión. Dichos errores pueden darse por la existencia de ruido en canal, por lo que este bloque es capaz de introducir redundancia en la cadena de datos, haciendo posible la reconstrucción de la misma lo más aproximado a la secuencia original. </para>
+      </section>
+      <section id="id2131421">
+        <title>Modulación: </title>
+        <para id="id1170174809358">Modular consiste, en el ámbito de las comunicaciones, en la variación de una o más propiedades de una forma de onda periódica de alta frecuencia (conocida como <emphasis>señal portadora</emphasis>) con respecto a una <emphasis>señal moduladora</emphasis>, que es la que se desea transmitir. Con esto es posible transportar el mensaje dentro de otra señal que puede ser transmitida físicamente a través de un canal pasabanda.</para>
+        <para id="id6045388">Para la transmisión digital estamos hablando de una señal portadora analógica <emphasis>Sinusoidal</emphasis> que es modulada de acuerdo con una cadena de bits. Ahora, dependiendo del parámetro que se decida variar, se generan distintos tipos de modulación. Los fundamentales son (Trabajan con una cadena de 0 y 1’s):</para>
+        <list id="id8870348" list-type="bulleted">
+          <item>PSK (<foreign>Phase-shift Keying</foreign>)</item>
+          <item>FSK (<foreign>Frequency-shift Keying</foreign>)</item>
+          <item>ASK (<foreign>Amplitude-shift Keying</foreign>)</item>
+        </list>
+        <para id="id1170172393103">Pero, si hablamos de la modulación m-aria o multinivel, se tendrán entonces:</para>
+        <list id="id1170172558066" list-type="bulleted">
+          <item>QPSK (<foreign>Quadrature Phase-shift Keying</foreign>)</item>
+          <item>MPSK</item>
+          <item>QAM (<foreign>Quadrature Amplitude Modulation</foreign>)</item>
+        </list>
+      </section>
+      <section id="id1170177234439">
+        <title>Filtro Transmisor:</title>
+        <para id="id7704054">Al trabajar con un sistema de comunicaciones real, se debe considerar una restricción fundamental: El <emphasis>Ancho de Banda</emphasis>. Evidentemente, es muy común que estos sistemas limiten el ancho de banda del canal de transmisión, por lo que es necesario implementar un filtro que se encargue de limitar la señal modulada y que también adecue la potencia de transmisión de la misma. </para>
+      </section>
+      <section id="id1170177198642">
+        <title>Canal de Transmisión:</title>
+        <para id="id1170172425010">Es el medio de transporte de la señal modulada. En la vida real, el canal de transmisión es un gran contribuyente a la introducción de ruido e interferencias, lo que genera errores inmediatos en el mensaje. Esto se debe a la atenuación que condiciona la potencia recibida (es difícil aumentar la potencia de transmisión sin disminuir la distancia entre la fuente y el destino) y el ancho de banda limitado. Los siguientes módulos profundizarán mejor esta situación por medio de la inclusión de ruido AWGN en el sistema y una posible Interferencia Inter-Simbólica (ISI). </para>
+        <para id="id1170175370456">Luego de definir el Canal de Transmisión, deberá hacerse el proceso inverso para que el mensaje ya demodulado, decodificado y convertido de Digital a Analógico llegue al destino.</para>
+        <para id="id1170175370460">En los próximos módulos de este curso se desarrollará con más profundidad cada bloque perteneciente al sistema de Comunicaciones Digitales, a través de Laboratorios Digitales elaborados en la herramienta de simulación <emphasis>LabVIEW</emphasis>, permitiéndole al usuario enriquecer y reforzar los conocimientos teóricos como prácticos de este sistema. </para>
+      </section>
+    </section>
+  </content>
+</document>

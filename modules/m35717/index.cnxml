@@ -1,0 +1,1787 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML">
+  <title>5. Modulaciones Binarias: Teoría y simulación en LabVIEW</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m35717</md:content-id>
+  <md:title>5. Modulaciones Binarias: Teoría y simulación en LabVIEW</md:title>
+  <md:abstract>En este módulo se podrán analizar con profundidad los tipos de modulación binaria más importantes: OOK, PSK, FSK, MSK y GMSK para los sistemas de comunicación digital. Se desarrollarán sus parámetros más relevantes como lo son la potencia, el Ancho de Banda, su constelación y su representación en los dominios de la frecuencia y el tiempo.</md:abstract>
+  <md:uuid>4556b048-b5a9-4464-aa12-ffa131c0072b</md:uuid>
+</metadata>
+
+<content>
+    <section id="id1170001030122">
+      <title>MODULACIÓN BINARIA: TEORÍA Y SIMULACIÓN EN LABVIEW</title>
+      <para id="id6293613">
+        <foreign>González C. Y. Venuska</foreign>
+      </para>
+      <para id="id5828588">
+        <foreign>Mezoa R. Mariangela</foreign>
+      </para>
+      <para id="id1170014466021">
+        <term>Resumen</term>
+      </para>
+      <para id="id1170009624169">En este módulo se podrán analizar con profundidad los tipos de modulación binaria más importantes: OOK, PSK, FSK, MSK y GMSK para los sistemas de comunicación digital. Se desarrollarán sus parámetros más relevantes como lo son la potencia, el Ancho de Banda, su constelación y su representación en los dominios de la frecuencia y el tiempo.</para>
+      <para id="id1169998297669">Como ya mencionamos al principio de este curso, el término modular implica modificar ciertos parámetros de una onda portadora en función de otra señal llamada onda moduladora, que es la que contiene información, para que sea transmitida por el canal de nuestro sistema de Comunicación Digital. </para>
+      <para id="id1169998182393">De acuerdo con la naturaleza de la señal portadora, los métodos de modulación –a modo general- se pueden clasificar de dos tipos:</para>
+      <list id="id1170001334538" list-type="bulleted">
+        <item>Modulación por onda continua.</item>
+        <item>Modulación por pulsos.</item>
+      </list>
+      <para id="id1170001085980">En este módulo trabajaremos con la Modulación por Onda Continua, dado que se da una onda portadora sinusoidal a la que se le puede modificar su amplitud, su frecuencia o su fase en función de la señal moduladora; como estamos trabajando con un sistema digital, el mensaje que se desea transmitir viene en formato binario. </para>
+      <para id="id1170002743356">Entre los métodos de modulación binaria más importantes tenemos:</para>
+      <list id="id1170012150340" list-type="bulleted">
+        <item>Modulación Digital de Amplitud/Modulación por cambio de amplitudes. (ASK)</item>
+        <item>Modulación por Desplazamiento de Frecuencia (FSK)</item>
+        <item>Modulación por Cambio de Fase (PSK)</item>
+        <item>Modulación por Desplazamiento Mínimo de Frecuencia (MSK)</item>
+        <item>Modulación por Desplazamiento Mínimo de Frecuencia Gaussiano (GMSK)</item>
+      </list>
+      <section id="id1170001359420">
+        <title>1. Amplitude Shift Keying (ASK)</title>
+        <para id="id1170001674284">La técnica de modulación digital más simple es la modulación digital de amplitud, ya que el parámetro que se varía de la portadora es la amplitud. Como el mensaje es binario, entonces la amplitud de la sinusoide varía entre dos valores posibles. Un caso especial de esta modulación es cuando uno de los dos valores posibles es cero, por lo que la modulación toma el nombre de OOK (On-Off Keying): Aquí la portadora se considera encendida (Valor de Amplitud V para el bit 1) o apagada (supresión de la portadora para el bit 0). Se tiene entonces:</para>
+        <figure id="id5663168">
+          <media id="id5663168_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics1-10ff.png" id="id5663168__onlineimage" height="320" width="600"/>
+          </media>
+          <caption>Ejemplo de modulación OOK.</caption>
+        </figure>
+        <para id="id1170001660864">Una ecuación que define este tipo de modulación digital es:</para>
+        <equation id="id1170021059739">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:msub>
+                        <m:mi>X</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:mtext>ask</m:mtext>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>t</m:mi>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mo stretchy="false">(</m:mo>
+                      </m:mrow>
+                      <m:mrow>
+                        <m:mn>1</m:mn>
+                        <m:mo stretchy="false">+</m:mo>
+                        <m:mi>b</m:mi>
+                      </m:mrow>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>t</m:mi>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mtext>.</m:mtext>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mfrac>
+                        <m:mi>V</m:mi>
+                        <m:mn>2</m:mn>
+                      </m:mfrac>
+                      <m:mstyle fontstyle="italic">
+                        <m:mrow>
+                          <m:mtext>Cos</m:mtext>
+                        </m:mrow>
+                      </m:mstyle>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:msub>
+                        <m:mi>w</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mi>c</m:mi>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                      <m:mi>t</m:mi>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">)</m:mo>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{X rSub { size 8{ ital "ask"} }  \( t \) = \( 1+b \( t \)  \)  "."  \(  {  {V}  over  {2} }  ital "Cos" \( w rSub { size 8{c} } t \)  \) } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1170002970581">Donde:</para>
+        <para id="id1170000641796"><emphasis>Xask(t)</emphasis><emphasis>=</emphasis> Señal modulada.</para>
+        <para id="id1170003656754"><emphasis>b(t) =</emphasis> señal binaria moduladora (volts). Puede tomar dos valores: <emphasis>+1</emphasis> cuando el bit enviado es <emphasis>1</emphasis>, y <emphasis>-1</emphasis> cuando el bit enviado es <emphasis>0.</emphasis></para>
+        <para id="id1170001345906"><emphasis>V =</emphasis> Amplitud de la señal portadora (volts)</para>
+        <para id="id1170023779888"><emphasis>Wc =</emphasis> Frecuencia de la señal portadora (radianes por segundo)</para>
+        <para id="id5856299">Entonces tenemos que si b(t) = 1:</para>
+        <equation id="id1170006202173">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:msub>
+                        <m:mi>X</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:mtext>ask</m:mtext>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>t</m:mi>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>VCos</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:mrow>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:msub>
+                        <m:mi>w</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mi>c</m:mi>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                      <m:mi>t</m:mi>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mo stretchy="false">)</m:mo>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{X rSub { size 8{ ital "ask"} }  \( t \) = ital "VCos" \( w rSub { size 8{c} } t \)  \) } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id5858890">Pero, si b(t) = -1:</para>
+        <para id="id1170003363277">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:msub>
+                        <m:mi>X</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:mtext>ask</m:mtext>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>t</m:mi>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mn>0</m:mn>
+                      </m:mrow>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{X rSub { size 8{ ital "ask"} }  \( t \) =0} {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </para>
+        <para id="id1170012553430">Para hallar el espectro de la señal modulada OOK es necesario hacerle la transformada de Fourier a la función de autocorrelación.</para>
+        <equation id="id1170002984610">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mrow>
+                  <m:mtable>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:msub>
+                                <m:mi>X</m:mi>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mstyle fontstyle="italic">
+                                      <m:mrow>
+                                        <m:mtext>ask</m:mtext>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msub>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>t</m:mi>
+                              <m:mo stretchy="false">)</m:mo>
+                              <m:mo stretchy="false">→</m:mo>
+                              <m:msub>
+                                <m:mi>G</m:mi>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mstyle fontstyle="italic">
+                                      <m:mrow>
+                                        <m:mtext>ask</m:mtext>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msub>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>f</m:mi>
+                              <m:mo stretchy="false">)</m:mo>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow/>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:msub>
+                          <m:mi>X</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:mtext>ask</m:mtext>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mi>t</m:mi>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">→</m:mo>
+                        <m:mfrac>
+                          <m:msup>
+                            <m:mi>V</m:mi>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mn>2</m:mn>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msup>
+                          <m:mtext>16</m:mtext>
+                        </m:mfrac>
+                        <m:mfenced open="[" close="]">
+                          <m:mrow>
+                            <m:mi>δ</m:mi>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mrow>
+                              <m:mi>f</m:mi>
+                              <m:mo stretchy="false">−</m:mo>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:mtext>fc</m:mtext>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:mrow>
+                            <m:mrow>
+                              <m:mo stretchy="false">)</m:mo>
+                              <m:mo stretchy="false">+</m:mo>
+                              <m:mi>δ</m:mi>
+                            </m:mrow>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mrow>
+                              <m:mi>f</m:mi>
+                              <m:mo stretchy="false">+</m:mo>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:mtext>fc</m:mtext>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:mrow>
+                            <m:mrow>
+                              <m:mo stretchy="false">)</m:mo>
+                              <m:mo stretchy="false">+</m:mo>
+                              <m:msub>
+                                <m:mi>t</m:mi>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mi>b</m:mi>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msub>
+                            </m:mrow>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:msup>
+                                  <m:mtext>Sinc</m:mtext>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mn>2</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msup>
+                              </m:mrow>
+                            </m:mstyle>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mrow>
+                              <m:mi>f</m:mi>
+                              <m:mo stretchy="false">+</m:mo>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:mtext>fc</m:mtext>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:mrow>
+                            <m:mo stretchy="false">)</m:mo>
+                            <m:msub>
+                              <m:mi>t</m:mi>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mi>b</m:mi>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msub>
+                            <m:mrow>
+                              <m:mo stretchy="false">)</m:mo>
+                              <m:mo stretchy="false">+</m:mo>
+                              <m:msub>
+                                <m:mi>t</m:mi>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mi>b</m:mi>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msub>
+                            </m:mrow>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:msup>
+                                  <m:mtext>Sinc</m:mtext>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mn>2</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msup>
+                              </m:mrow>
+                            </m:mstyle>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mrow>
+                              <m:mi>f</m:mi>
+                              <m:mo stretchy="false">−</m:mo>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:mtext>fc</m:mtext>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:mrow>
+                            <m:mo stretchy="false">)</m:mo>
+                            <m:msub>
+                              <m:mi>t</m:mi>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mi>b</m:mi>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msub>
+                          </m:mrow>
+                        </m:mfenced>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                  </m:mtable>
+                  <m:mrow/>
+                </m:mrow>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0">alignl { stack {
+ size 12{X rSub { size 8{ ital "ask"} }  \( t \)  rightarrow G rSub { size 8{ ital "ask"} }  \( f \) }  {} # 
+ {} # 
+X rSub { size 8{ ital "ask"} }  \( t \)  rightarrow  {  {V rSup { size 8{2} } }  over  {"16"} }  left [δ \( f -  ital "fc" \) +δ \( f+ ital "fc" \) +t rSub { size 8{b} }  ital "Sinc" rSup { size 8{2} }  \(  \( f+ ital "fc" \) t rSub { size 8{b} }  \) +t rSub { size 8{b} }  ital "Sinc" rSup { size 8{2} }  \(  \( f -  ital "fc" \) t rSub { size 8{b} }  right ] {} 
+} } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1170001686391">Al graficar, tenemos que:</para>
+        <figure id="id1170027283880">
+          <media id="id1170027283880_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics2-7378.png" id="id1170027283880__onlineimage" height="217" width="600"/>
+          </media>
+          <caption>OOK en el dominio de la frecuencia</caption>
+        </figure>
+        <para id="id1170014500664">La potencia puede obtenerse integrando la Densidad Espectral de Potencia o a partir de la señal en tiempo. Para equiprobabilidad la potencia resultaría V<sup>2</sup>/4</para>
+        <para id="id1170001380779">El Ancho de banda puede determinarse a partir del espectro:</para>
+        <equation id="id1170016461528">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>BW</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mrow>
+                          <m:mrow>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:mtext>fc</m:mtext>
+                              </m:mrow>
+                            </m:mstyle>
+                            <m:mo stretchy="false">+</m:mo>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:mtext>fb</m:mtext>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:mrow>
+                          <m:mo stretchy="false">−</m:mo>
+                          <m:mo stretchy="false">(</m:mo>
+                        </m:mrow>
+                      </m:mrow>
+                      <m:mrow>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>fc</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">−</m:mo>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>fb</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:mrow>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mrow>
+                          <m:mrow>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:mtext>fc</m:mtext>
+                              </m:mrow>
+                            </m:mstyle>
+                            <m:mo stretchy="false">−</m:mo>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:mtext>fc</m:mtext>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:mrow>
+                          <m:mo stretchy="false">−</m:mo>
+                          <m:mn>2</m:mn>
+                        </m:mrow>
+                      </m:mrow>
+                      <m:mrow>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>fb</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mn>2</m:mn>
+                      </m:mrow>
+                      <m:mstyle fontstyle="italic">
+                        <m:mrow>
+                          <m:mtext>fb</m:mtext>
+                        </m:mrow>
+                      </m:mstyle>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{ ital "BW"= ital "fc"+ ital "fb" -  \(  ital "fc" -  ital "fb" \) = ital "fc" -  ital "fc" - 2 ital "fb"=2 ital "fb"} {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id6202586">Finalmente, se puede representar la señal modulada en OOK a partir de la constelación. Se define entonces la base para representar la señal:</para>
+        <para id="id1170004307496">
+          <figure id="id1170020317076">
+            <media id="id1170020317076_media" alt="">
+              <image mime-type="image/png" src="../../media/graphics3-67ae.png" id="id1170020317076__onlineimage" height="391" width="515"/>
+            </media>
+            <caption>Constelación de OOK</caption>
+          </figure>
+        </para>
+      </section>
+      <section id="id1170006967409">
+        <title>2. Frequency-Shift Keying (FSK)</title>
+        <para id="id1170011699104">Aquí, el parámetro que se varía de la portadora es la frecuencia. </para>
+        <figure id="id6289346">
+          <media id="id6289346_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics4-b9f1.png" id="id6289346__onlineimage" height="307" width="600"/>
+          </media>
+          <caption>Ejemplo de modulación FSK.</caption>
+        </figure>
+        <para id="id1170020356277">Si se transmite el bit 1, la señal modulada será una sinusoide de frecuencia f<sub>A</sub>. Si se transmite el bit 0, la señal FSK tendrá frecuencia f<sub>B</sub>.</para>
+        <equation id="id1170001513827">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mrow>
+                  <m:mtable>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:msub>
+                                <m:mi>f</m:mi>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mi>A</m:mi>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msub>
+                              <m:mo stretchy="false">=</m:mo>
+                              <m:mfrac>
+                                <m:mfenced open="(" close=")">
+                                  <m:mrow>
+                                    <m:msub>
+                                      <m:mi>w</m:mi>
+                                      <m:mstyle fontsize="8pt">
+                                        <m:mrow>
+                                          <m:mi>c</m:mi>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                    </m:msub>
+                                    <m:mo stretchy="false">+</m:mo>
+                                    <m:mo stretchy="false">Ω</m:mo>
+                                  </m:mrow>
+                                </m:mfenced>
+                                <m:mn>2π</m:mn>
+                              </m:mfrac>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mrow>
+                          <m:msub>
+                            <m:mi>f</m:mi>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mi>B</m:mi>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msub>
+                          <m:mo stretchy="false">=</m:mo>
+                          <m:mfrac>
+                            <m:mfenced open="(" close=")">
+                              <m:mrow>
+                                <m:msub>
+                                  <m:mi>w</m:mi>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mi>c</m:mi>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msub>
+                                <m:mo stretchy="false">−</m:mo>
+                                <m:mo stretchy="false">Ω</m:mo>
+                              </m:mrow>
+                            </m:mfenced>
+                            <m:mn>2π</m:mn>
+                          </m:mfrac>
+                        </m:mrow>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                  </m:mtable>
+                  <m:mrow/>
+                </m:mrow>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0">alignl { stack {
+ size 12{f rSub { size 8{A} } = {  { left (w rSub { size 8{c} } + %OMEGA  right )}  over  {2π} } }  {} # 
+f rSub { size 8{B} } = {  { left (w rSub { size 8{c} }  -  %OMEGA  right )}  over  {2π} }  {} 
+} } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1170027778624">La frecuencia de la señal portadora es:</para>
+        <equation id="id1170002759818">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mstyle fontstyle="italic">
+                        <m:mrow>
+                          <m:mtext>fc</m:mtext>
+                        </m:mrow>
+                      </m:mstyle>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mfrac>
+                        <m:mrow>
+                          <m:mo stretchy="false">(</m:mo>
+                          <m:mrow>
+                            <m:msub>
+                              <m:mi>f</m:mi>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mi>A</m:mi>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msub>
+                            <m:mo stretchy="false">+</m:mo>
+                            <m:msub>
+                              <m:mi>f</m:mi>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mi>B</m:mi>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msub>
+                          </m:mrow>
+                          <m:mo stretchy="false">)</m:mo>
+                        </m:mrow>
+                        <m:mn>2</m:mn>
+                      </m:mfrac>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{ ital "fc"= {  { \( f rSub { size 8{A} } +f rSub { size 8{B} }  \) }  over  {2} } } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1170003197438">Ahora, la ecuación que define esta modulación es:</para>
+        <equation id="id1170000665521">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:msub>
+                        <m:mi>X</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:mtext>fsk</m:mtext>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>t</m:mi>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mi>V</m:mi>
+                      </m:mrow>
+                      <m:mtext>.</m:mtext>
+                      <m:mstyle fontstyle="italic">
+                        <m:mrow>
+                          <m:mtext>Cos</m:mtext>
+                        </m:mrow>
+                      </m:mstyle>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mn>2π</m:mn>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mrow>
+                        <m:msub>
+                          <m:mi>f</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mi>c</m:mi>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                        <m:mo stretchy="false">+</m:mo>
+                        <m:mi>b</m:mi>
+                      </m:mrow>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>t</m:mi>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mi fontstyle="italic">Δf</m:mi>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mi>t</m:mi>
+                      <m:mo stretchy="false">)</m:mo>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{X rSub { size 8{ ital "fsk"} }  \( t \) =V "."  ital "Cos" \( 2π \( f rSub { size 8{c} } +b \( t \) Δf \) t \) } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1169998755692">Donde:</para>
+        <para id="id1169998975369"><emphasis>X</emphasis><emphasis>fsk(t)</emphasis><emphasis>=</emphasis> Señal modulada.</para>
+        <para id="id1170001638624"><emphasis>b(t) =</emphasis> señal binaria moduladora (volts). Puede tomar dos valores: <emphasis>+1</emphasis> cuando el bit enviado es <emphasis>1</emphasis>, y <emphasis>-1</emphasis> cuando el bit enviado es <emphasis>0.</emphasis></para>
+        <para id="id1170000973713"><emphasis>V =</emphasis> Amplitud de la señal portadora (volts)</para>
+        <para id="id1170006944544"><emphasis>f</emphasis><emphasis>c =</emphasis> Frecuencia central de la señal portadora (Hz)</para>
+        <para id="id1170001090910"><emphasis>∆f =</emphasis> Desviación máxima de frecuencia alrededor de la portadora. <emphasis>fA=fc+∆f; fB=fc+∆f</emphasis></para>
+        <para id="id1170004253305">Entonces tenemos que si b(t) = 1:</para>
+        <equation id="id1169998883952">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:msub>
+                        <m:mi>X</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:mtext>fsk</m:mtext>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>t</m:mi>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>VCos</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:mrow>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mn>2π</m:mn>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mrow>
+                        <m:msub>
+                          <m:mi>f</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mi>c</m:mi>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                        <m:mo stretchy="false">+</m:mo>
+                        <m:mi fontstyle="italic">Δf</m:mi>
+                      </m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mi>t</m:mi>
+                      <m:mo stretchy="false">)</m:mo>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{X rSub { size 8{ ital "fsk"} }  \( t \) = ital "VCos" \( 2π \( f rSub { size 8{c} } +Δf \) t \) } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id7681922">Pero, si b(t) = -1:</para>
+        <equation id="id1170003597466">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:msub>
+                        <m:mi>X</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:mtext>fsk</m:mtext>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>t</m:mi>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>VCos</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:mrow>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mn>2π</m:mn>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mrow>
+                        <m:msub>
+                          <m:mi>f</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mi>c</m:mi>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                        <m:mo stretchy="false">−</m:mo>
+                        <m:mi fontstyle="italic">Δf</m:mi>
+                      </m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mi>t</m:mi>
+                      <m:mo stretchy="false">)</m:mo>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{X rSub { size 8{ ital "fsk"} }  \( t \) = ital "VCos" \( 2π \( f rSub { size 8{c} }  - Δf \) t \) } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1170012339842">La Densidad Espectral de Potencia de la señal FSK puede obtenerse modelándola como la suma de dos señales OOK; en este caso</para>
+        <equation id="id8470779">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mrow>
+                  <m:mtable>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:msub>
+                                <m:mi>G</m:mi>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mstyle fontstyle="italic">
+                                      <m:mrow>
+                                        <m:mtext>fsk</m:mtext>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msub>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>f</m:mi>
+                              <m:mrow>
+                                <m:mo stretchy="false">)</m:mo>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mfrac>
+                                  <m:msup>
+                                    <m:mi>V</m:mi>
+                                    <m:mstyle fontsize="8pt">
+                                      <m:mrow>
+                                        <m:mn>2</m:mn>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msup>
+                                  <m:mtext>16</m:mtext>
+                                </m:mfrac>
+                              </m:mrow>
+                              <m:mrow>
+                                <m:mfenced open="[" close="]">
+                                  <m:mrow>
+                                    <m:mi>δ</m:mi>
+                                    <m:mo stretchy="false">(</m:mo>
+                                    <m:mrow>
+                                      <m:mi>f</m:mi>
+                                      <m:mo stretchy="false">−</m:mo>
+                                      <m:msub>
+                                        <m:mi>f</m:mi>
+                                        <m:mstyle fontsize="8pt">
+                                          <m:mrow>
+                                            <m:mi>A</m:mi>
+                                          </m:mrow>
+                                        </m:mstyle>
+                                      </m:msub>
+                                    </m:mrow>
+                                    <m:mrow>
+                                      <m:mo stretchy="false">)</m:mo>
+                                      <m:mo stretchy="false">+</m:mo>
+                                      <m:mi>δ</m:mi>
+                                    </m:mrow>
+                                    <m:mo stretchy="false">(</m:mo>
+                                    <m:mrow>
+                                      <m:mi>f</m:mi>
+                                      <m:mo stretchy="false">+</m:mo>
+                                      <m:msub>
+                                        <m:mi>f</m:mi>
+                                        <m:mstyle fontsize="8pt">
+                                          <m:mrow>
+                                            <m:mi>A</m:mi>
+                                          </m:mrow>
+                                        </m:mstyle>
+                                      </m:msub>
+                                    </m:mrow>
+                                    <m:mrow>
+                                      <m:mo stretchy="false">)</m:mo>
+                                      <m:mo stretchy="false">+</m:mo>
+                                      <m:mi>δ</m:mi>
+                                    </m:mrow>
+                                    <m:mo stretchy="false">(</m:mo>
+                                    <m:mrow>
+                                      <m:mi>f</m:mi>
+                                      <m:mo stretchy="false">−</m:mo>
+                                      <m:msub>
+                                        <m:mi>f</m:mi>
+                                        <m:mstyle fontsize="8pt">
+                                          <m:mrow>
+                                            <m:mi>B</m:mi>
+                                          </m:mrow>
+                                        </m:mstyle>
+                                      </m:msub>
+                                    </m:mrow>
+                                    <m:mrow>
+                                      <m:mo stretchy="false">)</m:mo>
+                                      <m:mo stretchy="false">+</m:mo>
+                                      <m:mi>δ</m:mi>
+                                    </m:mrow>
+                                    <m:mo stretchy="false">(</m:mo>
+                                    <m:mrow>
+                                      <m:mi>f</m:mi>
+                                      <m:mo stretchy="false">+</m:mo>
+                                      <m:msub>
+                                        <m:mi>f</m:mi>
+                                        <m:mstyle fontsize="8pt">
+                                          <m:mrow>
+                                            <m:mi>B</m:mi>
+                                          </m:mrow>
+                                        </m:mstyle>
+                                      </m:msub>
+                                    </m:mrow>
+                                    <m:mo stretchy="false">)</m:mo>
+                                  </m:mrow>
+                                </m:mfenced>
+                                <m:mo stretchy="false">+</m:mo>
+                                <m:mrow/>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mfrac>
+                          <m:msup>
+                            <m:mi>V</m:mi>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mn>2</m:mn>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msup>
+                          <m:mtext>16</m:mtext>
+                        </m:mfrac>
+                        <m:mfenced open="[" close="]">
+                          <m:mrow>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:mtext>tb</m:mtext>
+                              </m:mrow>
+                            </m:mstyle>
+                            <m:mtext>.</m:mtext>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:msup>
+                                  <m:mtext>Sinc</m:mtext>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mn>2</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msup>
+                              </m:mrow>
+                            </m:mstyle>
+                            <m:mrow>
+                              <m:mfenced open="(" close=")">
+                                <m:mrow>
+                                  <m:mo stretchy="false">(</m:mo>
+                                  <m:mrow>
+                                    <m:mi>f</m:mi>
+                                    <m:mo stretchy="false">−</m:mo>
+                                    <m:msub>
+                                      <m:mi>f</m:mi>
+                                      <m:mstyle fontsize="8pt">
+                                        <m:mrow>
+                                          <m:mi>A</m:mi>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                    </m:msub>
+                                  </m:mrow>
+                                  <m:mo stretchy="false">)</m:mo>
+                                  <m:mstyle fontstyle="italic">
+                                    <m:mrow>
+                                      <m:mtext>tb</m:mtext>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:mrow>
+                              </m:mfenced>
+                              <m:mo stretchy="false">+</m:mo>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:mtext>tb</m:mtext>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:mrow>
+                            <m:mtext>.</m:mtext>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:msup>
+                                  <m:mtext>Sinc</m:mtext>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mn>2</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msup>
+                              </m:mrow>
+                            </m:mstyle>
+                            <m:mrow>
+                              <m:mfenced open="(" close=")">
+                                <m:mrow>
+                                  <m:mo stretchy="false">(</m:mo>
+                                  <m:mrow>
+                                    <m:mi>f</m:mi>
+                                    <m:mo stretchy="false">+</m:mo>
+                                    <m:msub>
+                                      <m:mi>f</m:mi>
+                                      <m:mstyle fontsize="8pt">
+                                        <m:mrow>
+                                          <m:mi>A</m:mi>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                    </m:msub>
+                                  </m:mrow>
+                                  <m:mo stretchy="false">)</m:mo>
+                                  <m:mstyle fontstyle="italic">
+                                    <m:mrow>
+                                      <m:mtext>tb</m:mtext>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:mrow>
+                              </m:mfenced>
+                              <m:mo stretchy="false">+</m:mo>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:mtext>tb</m:mtext>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:mrow>
+                            <m:mtext>.</m:mtext>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:msup>
+                                  <m:mtext>Sinc</m:mtext>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mn>2</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msup>
+                              </m:mrow>
+                            </m:mstyle>
+                            <m:mrow>
+                              <m:mfenced open="(" close=")">
+                                <m:mrow>
+                                  <m:mo stretchy="false">(</m:mo>
+                                  <m:mrow>
+                                    <m:mi>f</m:mi>
+                                    <m:mo stretchy="false">−</m:mo>
+                                    <m:msub>
+                                      <m:mi>f</m:mi>
+                                      <m:mstyle fontsize="8pt">
+                                        <m:mrow>
+                                          <m:mi>B</m:mi>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                    </m:msub>
+                                  </m:mrow>
+                                  <m:mo stretchy="false">)</m:mo>
+                                  <m:mstyle fontstyle="italic">
+                                    <m:mrow>
+                                      <m:mtext>tb</m:mtext>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:mrow>
+                              </m:mfenced>
+                              <m:mo stretchy="false">+</m:mo>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:mtext>tb</m:mtext>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:mrow>
+                            <m:mtext>.</m:mtext>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:msup>
+                                  <m:mtext>Sinc</m:mtext>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mn>2</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msup>
+                              </m:mrow>
+                            </m:mstyle>
+                            <m:mfenced open="(" close=")">
+                              <m:mrow>
+                                <m:mo stretchy="false">(</m:mo>
+                                <m:mrow>
+                                  <m:mi>f</m:mi>
+                                  <m:mo stretchy="false">+</m:mo>
+                                  <m:msub>
+                                    <m:mi>f</m:mi>
+                                    <m:mstyle fontsize="8pt">
+                                      <m:mrow>
+                                        <m:mi>B</m:mi>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msub>
+                                </m:mrow>
+                                <m:mo stretchy="false">)</m:mo>
+                                <m:mstyle fontstyle="italic">
+                                  <m:mrow>
+                                    <m:mtext>tb</m:mtext>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:mrow>
+                            </m:mfenced>
+                          </m:mrow>
+                        </m:mfenced>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                  </m:mtable>
+                  <m:mrow/>
+                </m:mrow>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0">alignl { stack {
+ size 12{G rSub { size 8{ ital "fsk"} }  \( f \) = {  {V rSup { size 8{2} } }  over  {"16"} }  left [δ \( f - f rSub { size 8{A} }  \) +δ \( f+f rSub { size 8{A} }  \) +δ \( f - f rSub { size 8{B} }  \) +δ \( f+f rSub { size 8{B} }  \)  right ]+{}}  {} # 
+ {  {V rSup { size 8{2} } }  over  {"16"} }  left [ ital "tb" "."  ital "Sinc" rSup { size 8{2} }  left ( \( f - f rSub { size 8{A} }  \)  ital "tb" right )+ ital "tb" "."  ital "Sinc" rSup { size 8{2} }  left ( \( f+f rSub { size 8{A} }  \)  ital "tb" right )+ ital "tb" "."  ital "Sinc" rSup { size 8{2} }  left ( \( f - f rSub { size 8{B} }  \)  ital "tb" right )+ ital "tb" "."  ital "Sinc" rSup { size 8{2} }  left ( \( f+f rSub { size 8{B} }  \)  ital "tb" right ) right ] {} 
+} } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1170012403112">
+          <figure id="id4446244">
+            <media id="id4446244_media" alt="">
+              <image mime-type="image/png" src="../../media/graphics5-d767.png" id="id4446244__onlineimage" height="219" width="599"/>
+            </media>
+            <caption>CPFSK en el dominio de la frecuencia</caption>
+          </figure>
+        </para>
+        <para id="id1170026834897">El ancho de banda total de la señal es:</para>
+        <equation id="id1170005023890">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>BW</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mo stretchy="false">(</m:mo>
+                      </m:mrow>
+                      <m:mrow>
+                        <m:msub>
+                          <m:mi>f</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mi>A</m:mi>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                        <m:mo stretchy="false">−</m:mo>
+                        <m:msub>
+                          <m:mi>f</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mi>B</m:mi>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                      </m:mrow>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">+</m:mo>
+                        <m:msub>
+                          <m:mn>2f</m:mn>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mi>b</m:mi>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                      </m:mrow>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{ ital "BW"= \( f rSub { size 8{A} }  - f rSub { size 8{B} }  \) +2f rSub { size 8{b} } } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1170011453832">Y su constelación:</para>
+        <figure id="id1170020188135">
+          <media id="id1170020188135_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics6-f6b3.png" id="id1170020188135__onlineimage" height="375" width="440"/>
+          </media>
+          <caption>Constelación de CPFSK</caption>
+        </figure>
+      </section>
+      <section id="id1169999803162">
+        <title>3. Phase-Shift Keying (PSK)</title>
+        <para id="id1170001521026">En esta modulación, el parámetro de la señal sinusoidal portadora que se varía es la fase. Es una forma de modulación digital angular en donde la amplitud de la portadora se mantiene constante. Teóricamente se aproxima al concepto de modulación en fase convencional (PM), con la diferencia que aquí la señal de entrada es digital binaria, por lo que se tienen dos fases de salida para una sola frecuencia portadora: Una fase de salida representa el bit 1 y otra representa el bit 0. Cuando la señal binaria de entrada cambia de estado, la fase de la portadora de salida varía entre dos ángulos que están desfasados 180° (0 y  π). En este caso la modulación se le llama PRK (Phase Reverse Keying) </para>
+        <para id="id1170021301890">Se tiene entonces la siguiente situación:</para>
+        <figure id="id1170015352736">
+          <media id="id1170015352736_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics7-3dac.png" id="id1170015352736__onlineimage" height="296" width="600"/>
+          </media>
+          <caption>Ejemplo de modulación PRK.</caption>
+        </figure>
+        <para id="id1170003657614">La ecuación correspondiente para este tipo de modulación es:</para>
+        <equation id="id1170012556835">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mi>X</m:mi>
+                      <m:mmultiscripts>
+                        <m:mtext/>
+                        <m:mprescripts/>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:mtext>prk</m:mtext>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:none/>
+                      </m:mmultiscripts>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>t</m:mi>
+                      <m:mrow>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mi>V</m:mi>
+                      </m:mrow>
+                      <m:mtext>.</m:mtext>
+                      <m:mi>b</m:mi>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:mi>t</m:mi>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:mtext>.</m:mtext>
+                      <m:mstyle fontstyle="italic">
+                        <m:mrow>
+                          <m:mtext>Cos</m:mtext>
+                        </m:mrow>
+                      </m:mstyle>
+                      <m:mo stretchy="false">(</m:mo>
+                      <m:msub>
+                        <m:mi>w</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mi>c</m:mi>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                      <m:mi>t</m:mi>
+                      <m:mo stretchy="false">)</m:mo>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{X"" lSub { size 8{ ital "prk"} }  \( t \) =V "." b \( t \)  "."  ital "Cos" \( w rSub { size 8{c} } t \) } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id1170023721931">Donde: </para>
+        <para id="id1170011864628"><emphasis>X</emphasis><emphasis>prk(t)</emphasis><emphasis>=</emphasis> Señal modulada.</para>
+        <para id="id1170003315587"><emphasis>b(t) =</emphasis> señal binaria moduladora (volts). Puede tomar dos valores: <emphasis>+1</emphasis> cuando el bit enviado es <emphasis>1</emphasis>, y <emphasis>-1</emphasis> cuando el bit enviado es <emphasis>0.</emphasis></para>
+        <para id="id1170011541655"><emphasis>V =</emphasis> Amplitud de la señal portadora (volts)</para>
+        <para id="id1170017606699"><emphasis>Wc =</emphasis> Frecuencia de la señal portadora (radianes por segundo)</para>
+        <equation id="id1170021394496">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mrow>
+                  <m:mtable>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:mtext>Si</m:mtext>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mi>b</m:mi>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>t</m:mi>
+                              <m:mrow>
+                                <m:mo stretchy="false">)</m:mo>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mn>1</m:mn>
+                              </m:mrow>
+                              <m:mo stretchy="false">⇒</m:mo>
+                              <m:mi>X</m:mi>
+                              <m:mmultiscripts>
+                                <m:mtext/>
+                                <m:mprescripts/>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mstyle fontstyle="italic">
+                                      <m:mrow>
+                                        <m:mtext>prk</m:mtext>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:mrow>
+                                </m:mstyle>
+                                <m:none/>
+                              </m:mmultiscripts>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>t</m:mi>
+                              <m:mrow>
+                                <m:mo stretchy="false">)</m:mo>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mi>V</m:mi>
+                              </m:mrow>
+                              <m:mtext>.</m:mtext>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:mtext>Cos</m:mtext>
+                                </m:mrow>
+                              </m:mstyle>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:msub>
+                                <m:mi>w</m:mi>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mi>c</m:mi>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msub>
+                              <m:mi>t</m:mi>
+                              <m:mo stretchy="false">)</m:mo>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow/>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mi>b</m:mi>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mi>t</m:mi>
+                        <m:mrow>
+                          <m:mo stretchy="false">)</m:mo>
+                          <m:mo stretchy="false">=</m:mo>
+                          <m:mrow>
+                            <m:mo stretchy="false">−</m:mo>
+                            <m:mn>1</m:mn>
+                          </m:mrow>
+                        </m:mrow>
+                        <m:mo stretchy="false">⇒</m:mo>
+                        <m:mi>X</m:mi>
+                        <m:mmultiscripts>
+                          <m:mtext/>
+                          <m:mprescripts/>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:mtext>prk</m:mtext>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:mrow>
+                          </m:mstyle>
+                          <m:none/>
+                        </m:mmultiscripts>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mi>t</m:mi>
+                        <m:mrow>
+                          <m:mo stretchy="false">)</m:mo>
+                          <m:mo stretchy="false">=</m:mo>
+                          <m:mrow>
+                            <m:mo stretchy="false">−</m:mo>
+                            <m:mi>V</m:mi>
+                          </m:mrow>
+                        </m:mrow>
+                        <m:mtext>.</m:mtext>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>Cos</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:msub>
+                          <m:mi>w</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mi>c</m:mi>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                        <m:mi>t</m:mi>
+                        <m:mo stretchy="false">)</m:mo>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                  </m:mtable>
+                  <m:mrow/>
+                </m:mrow>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0">alignl { stack {
+ size 12{ ital "Si"}  {} # 
+ size 12{b \( t \) =1 drarrow X"" lSub { size 8{ ital "prk"} }  \( t \) =V "."  ital "Cos" \( w rSub { size 8{c} } t \) }  {} # 
+ {} # 
+b \( t \) = - 1 drarrow X"" lSub { size 8{ ital "prk"} }  \( t \) = - V "."  ital "Cos" \( w rSub { size 8{c} } t \)  {} 
+} } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <para id="id8879723">La Densidad Espectral de potencia resulta ser:</para>
+        <para id="id1170015521120"/>
+        <equation id="id1170025306443">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mrow>
+                  <m:mtable>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:mstyle fontsize="12pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:msub>
+                                <m:mi>X</m:mi>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mstyle fontstyle="italic">
+                                      <m:mrow>
+                                        <m:mtext>prk</m:mtext>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msub>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>t</m:mi>
+                              <m:mo stretchy="false">)</m:mo>
+                              <m:mo stretchy="false">→</m:mo>
+                              <m:msub>
+                                <m:mi>G</m:mi>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mstyle fontstyle="italic">
+                                      <m:mrow>
+                                        <m:mtext>prk</m:mtext>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msub>
+                              <m:mo stretchy="false">(</m:mo>
+                              <m:mi>f</m:mi>
+                              <m:mo stretchy="false">)</m:mo>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow/>
+</m:mtd>
+                    </m:mtr>
+                    <m:mtr>
+<m:mtd>
+                      <m:mrow>
+                        <m:msub>
+                          <m:mi>G</m:mi>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:mtext>prk</m:mtext>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:msub>
+                        <m:mo stretchy="false">(</m:mo>
+                        <m:mi>f</m:mi>
+                        <m:mrow>
+                          <m:mo stretchy="false">)</m:mo>
+                          <m:mo stretchy="false">=</m:mo>
+                          <m:mfrac>
+                            <m:msup>
+                              <m:mi>V</m:mi>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mn>2</m:mn>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msup>
+                            <m:mn>4</m:mn>
+                          </m:mfrac>
+                        </m:mrow>
+                        <m:mfenced open="[" close="]">
+                          <m:mrow>
+                            <m:msub>
+                              <m:mi>t</m:mi>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mi>b</m:mi>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msub>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:msup>
+                                  <m:mtext>Sinc</m:mtext>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mn>2</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msup>
+                              </m:mrow>
+                            </m:mstyle>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mrow>
+                              <m:mi>f</m:mi>
+                              <m:mo stretchy="false">+</m:mo>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:mtext>fc</m:mtext>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:mrow>
+                            <m:mo stretchy="false">)</m:mo>
+                            <m:msub>
+                              <m:mi>t</m:mi>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mi>b</m:mi>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msub>
+                            <m:mrow>
+                              <m:mo stretchy="false">)</m:mo>
+                              <m:mo stretchy="false">+</m:mo>
+                              <m:msub>
+                                <m:mi>t</m:mi>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mi>b</m:mi>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msub>
+                            </m:mrow>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:msup>
+                                  <m:mtext>Sinc</m:mtext>
+                                  <m:mstyle fontsize="8pt">
+                                    <m:mrow>
+                                      <m:mn>2</m:mn>
+                                    </m:mrow>
+                                  </m:mstyle>
+                                </m:msup>
+                              </m:mrow>
+                            </m:mstyle>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mo stretchy="false">(</m:mo>
+                            <m:mrow>
+                              <m:mi>f</m:mi>
+                              <m:mo stretchy="false">−</m:mo>
+                              <m:mstyle fontstyle="italic">
+                                <m:mrow>
+                                  <m:mtext>fc</m:mtext>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:mrow>
+                            <m:mo stretchy="false">)</m:mo>
+                            <m:msub>
+                              <m:mi>t</m:mi>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mi>b</m:mi>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msub>
+                          </m:mrow>
+                        </m:mfenced>
+                        <m:mrow/>
+                      </m:mrow>
+</m:mtd>
+                    </m:mtr>
+                  </m:mtable>
+                  <m:mrow/>
+                </m:mrow>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0">alignl { stack {
+ size 12{X rSub { size 8{ ital "prk"} }  \( t \)  rightarrow G rSub { size 8{ ital "prk"} }  \( f \) }  {} # 
+ {} # 
+G rSub { size 8{ ital "prk"} }  \( f \) = {  {V rSup { size 8{2} } }  over  {4} }  left [t rSub { size 8{b} }  ital "Sinc" rSup { size 8{2} }  \(  \( f+ ital "fc" \) t rSub { size 8{b} }  \) +t rSub { size 8{b} }  ital "Sinc" rSup { size 8{2} }  \(  \( f -  ital "fc" \) t rSub { size 8{b} }  right ] {} 
+} } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <figure id="id1170000946799">
+          <media id="id1170000946799_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics8-cfd0.png" id="id1170000946799__onlineimage" height="215" width="600"/>
+          </media>
+          <caption>PRK en el dominio de la frecuencia</caption>
+        </figure>
+        <para id="id2967583">Como se observa, el ancho de banda práctico será BW=2f<sub>b</sub>.</para>
+        <para id="id8135516">Finalmente su constelación es:</para>
+        <figure id="id1170001263200">
+          <media id="id1170001263200_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics9-8919.png" id="id1170001263200__onlineimage" height="378" width="600"/>
+          </media>
+          <caption>Constelación de PRK</caption>
+        </figure>
+        <para id="id1170001197854"/>
+      </section>
+      <section id="id1170001096362">
+        <title>4. Minimum-Shift Keying (MSK)</title>
+        <para id="id1170001560592">En la modulación digital FSK, cuando se tiene una señal binaria de entrada que cambia de <emphasis>0</emphasis> lógico a un <emphasis>1</emphasis> lógico (y viceversa), la frecuencia de la señal modulada en la salida se desplaza entre dos frecuencias: una <emphasis>frecuencia de marca</emphasis> (o de 1 lógico, <emphasis>f</emphasis><emphasis><sub>m</sub></emphasis>) y una <emphasis>frecuencia de espacio</emphasis> (o de 0 lógico, <emphasis>f</emphasis><emphasis><sub>s</sub></emphasis>). Ellas se encuentran separadas de la frecuencia de la portadora por la desviación máxima de frecuencia <emphasis>∆f</emphasis>, de modo que </para>
+        <equation id="id1170001081282">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:msub>
+                        <m:mi>f</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mi>c</m:mi>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msub>
+                      <m:mo stretchy="false">±</m:mo>
+                      <m:mi fontstyle="italic">Δf</m:mi>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{f rSub { size 8{c} }  +- Δf} {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </equation>
+        <figure id="id1170026834933">
+          <media id="id1170026834933_media" alt="">
+            <image mime-type="image/png" src="../../media/graphics10-44d1.png" id="id1170026834933__onlineimage" height="248" width="475"/>
+          </media>
+        </figure>
+        <para id="id7214321">La modulación por desplazamiento mínimo se da cuando la diferencia entre la frecuencia de espacio y la frecuencia de marca es igual a fb/2. Entonces, con una señal binaria de entrada, la señal modulada en MSK quedaría así</para>
+        <para id="id1169999974940">
+          <figure id="id1170001760264">
+            <media id="id1170001760264_media" alt="">
+              <image mime-type="image/png" src="../../media/graphics11-2753.png" id="id1170001760264__onlineimage" height="307" width="600"/>
+            </media>
+            <caption>Ejemplo de modulación MSK.</caption>
+          </figure>
+        </para>
+        <para id="id1170022713845">Como se observa, la señal modulada es muy parecida a la señal FSK, por lo que se le considera un caso especial de la última (Dado que la transición de bits no presenta discontinuidad). Las fórmulas matemáticas y la ecuación de MSK en el dominio de la frecuencia coinciden con las de FSK pero gráficamente la Densidad Espectral de Frecuencia luce diferente, presentando un menor ancho de banda ya que los dos Sinc al cuadrado se superponen.</para>
+      </section>
+      <section id="id1170001563222">
+        <title>5. Gaussian Minimum-Shift Keying (GMSK)</title>
+        <para id="id1170028881002">En las comunicaciones digitales, GMSK también representa un esquema de modulación por desplazamiento de frecuencia con fase continua. Es muy parecido a la modulación MSK, con la diferencia de que la señal digital binaria de entrada pasa primero por un filtro Gaussiano antes de ser modulada. Esto provoca una reducción evidente en los lóbulos laterales del espectro de la señal modulada y en la interferencia entre portadoras de señales en canales de frecuencia adyacentes, con una consecuente reducción del ancho de banda comparada incluso con MSK</para>
+      </section>
+    </section>
+    <section id="id1169998246441">
+      <title>Simulaciones en LabVIEW</title>
+      <para id="id6035153">Para entender mejor el funcionamiento de estas modulaciones digitales se muestran a continuación cinco VIs correspondientes a cada punto explicado previamente. Para descargarlos se debe seguir los siguientes enlaces:
+
+<media id="binvi" alt="VI de simulación para modulaciones binarias.">
+  <download mime-type="application/zip+latex" src="binarias.zip"/>
+</media></para>
+    </section><section id="eip-56"><title>Demostración:</title><para id="eip-730">
+<media id="binvid" alt="Demostración de simulación de Modulaciones Binarias.">
+  <video mime-type="video/mpeg" src="binarias.mpg" autoplay="false" width="700" height="550"/>
+</media>
+</para></section>
+  </content>
+</document>
