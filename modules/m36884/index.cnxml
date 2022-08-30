@@ -2362,9 +2362,8 @@ E rSub { size 8{0} } =0 {} #
                                     </m:mfrac>
                                     <m:mstyle fontsize="12pt">
                                       <m:mrow>
-                                        <m:msup>
-                                          <m:mi>e</m:mi>
-                                        </m:msup>
+                                        <m:mi>e</m:mi>
+                                        
                                       </m:mrow>
                                     </m:mstyle>
                                   </m:mrow>
@@ -2582,9 +2581,8 @@ P left ( {e} wideslash {T rSub { size 8{1} } }  right )=P left ( {e} wideslash {
                               </m:mrow>
                               <m:mstyle fontsize="12pt">
                                 <m:mrow>
-                                  <m:msup>
-                                    <m:mi>e</m:mi>
-                                  </m:msup>
+                                  <m:mi>e</m:mi>
+                                  
                                 </m:mrow>
                               </m:mstyle>
                               <m:mstyle fontsize="12pt">

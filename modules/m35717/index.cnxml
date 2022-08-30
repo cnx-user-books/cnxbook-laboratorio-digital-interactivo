@@ -1295,7 +1295,7 @@ f rSub { size 8{B} } = {  { left (w rSub { size 8{c} }  -  %OMEGA  right )}  ove
                       <m:mi>X</m:mi>
                       <m:mmultiscripts>
                         <m:mtext/>
-                        <m:mprescripts/>
+                        <m:none/><m:none/><m:mprescripts/>
                         <m:mstyle fontsize="8pt">
                           <m:mrow>
                             <m:mstyle fontstyle="italic">
@@ -1390,7 +1390,7 @@ f rSub { size 8{B} } = {  { left (w rSub { size 8{c} }  -  %OMEGA  right )}  ove
                               <m:mi>X</m:mi>
                               <m:mmultiscripts>
                                 <m:mtext/>
-                                <m:mprescripts/>
+                                <m:none/><m:none/><m:mprescripts/>
                                 <m:mstyle fontsize="8pt">
                                   <m:mrow>
                                     <m:mstyle fontstyle="italic">
@@ -1456,7 +1456,7 @@ f rSub { size 8{B} } = {  { left (w rSub { size 8{c} }  -  %OMEGA  right )}  ove
                         <m:mi>X</m:mi>
                         <m:mmultiscripts>
                           <m:mtext/>
-                          <m:mprescripts/>
+                          <m:none/><m:none/><m:mprescripts/>
                           <m:mstyle fontsize="8pt">
                             <m:mrow>
                               <m:mstyle fontstyle="italic">

@@ -27,7 +27,7 @@
             <m:mrow>
               <m:mtable>
                 <m:mtr>
-                  <m:mrow>
+                  <m:mtd>
                     <m:mstyle fontsize="12pt">
                       <m:mrow>
                         <m:mrow>
@@ -41,10 +41,10 @@
                       </m:mrow>
                     </m:mstyle>
                     <m:mrow/>
-                  </m:mrow>
+                  </m:mtd>
                 </m:mtr>
                 <m:mtr>
-                  <m:mrow>
+                  <m:mtd>
                     <m:mstyle fontsize="12pt">
                       <m:mrow>
                         <m:mrow>
@@ -55,10 +55,10 @@
                       </m:mrow>
                     </m:mstyle>
                     <m:mrow/>
-                  </m:mrow>
+                  </m:mtd>
                 </m:mtr>
                 <m:mtr>
-                  <m:mrow>
+                  <m:mtd>
                     <m:mstyle fontsize="12pt">
                       <m:mrow>
                         <m:mrow>
@@ -69,13 +69,13 @@
                       </m:mrow>
                     </m:mstyle>
                     <m:mrow/>
-                  </m:mrow>
+                  </m:mtd>
                 </m:mtr>
                 <m:mtr>
-                  <m:mrow/>
+                  <m:mtd/>
                 </m:mtr>
                 <m:mtr>
-                  <m:mrow>
+                  <m:mtd>
                     <m:mstyle fontsize="12pt">
                       <m:mrow>
                         <m:mrow>
@@ -89,10 +89,10 @@
                       </m:mrow>
                     </m:mstyle>
                     <m:mrow/>
-                  </m:mrow>
+                  </m:mtd>
                 </m:mtr>
                 <m:mtr>
-                  <m:mrow>
+                  <m:mtd>
                     <m:mstyle fontsize="12pt">
                       <m:mrow>
                         <m:mrow>
@@ -119,13 +119,13 @@
                       </m:mrow>
                     </m:mstyle>
                     <m:mrow/>
-                  </m:mrow>
+                  </m:mtd>
                 </m:mtr>
                 <m:mtr>
-                  <m:mrow/>
+                  <m:mtd/>
                 </m:mtr>
                 <m:mtr>
-                  <m:mrow>
+                  <m:mtd>
                     <m:mstyle fontsize="12pt">
                       <m:mrow>
                         <m:mrow>
@@ -139,10 +139,10 @@
                       </m:mrow>
                     </m:mstyle>
                     <m:mrow/>
-                  </m:mrow>
+                  </m:mtd>
                 </m:mtr>
                 <m:mtr>
-                  <m:mrow>
+                  <m:mtd>
                     <m:mstyle fontsize="12pt">
                       <m:mrow>
                         <m:mrow>
@@ -153,7 +153,7 @@
                       </m:mrow>
                     </m:mstyle>
                     <m:mrow/>
-                  </m:mrow>
+                  </m:mtd>
                 </m:mtr>
               </m:mtable>
               <m:mrow/>
@@ -185,12 +185,7 @@
         </caption></figure>
       <para id="id1170066397598">Al introducir ruido (AWGN) en el sistema, quedaría como sigue:</para>
       <para id="id1170059929958">
-        <m:math>
-          <m:semantics>
-            <m:mrow/>
-            <m:annotation encoding="StarMath 5.0">{}</m:annotation>
-          </m:semantics>
-        </m:math>
+        
         <figure id="id1170066502673"><media id="id1170066502673_media" alt="">
             <image mime-type="image/png" src="../../media/graphics2-2f37.png" id="id1170066502673__onlineimage" height="140" width="499"/>
           </media>
@@ -279,7 +274,7 @@
               <m:mrow>
                 <m:mtable>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mstyle fontsize="12pt">
                         <m:mrow>
                           <m:mrow>
@@ -396,10 +391,10 @@
                         </m:mrow>
                       </m:mstyle>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:msub>
                         <m:mi>s</m:mi>
                         <m:mstyle fontsize="8pt">
@@ -510,10 +505,10 @@
                       <m:mi>t</m:mi>
                       <m:mo stretchy="false">)</m:mo>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:msub>
                         <m:mi>s</m:mi>
                         <m:mstyle fontsize="8pt">
@@ -624,16 +619,16 @@
                       <m:mi>t</m:mi>
                       <m:mo stretchy="false">)</m:mo>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mo stretchy="false">⋮</m:mo>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:msub>
                         <m:mi>s</m:mi>
                         <m:mstyle fontsize="8pt">
@@ -748,7 +743,7 @@
                       <m:mi>t</m:mi>
                       <m:mo stretchy="false">)</m:mo>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                 </m:mtable>
                 <m:mrow/>
@@ -773,7 +768,7 @@ s rSub { size 8{m} }  \( t \) =s rSub { size 8{m1} }  "." U rSub { size 8{1} }  
               <m:mrow>
                 <m:mtable>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mstyle fontsize="12pt">
                         <m:mrow>
                           <m:mrow>
@@ -828,10 +823,10 @@ s rSub { size 8{m} }  \( t \) =s rSub { size 8{m1} }  "." U rSub { size 8{1} }  
                         </m:mrow>
                       </m:mstyle>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mrow>
                         <m:mi>j</m:mi>
                         <m:mo stretchy="false">=</m:mo>
@@ -843,7 +838,7 @@ s rSub { size 8{m} }  \( t \) =s rSub { size 8{m1} }  "." U rSub { size 8{1} }  
                       <m:mi>,</m:mi>
                       <m:mi>N</m:mi>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                 </m:mtable>
                 <m:mrow/>
@@ -1920,7 +1915,7 @@ j=1,2,3, "."  "."  "." ,N {}
               <m:mrow>
                 <m:mtable>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mstyle fontsize="12pt">
                         <m:mrow>
                           <m:mrow>
@@ -1983,13 +1978,13 @@ j=1,2,3, "."  "."  "." ,N {}
                         </m:mrow>
                       </m:mstyle>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                   <m:mtr>
-                    <m:mrow/>
+                    <m:mtd/>
                   </m:mtr>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mo stretchy="false">⇒</m:mo>
                       <m:msub>
                         <m:mi>U</m:mi>
@@ -2053,7 +2048,7 @@ j=1,2,3, "."  "."  "." ,N {}
                         </m:mfrac>
                       </m:mrow>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                 </m:mtable>
                 <m:mrow/>
@@ -2082,7 +2077,7 @@ j=1,2,3, "."  "."  "." ,N {}
               <m:mrow>
                 <m:mtable>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mstyle fontsize="12pt">
                         <m:mrow>
                           <m:mrow>
@@ -2164,16 +2159,16 @@ j=1,2,3, "."  "."  "." ,N {}
                         </m:mrow>
                       </m:mstyle>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mi>y</m:mi>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mrow>
                         <m:mrow>
                           <m:mo stretchy="false">〈</m:mo>
@@ -2211,7 +2206,7 @@ j=1,2,3, "."  "."  "." ,N {}
                         </m:mrow>
                       </m:mrow>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                 </m:mtable>
                 <m:mrow/>
@@ -2238,7 +2233,7 @@ y {} #
               <m:mrow>
                 <m:mtable>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mstyle fontsize="12pt">
                         <m:mrow>
                           <m:mrow>
@@ -2274,10 +2269,10 @@ y {} #
                         </m:mrow>
                       </m:mstyle>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                   <m:mtr>
-                    <m:mrow>
+                    <m:mtd>
                       <m:mrow>
                         <m:msub>
                           <m:mi>S</m:mi>
@@ -2310,7 +2305,7 @@ y {} #
                         </m:mstyle>
                       </m:msub>
                       <m:mrow/>
-                    </m:mrow>
+                    </m:mtd>
                   </m:mtr>
                 </m:mtable>
                 <m:mrow/>
